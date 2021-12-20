@@ -1,0 +1,12 @@
+//////////////////////////////////
+///// USED IN BUTTON
+@keyframes fade-out {
+	from {
+		transform: scale(100%, 100%);
+		opacity: 1;
+	}
+	to {
+		transform: scale(230%, 230%);
+		opacity: 0;
+	}
+}

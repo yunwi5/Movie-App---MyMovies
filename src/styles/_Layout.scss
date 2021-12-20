@@ -1,0 +1,220 @@
+//////////////////////////////////////////////
+/////// GLOBAL SETTING
+body,
+#root,
+.App {
+	height: inherit;
+}
+
+.App {
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+/////////////////////////////////////////////
+////// HEADER
+.header {
+	position: sticky;
+	top: 0;
+	left: 0;
+	background-color: #babfd1;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	color: var(--color-grey-dark-1-2);
+	// padding: 1.3rem 0;
+
+	z-index: 3;
+
+	& h3 {
+		font-size: 3rem;
+		margin-left: 3rem;
+		margin-right: 1rem;
+		font-weight: 500;
+		cursor: pointer;
+
+		&:hover {
+			color: var(--color-grey-light-2);
+		}
+	}
+
+	& .fa {
+		margin-right: .8rem;
+	}
+
+	&__nav-search {
+		flex: 0 0 35%;
+		margin-left: 1.5rem;
+		margin-right: auto;
+		background-color: #fff;
+		border: 1px solid var(--color-grey-dark-3);
+		border-radius: 1.7rem;
+		overflow: hidden;
+		display: flex;
+		align-items: center;
+		background: linear-gradient(0.25turn, #f1d3da, #ebf8e1, #ddf1f7);
+
+		& .fa-search {
+			text-align: right;
+			font-size: 1.9rem;
+			flex: 0 1 7%;
+		}
+
+		& input {
+			padding: 10px 15px;
+			border: none;
+			flex: 1;
+			height: 100%;
+			font-size: 1.5rem;
+			color: var(--color-grey-dark-2);
+			background: transparent;
+
+			&:focus {
+				outline: none;
+			}
+		}
+
+		& span {
+			margin-right: 1rem;
+			font-size: 1.9rem;
+			transition: all .3s linear;
+			cursor: default;
+
+			&:hover {
+				transform: translateY(-.25rem);
+			}
+		}
+	}
+
+	& ul {
+		list-style: none;
+		display: flex;
+		font-size: 1.8rem;
+		padding: .2rem 0;
+
+		& li {
+			position: relative;
+			cursor: pointer;
+			padding: 1.2rem 1rem;
+
+			display: flex;
+			align-items: center;
+
+			& > * {
+				z-index: 3;
+			}
+
+			&:hover {
+				color: var(--color-grey-light-1);
+			}
+
+			&::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				height: 100%;
+				width: 3px;
+				background-color: var(--color-primary-darkest);
+				transform: scaleY(0);
+				transform-origin: bottom;
+				transition: transform .2s, width .4s cubic-bezier(1, .01, 0, .98) .2s, background-color .1s;
+			}
+
+			&:hover::before {
+				transform: scaleY(1);
+				width: 100%;
+			}
+		}
+	}
+}
+
+.heading {
+	text-decoration: none;
+	color: inherit;
+}
+
+.nav-item {
+	padding: .5rem 1rem;
+	text-decoration: none;
+	color: inherit;
+	position: relative;
+
+	&::after {
+		content: "";
+		width: 100%;
+		position: absolute;
+		left: 0;
+		bottom: -.3rem;
+		background-color: var(--color-grey-light-2);
+	}
+
+	&:hover::after {
+		content: '';
+		height: 1.8px;
+	}
+}
+
+.nav-active {
+	color: var(--color-grey-light-3);
+	border-bottom: 2px solid var(--color-grey-light-3);
+}
+
+.userIcon {
+	font-size: 3.3rem;
+}
+
+/////////////////////////////////////////////
+////// FOOTER
+.footer {
+	& h3 {
+		font-size: 1.9rem;
+		font-weight: 550;
+	}
+
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 5rem;
+	padding: 1.2rem .9rem;
+	background-color: var(--color-grey-dark-1);
+	color: #fff;
+
+	& .copyright {
+		margin-left: 1rem;
+	}
+}
+
+///////////////////////////////////////////////
+// Example Logo Setting for Animation
+@media (prefers-reduced-motion: no-preference) {
+	.App-logo {
+		animation: App-logo-spin infinite 20s linear;
+	}
+}
+
+.App-header {
+	background-color: #282c34;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	font-size: calc(10px + 2vmin);
+	color: white;
+}
+
+.App-link {
+	color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}

@@ -1,0 +1,132 @@
+//////////////////////////////////////
+/////// LOADING SPINNER
+.spinner {
+	display: inline-block;
+	width: 80px;
+	height: 80px;
+}
+.spinner:after {
+	content: ' ';
+	display: block;
+	width: 64px;
+	height: 64px;
+	margin: 8px;
+	border-radius: 50%;
+	border: 6px solid var(--color-primary);
+	border-color: var(--color-primary-light) transparent var(--color-primary-light) transparent;
+	animation: spinner 1.2s linear infinite;
+}
+@keyframes spinner {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+//////////////////////////////////////
+/////// MODAL
+.backdrop {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100vh;
+	z-index: 20;
+	background-color: rgba(0, 0, 0, 0.75);
+}
+
+.modal {
+	position: fixed;
+	top: 10vh;
+	left: 5%;
+	background-color: white;
+	padding: 1rem;
+	border-radius: 14px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+	z-index: 30;
+	animation: slide-down 300ms ease-out forwards;
+}
+
+@media (min-width: 768px) {
+	.modal {
+		width: 40rem;
+		left: calc(50% - 20rem);
+	}
+}
+
+@keyframes slide-down {
+	from {
+		opacity: 0;
+		transform: translateY(-3rem);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+//////////////////////////////////////
+/////// AUTH Modal
+.modal-content {
+	display: flex;
+	flex-direction: column;
+	width: 76%;
+	margin: 0 auto;
+
+	& h2 {
+	}
+
+	& ul {
+		margin-top: 1rem;
+		list-style: none;
+		font-size: 1.4rem;
+
+		& li {
+			padding: .5rem 0;
+		}
+	}
+
+	.fa {
+		color: var(--color-primary-lighter);
+	}
+
+	& button {
+		align-self: center;
+		margin-top: 3rem;
+		width: 40%;
+		padding: 1rem 1.5rem;
+		font-size: 1.8rem;
+	}
+}
+
+//////////////////////////////////////
+/////// DELETE MODAL VARAITION
+.modal-content--delete {
+	& h2 {
+		color: rgb(218, 85, 85);
+	}
+
+	& p {
+		display: flex;
+		font-size: 1.4rem;
+
+		& .fa {
+			margin-right: .7rem;
+			transform: translateY(.3rem);
+		}
+	}
+
+	& button {
+		cursor: pointer;
+		border: rgb(218, 85, 85);
+		border-radius: 2rem;
+		color: rgb(218, 85, 85);
+	}
+
+	& button:hover {
+		background-color: rgb(218, 85, 85);
+		color: var(--color-grey-light-2);
+	}
+}
