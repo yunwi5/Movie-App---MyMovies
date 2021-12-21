@@ -1,0 +1,282 @@
+.movie-detail {
+	min-height: 70vh;
+	display: flex;
+	flex-direction: column;
+
+	&__top {
+		background-color: var(--color-grey-dark-1);
+		color: #fff;
+		padding: 0 11rem;
+		padding-top: 18rem;
+		padding-bottom: 6.2rem;
+
+		display: flex;
+		flex-direction: column;
+		align-items: space-between;
+		position: relative;
+	}
+
+	&__bottom {
+		margin-top: 6rem;
+		max-width: 80%;
+		margin-left: 7%;
+	}
+}
+
+.movie-detail__nav {
+	position: absolute;
+	top: 5rem;
+	left: 11rem;
+	padding: 1.5rem 0;
+	text-align: left;
+	display: flex;
+	align-items: flex-start;
+
+	& .icon-wrapper {
+		padding-bottom: .5rem;
+		color: #fff;
+		font-size: 3.7rem;
+
+		& .fa {
+			cursor: pointer;
+			transition: all .3s;
+
+			&:hover {
+				transform: scale(1.1, 1.1);
+			}
+		}
+	}
+
+	& .movie-detail__nav-bar {
+		list-style: none;
+		font-size: 1.7rem;
+		margin-top: 1.2rem;
+		margin-left: .7rem;
+		display: none;
+
+		& li {
+			padding: .6rem .7rem;
+			color: var(--color-grey-dark-1);
+			background-color: var(--color-grey-light-2);
+
+			&:hover {
+				color: var(--color-grey-light-2);
+			}
+		}
+
+		& .similar:hover {
+			background-color: var(--color-primary-darkest);
+		}
+
+		& .edit:hover {
+			background-color: rgb(139, 85, 189);
+		}
+
+		& .delete:hover {
+			background-color: rgb(189, 85, 133);
+		}
+	}
+}
+
+.movie-detail__nav--active {
+	& .movie-detail__nav-bar {
+		display: block;
+	}
+}
+
+.movie-detail__heading {
+	display: flex;
+	& .img-wrapper {
+		& img {
+			width: 20rem;
+		}
+	}
+
+	& .heading-content {
+		// display: flex;
+		margin-left: 4.5rem;
+		text-align: left;
+		& .movie-title {
+			font-size: 5rem;
+			font-weight: 500;
+
+			& .fa {
+				margin-left: 1.5rem;
+				transform: translateY(.5rem);
+				color: gold;
+			}
+		}
+
+		& .movie-time {
+			margin-top: 2rem;
+			font-size: 1.5rem;
+			& span {
+				padding: 1rem .3rem;
+			}
+
+			&__main {
+				& i {
+					margin: 0 1rem;
+					font-size: .7rem;
+					transform: translateY(-.25rem);
+				}
+			}
+
+			&__sub {
+				margin-left: .5rem;
+				color: var(--color-grey-light-3);
+				font-size: 1.3rem;
+			}
+		}
+	}
+}
+
+.movie-detail__info {
+	display: flex;
+	margin-top: 5rem;
+	font-size: 1.6rem;
+	& .wrapper {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding: 1rem 2rem;
+
+		& span {
+			color: var(--color-grey-dark-4);
+		}
+	}
+
+	& .wrapper:not(:last-child) {
+		// background-color: grey;
+		border-right: 1.5px solid var(--color-grey-dark-3);
+	}
+
+	& .rating-wrapper {
+		& .rating {
+			margin-top: .6rem;
+
+			&-text {
+				padding-top: 1rem;
+			}
+		}
+
+		& .MuiRating-root {
+			font-size: 1.85rem;
+
+			& span {
+				color: gold;
+			}
+		}
+	}
+
+	& .producer-wrapper {
+		& h3 {
+		}
+
+		& span {
+			padding-top: .97rem;
+		}
+	}
+
+	& .ageRating-wrapper {
+		& h3 {
+			font-size: 2rem;
+		}
+
+		& span {
+			padding-top: .8rem;
+		}
+	}
+}
+
+.movie-detail__links {
+	margin-top: 2.8rem;
+	text-align: left;
+	font-size: 1.9rem;
+
+	& .btn {
+		padding: 1.8rem 2rem;
+		color: #0077b6;
+		font-weight: 550;
+		font-size: inherit;
+		border: 1.2px solid #0077b6;
+		background-color: var(--color-grey-dark-1);
+		border-radius: .8rem;
+		margin: 2rem .6rem;
+		min-width: 14rem;
+		max-width: 18rem;
+		cursor: pointer;
+
+		&:hover {
+			color: #0aa0f1;
+		}
+
+		& a {
+			text-decoration: none;
+			color: inherit;
+		}
+	}
+
+	& .btn-favorite {
+		background-color: #0077b6;
+		color: var(--color-grey-dark-1);
+		font-weight: 590;
+		color: #333;
+
+		&:hover {
+			background-color: #01527e;
+			border: 1.2px solid #01527e;
+		}
+	}
+
+	& .btn-watch {
+		&:hover {
+			border: 1.5px solid #029bee;
+		}
+	}
+
+	& .btn-more {
+		border: none;
+	}
+}
+
+.movie-detail__about {
+	& h2 {
+		font-size: 3rem;
+		width: 60%;
+	}
+
+	& p {
+		padding-left: .5rem;
+		width: 65%;
+		margin-top: 2rem;
+		text-align: left;
+		font-size: 1.7rem;
+	}
+}
+
+.movie-detail__genres {
+	margin-top: 7rem;
+	& ul {
+		font-size: 1.9rem;
+		list-style: none;
+		display: flex;
+
+		& li {
+			padding: 1rem 2rem;
+			border: 1px solid var(--color-grey-dark-2);
+			color: var(--color-grey-dark-1-2);
+			border-radius: 2.5rem;
+
+			&:hover {
+				background-color: var(--color-grey-dark-1-2);
+				border: 1px solid var(--color-grey-dark-1-2);
+				color: var(--color-grey-light-2);
+			}
+		}
+
+		& li:not(:last-child) {
+			margin-right: 1.6rem;
+		}
+	}
+}

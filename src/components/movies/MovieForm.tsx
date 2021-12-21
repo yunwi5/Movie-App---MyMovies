@@ -3,14 +3,16 @@ import { useNavigate } from "react-router-dom";
 
 import MovieContext from "../../store/movie-context";
 import Movie, { genre as MovieGenre } from "../../models/Movie";
-import { toShortcutString } from "../../utilities/string-manip";
+import { toShortcutString } from "../../utilities/string-util";
 import { Rating } from "@mui/material";
 
 const defaultGenreList: MovieGenre[] = [ "Other" ];
 
+type State = { hours: number; minutes: number };
+
 type Action = { type: "HOURS"; newHours: number } | { type: "MINUTES"; newMinutes: number };
 
-const durationReducer = (state: { hours: number; minutes: number }, action: Action) => {
+const durationReducer = (state: State, action: Action) => {
 	console.log(state);
 	if (action.type === "HOURS") {
 		return { hours: action.newHours, minutes: state.minutes };
@@ -37,7 +39,7 @@ const Movieform: React.FC = () => {
 	const [ descriptionIsValid, setDescriptionIsValid ] = useState(true);
 
 	// Optional Properties
-	const [ company, setCompany ] = useState<string | null>(null);
+	const [ producer, setProducer ] = useState<string | null>(null);
 
 	const [ year, setYear ] = useState<number | null>(null);
 	const [ yearIsValid, setYearIsValid ] = useState(true);
@@ -61,7 +63,7 @@ const Movieform: React.FC = () => {
 			rating,
 			genreList: submitGenres,
 			imgUrl,
-			company,
+			producer,
 			duration: durationTotalMinutes,
 			year,
 			description,
@@ -177,12 +179,12 @@ const Movieform: React.FC = () => {
 			<div className="line-input line-optional">
 				<h3>Optional</h3>
 				<div>
-					<label htmlFor="movie-company">Company</label>
+					<label htmlFor="movie-company">Producer</label>
 					<input
 						id="movie-company"
 						type="text"
 						onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-							setCompany(e.target.value as string)}
+							setProducer(e.target.value as string)}
 					/>
 				</div>
 				<div className="duration-wrapper">

@@ -1,0 +1,148 @@
+.movie-filter {
+	& h4 {
+		cursor: pointer;
+		font-size: 1.5rem;
+		color: var(--color-grey-dark-1-2);
+		text-align: right;
+		position: absolute;
+		top: -2rem;
+		right: 3rem;
+	}
+
+	& section {
+		width: 90%;
+		border-top: 2px solid var(--color-grey-dark-3);
+		// margin-top: 2rem;
+		margin-bottom: 3rem;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		position: relative;
+		color: var(--color-grey-dark-1-2);
+
+		& h3 {
+			margin-top: 1rem;
+			margin-bottom: .5rem;
+			margin-left: -1.5rem;
+			width: 80%;
+			font-size: 2rem;
+			text-align: left;
+		}
+
+		& ul {
+			width: 90%;
+			list-style: none;
+			margin-left: 2.8rem;
+			font-size: 1.45rem;
+
+			& li {
+				padding: .2rem 0;
+				text-align: left;
+				display: flex;
+				margin-top: .5rem;
+			}
+		}
+
+		& .icon-wrapper {
+			font-size: 2rem;
+			position: absolute;
+			top: .3rem;
+			right: .1rem;
+			cursor: pointer;
+			z-index: 10;
+			padding: .3rem 1rem;
+		}
+
+		& .fa {
+			transition: all .5s ease-out;
+			z-index: -1;
+		}
+
+		& .fa-reverse {
+			transform-origin: center;
+			transform: rotate(180deg);
+			transition: all .5s ease-out;
+		}
+	}
+
+	& .ratings-filter {
+		margin-top: .7rem;
+		&--close {
+			& ul {
+				display: none;
+			}
+		}
+	}
+
+	& .genres-filter {
+		margin-top: 2rem;
+		&--close {
+			& ul {
+				display: none;
+			}
+		}
+	}
+}
+
+.ratings-filter__list {
+	& li {
+		width: 92%;
+		margin-top: .5rem;
+
+		&:hover {
+			background-color: var(--color-grey-light-3);
+		}
+
+		& input {
+			width: 1.5rem;
+			margin-right: .3rem;
+		}
+
+		& label {
+			display: flex;
+			align-items: center;
+		}
+
+		& span {
+		}
+
+		& .rating-standard {
+			margin-left: .8rem;
+			color: var(--color-grey-dark-1-2);
+		}
+
+		.rating-count {
+			margin-left: .5rem;
+			color: var(--color-grey-dark-2);
+		}
+
+		& .MuiRating-root {
+			color: #ffd100;
+			opacity: 1;
+		}
+	}
+}
+
+.genres-filter__list {
+	& li {
+		&:first-child {
+			margin-top: .7rem;
+		}
+
+		&:hover {
+			background-color: var(--color-grey-light-3);
+		}
+
+		margin: 1rem 0;
+		& input {
+			width: 1.6rem;
+			margin-right: .8rem;
+		}
+
+		& label {
+		}
+
+		& span {
+		}
+	}
+}

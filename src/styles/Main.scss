@@ -1,7 +1,9 @@
 @import 'Base';
 @import 'Layout';
 @import 'Animation';
-@import 'Movies';
-@import 'MovieForm';
-@import 'Auth';
 @import 'UI';
+@import 'Auth';
+@import 'Movies/Movies';
+@import 'Movies/MovieForm';
+@import 'Movies/MovieFilter';
+@import 'Movies/MovieDetail';

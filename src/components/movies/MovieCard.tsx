@@ -19,6 +19,7 @@ const MovieCard: React.FC<Props> = (props) => {
 		message: `Are you sure you want to delete ${movie.title}?`,
 		onDelete,
 		onClose: () => {
+			console.log("Why not close?");
 			setShowModal(false);
 		}
 	};
@@ -77,9 +78,11 @@ const MovieCard: React.FC<Props> = (props) => {
 								/>
 								<span className="rating__number">({movie.rating}/10)</span>
 							</span>
-							{movie.company && <div className="company">{movie.company}</div>}
-							{movie.duration && (
+							{movie.producer && <div className="company">{movie.producer}</div>}
+							{movie.duration ? (
 								<div className="duration">{toDurationString(movie.duration)}</div>
+							) : (
+								""
 							)}
 							<ul className="movie-card__genre-list">
 								{movie.genreList.map((genre, idx) => <li key={idx}>{genre}</li>)}

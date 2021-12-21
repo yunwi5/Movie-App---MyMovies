@@ -8,10 +8,6 @@ interface ModalProps {
 const DeleteModal: React.FC<ModalProps> = ({ modalContent }) => {
 	const { id, message, onDelete, onClose } = modalContent;
 
-	const modelCloseHandler = () => {
-		onDelete(id);
-	};
-
 	return (
 		<Modal onClose={onClose}>
 			<div className="modal-content modal-content--delete">
@@ -20,7 +16,7 @@ const DeleteModal: React.FC<ModalProps> = ({ modalContent }) => {
 					<i className="fa fa-angle-right" />
 					{"  " + message}{" "}
 				</p>
-				<button onClick={modelCloseHandler} className="btn-delete">
+				<button onClick={onDelete.bind(null, id)} className="btn-delete">
 					Delete
 				</button>
 			</div>
