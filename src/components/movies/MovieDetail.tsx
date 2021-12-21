@@ -9,7 +9,6 @@ import Rating from "@mui/material/Rating";
 // Maybe adding comment.
 const MovieDetail: React.FC = () => {
 	const navigate = useNavigate();
-
 	const params = useParams();
 	const movieId = params.movieId ? params.movieId : "";
 
@@ -43,6 +42,10 @@ const MovieDetail: React.FC = () => {
 
 	const durationString = toDurationString(movie.duration);
 
+	const watchUrl = `https://www.netflix.com/search?q=${movie.title}`;
+	const moreDetailUrl = `https://en.wikipedia.org/wiki/${movie.title}`;
+
+
 	// Nav Bar Handling
 	const toggleNavHandler = () => {
 		setNavIsActive(prevState => !prevState);
@@ -55,19 +58,15 @@ const MovieDetail: React.FC = () => {
 		setEnableBackdrop(false);
 	}
 
+
+	// Dynamically toggle isFavorite prop
 	const setFavoriteHandler = () => {
 		const isFavorite = !movie.isFavorite;
 		const newMovie = {...movie, isFavorite};
 		movieCtx.editMovie(newMovie);
 	}
 
-	const watchUrl = `https://www.netflix.com/search?q=${movie.title}`;
-	const moreDetailUrl = `https://en.wikipedia.org/wiki/${movie.title}`;
-
-	const deleteHandler = () => {
-		setShowModal(true);
-	}
-
+	
 	return (
 		<React.Fragment>
 		{showModal && <DeleteModal modalContent={modalContent} />}
@@ -84,7 +83,7 @@ const MovieDetail: React.FC = () => {
 						<li className="edit">
 							Edit
 						</li>
-						<li className="delete" onClick={deleteHandler}>
+						<li className="delete" onClick={() => setShowModal(true)}>
 							Delete
 						</li>
 					</ul>

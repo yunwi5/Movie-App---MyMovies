@@ -5,9 +5,9 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
-import Movies from "./pages/Movies";
-import MoviesSearch from "./pages/MoviesSearch";
-import AddMovie from "./pages/AddMovie";
+import Movies from "./pages/Movies/Movies";
+import MoviesSearch from "./pages/Movies/MoviesSearch";
+import MovieAdd from "./pages/Movies/MovieAdd";
 import Auth from "./pages/Auth";
 import Authcontext from "./store/auth-context";
 import MovieDetail from "./components/movies/MovieDetail";
@@ -25,7 +25,7 @@ function App () {
 				<Route path="/about" element={<About />} />
 				{isLoggedIn && <Route path="/movies" element={<Movies />} />}
 				{isLoggedIn && <Route path="/movies/:searchWord" element={<MoviesSearch />} />}
-				{isLoggedIn && <Route path="/add-movie" element={<AddMovie />} />}
+				{isLoggedIn && <Route path="/add-movie" element={<MovieAdd />} />}
 				<Route path="/auth/*" element={<Auth />} />
 				{isLoggedIn && <Route path="/movie-detail/:movieId" element={<MovieDetail />} />}
 				<Route path="*" element={<Navigate to="/home" />} />
