@@ -1,9 +1,12 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useMemo } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { toDurationString } from "../../utilities/movies-util";
 import MovieContext from "../../store/movie-context";
 import DeleteModal from '../UI/Modal/DeleteModal';
+import MovieSidebar from '../movies/MovieSidebar';
 import Rating from "@mui/material/Rating";
+import getSimilarMovies from '../../utilities/movies-select-util';
+
 
 // The functionality inclused deleting movie, editing movie (not available at the moment)
 // Maybe adding comment.
@@ -14,28 +17,42 @@ const MovieDetail: React.FC = () => {
 
 	const movieCtx = useContext(MovieContext);
 	const movie = movieCtx.getMovie(movieId);
+	const moviesList = movieCtx.moviesList;
 
 	const [navIsActive, setNavIsActive] = useState(false);
 	const [enableBackdrop, setEnableBackdrop] = useState(false);
 
 	const [showModal, setShowModal] = useState(false);
 
+	const [showSidebar, setShowSidebar] = useState(false); 
+
+
+	const similarMovies = useMemo(() => {
+		if (!movie) return;
+		const similarMoviesAvailable = getSimilarMovies(moviesList, movie);
+		console.log('Use memo call');
+		console.log('movies amount:', Math.min(similarMoviesAvailable.length, 7));
+		return similarMoviesAvailable.slice(0, Math.min(similarMoviesAvailable.length, 7));
+	}, []) 
+
+	
 	// Not Found Page is displayed instead
 	if (!movie) {
 		return <p>Sorry, Movie is not found.</p>;
 	}
 
-	const modalContent = {
+	// console.log(movie.title, movie.genreList);
+	// console.table(similarMovies);
+
+	const deleteModalContent = {
 		id: movieId,
 		message: `Are you sure you want to delete ${movie.title}?`,
 		onDelete: () => {
-			console.log('Delete and close the modal!');
 			movieCtx.deleteMovie(movieId);
 			setShowModal(false);
 			navigate('/movies');
 		},
 		onClose: () => {
-			console.log('Just close the modal!');
 			setShowModal(false);
 		}
 	}
@@ -69,21 +86,24 @@ const MovieDetail: React.FC = () => {
 	
 	return (
 		<React.Fragment>
-		{showModal && <DeleteModal modalContent={modalContent} />}
+		{showModal && <DeleteModal modalContent={deleteModalContent}  />}
 		<main className="movie-detail">
+			{showSidebar && similarMovies && < MovieSidebar  movies={similarMovies} onClose={() => setShowSidebar(false)}  /> }
 			<section className="movie-detail__top" onClick={backdropNavHandler}>
 				<div className={`movie-detail__nav ${navIsActive ? "movie-detail__nav--active" : ""}`}>
 					<div className="icon-wrapper" onClick={toggleNavHandler}>
 						<i className="fa fa-bars"></i>
 					</div>
 					<ul className="movie-detail__nav-bar">
-						<li className="similar">
+						<li className="similar" onClick={() => setShowSidebar(true)}>
+							<i className="fa fa-video-camera" />
 							Similar Movies
 						</li>
 						<li className="edit">
-							Edit
+							<i className="fa fa-pencil" /> Edit
 						</li>
 						<li className="delete" onClick={() => setShowModal(true)}>
+							<i className="fa fa-eraser" />
 							Delete
 						</li>
 					</ul>
@@ -127,6 +147,10 @@ const MovieDetail: React.FC = () => {
 					<button className="btn btn-favorite" onClick={setFavoriteHandler}>{movie.isFavorite ? "Unfavorite" : "Favorite"}</button>
 					<button className="btn btn-watch"><a href={watchUrl}>Watch</a></button>
 					<button className="btn btn-more"><a href={moreDetailUrl}>See More</a></button>
+					<button className="btn-sidebar" onClick={() => setShowSidebar(prev => !prev)}>
+						<i className="fa fa-film"></i>
+						Similar Movies
+					</button>
 				</div>
 			</section>
 

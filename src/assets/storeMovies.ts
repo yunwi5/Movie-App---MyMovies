@@ -104,7 +104,7 @@ const DUMMY_MOVIES: Movie[] = [
 		producer: "Legendary Pictures",
 		duration: 148,
 		year: 2010,
-		genreList: [ "Anime", "Romantic Movies" ],
+		genreList: [ "Science-Fiction & Fantasy" ],
 		isFavorite: false
 	},
 	{
@@ -132,7 +132,7 @@ const DUMMY_MOVIES: Movie[] = [
 		producer: "Ufotable",
 		duration: 140,
 		year: 2020,
-		genreList: [ "Anime", "Romantic Movies", "Science-Fiction & Fantasy" ],
+		genreList: [ "Anime", "Romantic Movies" ],
 		isFavorite: false
 	},
 	{

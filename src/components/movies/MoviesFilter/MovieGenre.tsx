@@ -13,6 +13,7 @@ const MovieGenre: React.FC<Props> = (props) => {
 	const { name, count, onCheck, clear } = props;
 	const genreChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
 		console.log(event.target, event.target.value);
+		console.log("checkbox checked: ", checkboxRef.current!.checked);
 		onCheck(name);
 	};
 

@@ -11,6 +11,7 @@ import MovieAdd from "./pages/Movies/MovieAdd";
 import Auth from "./pages/Auth";
 import Authcontext from "./store/auth-context";
 import MovieDetail from "./components/movies/MovieDetail";
+import NotFound from "./pages/NotFound";
 
 function App () {
 	const authCtx = useContext(Authcontext);
@@ -23,12 +24,15 @@ function App () {
 				<Route path="/" element={<Navigate to="/home" />} />
 				<Route path="/home" element={<Home />} />
 				<Route path="/about" element={<About />} />
+
 				{isLoggedIn && <Route path="/movies" element={<Movies />} />}
 				{isLoggedIn && <Route path="/movies/:searchWord" element={<MoviesSearch />} />}
 				{isLoggedIn && <Route path="/add-movie" element={<MovieAdd />} />}
-				<Route path="/auth/*" element={<Auth />} />
 				{isLoggedIn && <Route path="/movie-detail/:movieId" element={<MovieDetail />} />}
-				<Route path="*" element={<Navigate to="/home" />} />
+
+				<Route path="/auth/*" element={<Auth />} />
+				<Route path="*" element={<NotFound />} />
+				{/* <Route path="*" element={<Navigate to="/home" />} /> */}
 			</Routes>
 			<Footer />
 		</div>

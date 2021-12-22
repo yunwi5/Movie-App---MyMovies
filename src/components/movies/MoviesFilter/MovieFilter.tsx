@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import MovieRating from "./MovieRating";
 import MovieGenre from "./MovieGenre";
 import Movie, { GenreList } from "../../../models/Movie";
@@ -40,16 +40,19 @@ const MovieFilter: React.FC<Props> = (props) => {
 		setFilterRating(ratingValue);
 	};
 
-	const filterGenreHandler = (inputGenre: string) => {
-		if (filterGenres.includes(inputGenre)) {
-			// If the genre is in the array, deselect it by removing from this array
-			const newFilterGenres = filterGenres.filter((genre) => genre !== inputGenre);
-			setFilterGenres(newFilterGenres);
-		} else {
-			const newFilterGenres = [ ...filterGenres, inputGenre ];
-			setFilterGenres(newFilterGenres);
-		}
-	};
+	const filterGenreHandler = useCallback(
+		(inputGenre: string) => {
+			if (filterGenres.includes(inputGenre)) {
+				// If the genre is in the array, deselect it by removing from this array
+				const newFilterGenres = filterGenres.filter((genre) => genre !== inputGenre);
+				setFilterGenres(newFilterGenres);
+			} else {
+				const newFilterGenres = [ ...filterGenres, inputGenre ];
+				setFilterGenres(newFilterGenres);
+			}
+		},
+		[ filterGenresLength ]
+	);
 
 	useEffect(
 		() => {
@@ -76,6 +79,7 @@ const MovieFilter: React.FC<Props> = (props) => {
 
 	useEffect(
 		() => {
+			if (!clearFilters) return;
 			setClearFilters(false);
 			setFilterRating(0);
 			setFilterGenres([]);

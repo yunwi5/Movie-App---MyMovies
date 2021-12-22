@@ -1,0 +1,54 @@
+.not-found-content {
+	max-width: 80%;
+	min-width: 95rem;
+	min-height: 50vh;
+	margin: auto;
+	margin-top: 10rem;
+	text-align: left;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+
+	& h2 {
+		font-size: 3rem;
+		max-width: 70%;
+	}
+
+	& p {
+		font-size: 1.5rem;
+		margin-top: -2rem;
+		margin-left: .9rem;
+	}
+
+	& .nav-links-wrapper {
+		margin-left: .9rem;
+		font-size: 2rem;
+
+		& a {
+			color: #003a61;
+			padding: 1rem 1.5rem;
+			text-decoration: none;
+			background-color: var(--color-primary-light);
+			border-radius: .5rem;
+
+			&:hover {
+				background-color: var(--color-primary-dark);
+				color: #fff;
+			}
+		}
+
+		& a:not(:last-child) {
+			margin-right: 2.2rem;
+		}
+
+		& .movies-link {
+			background-color: #003a61;
+			color: var(--color-primary-light);
+
+			&:hover {
+				background-color: #024c7e;
+				color: var(--color-primary-lightest);
+			}
+		}
+	}
+}

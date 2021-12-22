@@ -55,9 +55,15 @@
 		display: none;
 
 		& li {
-			padding: .6rem .7rem;
+			padding: .9rem 1.2rem;
 			color: var(--color-grey-dark-1);
 			background-color: var(--color-grey-light-2);
+			cursor: pointer;
+
+			& .fa {
+				margin-right: .9rem;
+				font-size: 2rem;
+			}
 
 			&:hover {
 				color: var(--color-grey-light-2);
@@ -193,6 +199,8 @@
 	margin-top: 2.8rem;
 	text-align: left;
 	font-size: 1.9rem;
+	display: flex;
+	align-items: center;
 
 	& .btn {
 		padding: 1.8rem 2rem;
@@ -237,6 +245,33 @@
 
 	& .btn-more {
 		border: none;
+
+		&:hover {
+			border: 1.5px solid #029bee;
+		}
+	}
+
+	& .btn-sidebar {
+		margin-left: auto;
+		padding: 1.8rem 1.8rem;
+		border-radius: 3rem;
+		background-color: transparent;
+		color: var(--color-grey-light-2);
+		border: 1.5px solid transparent;
+		font-size: 1.7rem;
+		cursor: pointer;
+
+		transform: translate(-4rem, 1rem);
+
+		& .fa {
+			margin-right: 1rem;
+			font-size: 2rem;
+		}
+
+		&:hover {
+			border: 1.5px solid var(--color-grey-light-2);
+			color: #fff;
+		}
 	}
 }
 
