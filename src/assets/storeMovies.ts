@@ -9,6 +9,7 @@ const DUMMY_MOVIES: Movie[] = [
 		rating: 9.8,
 		description: "Avengers final series",
 		producer: "Marvel Comics",
+		director: "Joe Russo",
 		duration: 182,
 		year: 2019,
 		genreList: [ "Action & Adventurs", "Science-Fiction & Fantasy" ],
@@ -22,6 +23,7 @@ const DUMMY_MOVIES: Movie[] = [
 		rating: 8.8,
 		description: "Avengers 3rd series",
 		producer: "Marvel Comics",
+		director: "Anthony Russo & Joe Russo",
 		duration: null,
 		year: 2018,
 		genreList: [ "Action & Adventurs", "Science-Fiction & Fantasy" ],
@@ -34,19 +36,21 @@ const DUMMY_MOVIES: Movie[] = [
 		rating: 9.9,
 		description: "Dark Knight 1st Series",
 		producer: "DC Comics",
-		duration: null,
+		director: "Christopher Nolan",
+		duration: 152,
 		year: 2009,
 		genreList: [ "Action & Adventurs", "Thriller" ],
 		isFavorite: false
 	},
 	{
 		id: "m4",
-		title: "Spider-Main Homecoming",
+		title: "Spider-Man Homecoming",
 		imgUrl:
 			"https://thumbor.forbes.com/thumbor/fit-in/1200x0/filters%3Aformat%28jpg%29/https%3A%2F%2Fblogs-images.forbes.com%2Fmarkhughes%2Ffiles%2F2017%2F07%2FSPIDER-MAN-HOMECOMING-poster-10-1200x1777.jpg",
 		rating: 9.0,
 		description: "A new Spider-Man series",
 		producer: "Marvel Comics",
+		director: "Jon Watts",
 		duration: null,
 		year: 2017,
 		genreList: [ "Action & Adventurs" ],
@@ -61,6 +65,7 @@ const DUMMY_MOVIES: Movie[] = [
 		description:
 			"The government sends the most dangerous supervillains in the world -- Bloodsport, Peacemaker, King Shark, Harley Quinn and others -- to the remote, enemy-infused island of Corto Maltese. Armed with high-tech weapons, they trek through the dangerous jungle on a search-and-destroy mission, with only Col. Rick Flag on the ground to make them behave.",
 		producer: "DC Comics",
+		director: "James Gunn & David Ayer",
 		duration: 132,
 		year: 2016,
 		genreList: [ "Action & Adventurs" ],
@@ -74,6 +79,7 @@ const DUMMY_MOVIES: Movie[] = [
 		description:
 			"Your Name is a 2016 Japanese animated romantic fantasy film produced by CoMix Wave Films and released by Toho.",
 		producer: "CoMix",
+		director: "Makoto Shinkai",
 		duration: 112,
 		year: 2016,
 		genreList: [ "Anime", "Romantic Movies" ],
@@ -88,6 +94,7 @@ const DUMMY_MOVIES: Movie[] = [
 		description:
 			"When a grade school student with impaired hearing is bullied mercilessly, she transfers to another school. Years later, one of her former tormentors sets out to make amends.",
 		producer: "Kyoto Animation",
+		director: "Naoko Yamada",
 		duration: 129,
 		year: 2016,
 		genreList: [ "Anime", "Romantic Movies" ],
@@ -102,6 +109,7 @@ const DUMMY_MOVIES: Movie[] = [
 		description:
 			"Cobb steals information from his targets by entering their dreams. Saito offers to wipe clean Cobb's criminal history as payment for performing an inception on his sick competitor's son.",
 		producer: "Legendary Pictures",
+		director: "Christopher Nolan",
 		duration: 148,
 		year: 2010,
 		genreList: [ "Science-Fiction & Fantasy" ],
@@ -116,6 +124,7 @@ const DUMMY_MOVIES: Movie[] = [
 		description:
 			"A boy raised by boars, who wears a boar's head, boards the Infinity Train on a new mission with the Flame Pillar along with another boy who reveals his true power when he sleeps. Their mission is to defeat a demon who has been tormenting people and killing the demon slayers who oppose it.",
 		producer: "Ufotable",
+		director: "Haruo Sotozaki",
 		duration: 117,
 		year: 2021,
 		genreList: [ "Anime", "Action & Adventurs" ],
@@ -130,6 +139,7 @@ const DUMMY_MOVIES: Movie[] = [
 		description:
 			"Violet Evergarden struggles to cope with the loss of her mentor, Major Gilbert. But when she gets a job as a ghostwriter and begins to express the emotions of others, she comes to terms with her own.",
 		producer: "Ufotable",
+		director: "Taichi Ishidate",
 		duration: 140,
 		year: 2020,
 		genreList: [ "Anime", "Romantic Movies" ],
@@ -144,6 +154,7 @@ const DUMMY_MOVIES: Movie[] = [
 		description:
 			"Peter Parker's life changes when he is bitten by a genetically altered spider and gains superpowers. He uses his powers to help people and finds himself facing the Green Goblin, an evil maniac.",
 		producer: "Columbia Pictures & Marvel Enterprises",
+		director: "Sam Raimi",
 		duration: 121,
 		year: 2002,
 		genreList: [ "Action & Adventurs", "Science-Fiction & Fantasy" ],
@@ -158,6 +169,7 @@ const DUMMY_MOVIES: Movie[] = [
 		description:
 			"Peter Parker is dissatisfied with life when he loses his job, the love of his life, Mary Jane, and his powers. Amid all the chaos, he must fight Doctor Octavius who threatens to destroy New York City.",
 		producer: "Columbia Pictures & Marvel Enterprises",
+		director: "Sam Raimi",
 		duration: 127,
 		year: 2004,
 		genreList: [ "Action & Adventurs", "Science-Fiction & Fantasy" ],
@@ -172,6 +184,7 @@ const DUMMY_MOVIES: Movie[] = [
 		description:
 			"Peter Parker becomes one with a symbiotic alien that bolsters his Spider-Man avatar and affects his psyche. He also has to deal with Sandman and maintain a fragmented relationship with Mary Jane.",
 		producer: "Columbia Pictures & Marvel Enterprises",
+		director: "Sam Raimi",
 		duration: 139,
 		year: 2007,
 		genreList: [ "Action & Adventurs", "Science-Fiction & Fantasy" ],
@@ -186,6 +199,7 @@ const DUMMY_MOVIES: Movie[] = [
 		description:
 			"Thor is a 2011 American superhero film based on the Marvel Comics character of the same name. Produced by Marvel Studios and distributed by Paramount Pictures, it is the fourth film in the Marvel Cinematic Universe (MCU).",
 		producer: "Marvel Studios",
+		director: "Taika Waititi & Alan Taylor & Kenneth Branagh",
 		duration: 114,
 		year: 2011,
 		genreList: [ "Action & Adventurs", "Science-Fiction & Fantasy" ],
@@ -199,6 +213,7 @@ const DUMMY_MOVIES: Movie[] = [
 		description:
 			"Thor sets out on a journey to defeat Malekith, the leader of the Dark Elves when he returns to Asgard to retrieve a dangerous weapon and fulfill his desire of destroying the Nine Realms.",
 		producer: "Marvel Studios",
+		director: "Alan Taylor",
 		duration: 112,
 		year: 2013,
 		genreList: [ "Action & Adventurs", "Science-Fiction & Fantasy" ],
@@ -213,6 +228,7 @@ const DUMMY_MOVIES: Movie[] = [
 		description:
 			"During World War II, Steve Rogers decides to volunteer in an experiment that transforms his weak body. He must now battle a secret Nazi organisation headed by Johann Schmidt to defend his nation.",
 		producer: "Marvel Studios",
+		director: "Joe Johnston",
 		duration: 124,
 		year: 2011,
 		genreList: [ "Action & Adventurs", "Science-Fiction & Fantasy" ],
@@ -227,6 +243,7 @@ const DUMMY_MOVIES: Movie[] = [
 		description:
 			"Friction arises between the Avengers when one group supports the government's decision to implement a law to control their powers while the other opposes it.",
 		producer: "Marvel Studios",
+		director: "Joe Russo & Anthony Russo",
 		duration: 148,
 		year: 2016,
 		genreList: [ "Action & Adventurs", "Science-Fiction & Fantasy" ],

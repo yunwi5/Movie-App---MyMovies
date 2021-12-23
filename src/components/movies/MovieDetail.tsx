@@ -30,19 +30,14 @@ const MovieDetail: React.FC = () => {
 	const similarMovies = useMemo(() => {
 		if (!movie) return;
 		const similarMoviesAvailable = getSimilarMovies(moviesList, movie);
-		console.log('Use memo call');
-		console.log('movies amount:', Math.min(similarMoviesAvailable.length, 7));
 		return similarMoviesAvailable.slice(0, Math.min(similarMoviesAvailable.length, 7));
-	}, []) 
+	}, [movieId]) 
 
 	
 	// Not Found Page is displayed instead
 	if (!movie) {
 		return <p>Sorry, Movie is not found.</p>;
 	}
-
-	// console.log(movie.title, movie.genreList);
-	// console.table(similarMovies);
 
 	const deleteModalContent = {
 		id: movieId,
@@ -64,15 +59,20 @@ const MovieDetail: React.FC = () => {
 
 
 	// Nav Bar Handling
+	let timer: NodeJS.Timeout;
+
 	const toggleNavHandler = () => {
 		setNavIsActive(prevState => !prevState);
-		setEnableBackdrop(true);
+		timer = setTimeout(() => {
+			setEnableBackdrop(true);
+		}, 100);
 	}
 
 	const backdropNavHandler = () => {
 		if (!enableBackdrop) return;
 		setNavIsActive(false);
 		setEnableBackdrop(false);
+		clearTimeout(timer);
 	}
 
 
@@ -88,7 +88,7 @@ const MovieDetail: React.FC = () => {
 		<React.Fragment>
 		{showModal && <DeleteModal modalContent={deleteModalContent}  />}
 		<main className="movie-detail">
-			{showSidebar && similarMovies && < MovieSidebar  movies={similarMovies} onClose={() => setShowSidebar(false)}  /> }
+			{showSidebar && similarMovies && < MovieSidebar  movies={similarMovies} onClose={() => setShowSidebar(false)} /> }
 			<section className="movie-detail__top" onClick={backdropNavHandler}>
 				<div className={`movie-detail__nav ${navIsActive ? "movie-detail__nav--active" : ""}`}>
 					<div className="icon-wrapper" onClick={toggleNavHandler}>
@@ -124,6 +124,7 @@ const MovieDetail: React.FC = () => {
 							</span>
 							{movie.duration && <span className="movie-time__sub">(&nbsp;{movie.duration} minutes&nbsp;)</span>}
 						</p>
+						{movie.director && <p className="movie-director"> {movie.director} </p>}
 					</div>
 				</div>
 				<div className="movie-detail__info">
@@ -147,10 +148,11 @@ const MovieDetail: React.FC = () => {
 					<button className="btn btn-favorite" onClick={setFavoriteHandler}>{movie.isFavorite ? "Unfavorite" : "Favorite"}</button>
 					<button className="btn btn-watch"><a href={watchUrl}>Watch</a></button>
 					<button className="btn btn-more"><a href={moreDetailUrl}>See More</a></button>
+					{!showSidebar && 
 					<button className="btn-sidebar" onClick={() => setShowSidebar(prev => !prev)}>
 						<i className="fa fa-film"></i>
 						Similar Movies
-					</button>
+					</button>}
 				</div>
 			</section>
 

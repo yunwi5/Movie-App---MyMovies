@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Movie from "../../models/Movie";
 
 type Prop = {
@@ -8,22 +8,33 @@ type Prop = {
 };
 
 const MovieSidebar: React.FC<Prop> = ({ movies, onClose }) => {
+	const navigate = useNavigate();
+
+	const switchMovieHandler = (movieId: string) => {
+		onClose();
+		navigate(`/movie-detail/${movieId}`);
+	};
+
 	return (
 		<aside className="movies-sidebar">
-			<h2>Movies you might like</h2>
-			<div className="btn-close" onClick={onClose}>
-				<i className="fa fa-times" />
-			</div>
+			<h2 onClick={onClose}>
+				Similar Films <i className="fa fa-angle-right" />
+			</h2>
 
 			<ul>
 				{movies.map((movie, idx) => (
-					<li key={idx}>
-						<Link className="image-wrapper" to={`/movie-detail/${movie.id}`}>
+					<li className={`movie-card ${idx <= 2 ? "" : "movie-card--below"}`} key={idx}>
+						<div className="image-wrapper" onClick={switchMovieHandler.bind(null, movie.id)}>
 							<img src={movie.imgUrl} alt="Movie image" />
-						</Link>
+						</div>
 						<div className="movie-content">
-							<h3>{movie.title}</h3>
-							<p>{movie.producer}</p>
+							<h3 onClick={switchMovieHandler.bind(null, movie.id)}>{movie.title}</h3>
+							{movie.producer && <p>{movie.producer}</p>}
+							<p className="line-rating">
+								{movie.rating}
+								<i className="fa fa-star" />
+							</p>
+							<p>{movie.genreList[0]}</p>
 						</div>
 					</li>
 				))}

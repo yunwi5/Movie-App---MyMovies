@@ -21,14 +21,91 @@ function haveSameProducer (movieA: Movie, movieB: Movie) {
 	return producerA.includes(producerB) || producerB.includes(producerA);
 }
 
+function haveSameDirector (movieA: Movie, movieB: Movie) {
+	if (!movieA.director || !movieB.director) return false;
+
+	const directorA = movieA.director.toLowerCase();
+	const directorB = movieB.director.toLowerCase();
+
+	return directorA.includes(directorB) || directorB.includes(directorA);
+}
+
+const MOVIES_TO_SHOW = 6;
+
+// function pushMoviessToList (list: Movie[], movie: Movie, bookCount: number) {
+// 	if (bookCount < MOVIES_TO_SHOW) {
+// 		for (const m of list) {
+// 			if (bookCount >= MOVIES_TO_SHOW) break;
+// 			list.push(m);
+// 			bookCount++;
+// 		}
+// 	}
+// 	return bookCount;
+// }
+
 const getSimilarMovies = (movies: Movie[], movie: Movie) => {
-	let similarMovies: Movie[] = [];
+	let priorityList: Movie[] = [];
+	let primaryList: Movie[] = [];
+	let secondaryList: Movie[] = [];
+	let tertiaryList: Movie[] = [];
+	let remainingList: Movie[] = [];
+
+	let bookCount = 0;
+
 	for (const m of movies) {
-		if (haveSameGenre(movie, m) || haveSameProducer(movie, m)) {
-			similarMovies.push(m);
+		if (m.id === movie.id) continue;
+
+		const isSameDirector = haveSameDirector(m, movie);
+		const isSameProducer = haveSameProducer(m, movie);
+		const isSameGenre = haveSameGenre(m, movie);
+
+		if (isSameDirector) {
+			priorityList.push(m);
+			bookCount++;
+		} else if (isSameProducer && isSameGenre) {
+			primaryList.push(m);
+		} else if (isSameProducer) {
+			secondaryList.push(m);
+		} else if (isSameGenre) {
+			tertiaryList.push(m);
+		} else {
+			remainingList.push(m);
 		}
 	}
-	return similarMovies;
+
+	if (bookCount < MOVIES_TO_SHOW) {
+		for (const m of primaryList) {
+			if (bookCount >= MOVIES_TO_SHOW) break;
+			priorityList.push(m);
+			bookCount++;
+		}
+	}
+
+	if (bookCount < MOVIES_TO_SHOW) {
+		for (const m of secondaryList) {
+			if (bookCount >= MOVIES_TO_SHOW) break;
+			priorityList.push(m);
+			bookCount++;
+		}
+	}
+
+	if (bookCount < MOVIES_TO_SHOW) {
+		for (const m of tertiaryList) {
+			if (bookCount >= MOVIES_TO_SHOW) break;
+			priorityList.push(m);
+			bookCount++;
+		}
+	}
+
+	if (bookCount < MOVIES_TO_SHOW) {
+		for (const m of remainingList) {
+			if (bookCount >= MOVIES_TO_SHOW) break;
+			priorityList.push(m);
+			bookCount++;
+		}
+	}
+
+	return priorityList;
 };
 
 export default getSimilarMovies;

@@ -60,3 +60,22 @@ export const validatePassword = (inputPass: string | null) => {
 
 	return { valid: true, message: null };
 };
+
+// For retrieving usrename given the email entered by the user in the login page.
+// Currently not being used.
+const getUserName = async (email: string) => {
+	await fetch(`https://react-http-7e82d-default-rtdb.firebaseio.com/users.json`)
+		.then((res) => {
+			if (res.ok) {
+				console.log("Request SuccessfuL!");
+			}
+			return res.json();
+		})
+		.then((data) => {
+			console.log(data);
+		})
+		.catch((err) => {
+			console.log("Error occued while fetching userName", err);
+		});
+	return "Jonas";
+};

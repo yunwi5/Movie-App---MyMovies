@@ -44,7 +44,7 @@ interface Movie {
 	duration: number | null;
 	year: number | null;
 	isFavorite: boolean;
-	// directors: string[] | null;
+	director: string | null;
 }
 
 export default Movie;

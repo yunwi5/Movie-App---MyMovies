@@ -2,6 +2,7 @@
 	min-height: 70vh;
 	display: flex;
 	flex-direction: column;
+	position: relative;
 
 	&__top {
 		background-color: var(--color-grey-dark-1);
@@ -113,7 +114,8 @@
 			}
 		}
 
-		& .movie-time {
+		& .movie-time,
+		.movie-director {
 			margin-top: 2rem;
 			font-size: 1.5rem;
 			& span {
@@ -133,6 +135,10 @@
 				color: var(--color-grey-light-3);
 				font-size: 1.3rem;
 			}
+		}
+
+		& .movie-director {
+			font-size: 1.6rem;
 		}
 	}
 }
@@ -278,7 +284,7 @@
 .movie-detail__about {
 	& h2 {
 		font-size: 3rem;
-		width: 60%;
+		width: 66%;
 	}
 
 	& p {
@@ -292,6 +298,7 @@
 
 .movie-detail__genres {
 	margin-top: 7rem;
+	min-height: 45vh;
 	& ul {
 		font-size: 1.9rem;
 		list-style: none;
@@ -313,5 +320,109 @@
 		& li:not(:last-child) {
 			margin-right: 1.6rem;
 		}
+	}
+}
+
+///////////////////////////////
+// MOVIE SIDEBAR
+.movies-sidebar {
+	position: absolute;
+	top: 10.5rem;
+	right: 0;
+	text-align: left;
+	color: var(--color-grey-light-1);
+	background-color: transparent;
+	max-width: 40rem;
+
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: space-between;
+
+	z-index: 1;
+
+	& h2 {
+		color: inherit;
+		margin-left: .5rem;
+		cursor: pointer;
+		min-width: 88%;
+
+		& .fa {
+			margin-left: 5%;
+			transform: translateY(.1rem);
+		}
+
+		&:hover {
+			// color: var(--color-grey-dark-4);
+			color: #fff;
+
+			& .fa {
+				transform: translateY(.1rem);
+				animation: InfiniteLeftRight 1s infinite ease-out;
+			}
+		}
+	}
+
+	& .movie-card:first-child {
+		margin-top: 0;
+	}
+
+	& .movie-card {
+		margin: 3rem auto;
+		display: flex;
+
+		&--below {
+			color: var(--color-grey-dark-1);
+		}
+
+		& .image-wrapper {
+			cursor: pointer;
+			& img {
+				max-width: 12.2rem;
+			}
+		}
+
+		& .movie-content {
+			margin-left: 2rem;
+			flex: 1;
+
+			& > * {
+				max-width: 96%;
+			}
+			& h3 {
+				cursor: pointer;
+				font-size: 1.7rem;
+				margin-bottom: 1rem;
+			}
+
+			& .line-rating {
+				font-weight: 600;
+			}
+
+			& p {
+				font-size: 1.3rem;
+				padding: .7rem auto;
+				line-height: 2.1rem;
+
+				& .fa {
+					color: gold;
+					margin-left: .5rem;
+				}
+			}
+		}
+	}
+}
+
+@keyframes InfiniteLeftRight {
+	0% {
+		transform: translateX(0);
+	}
+
+	50% {
+		transform: translateX(.2rem);
+	}
+
+	100% {
+		transform: translate(-.2rem);
 	}
 }

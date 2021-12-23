@@ -40,6 +40,7 @@ const Movieform: React.FC = () => {
 
 	// Optional Properties
 	const [ producer, setProducer ] = useState<string | null>(null);
+	const [ director, setDirector ] = useState<string | null>(null);
 
 	const [ year, setYear ] = useState<number | null>(null);
 	const [ yearIsValid, setYearIsValid ] = useState(true);
@@ -67,7 +68,8 @@ const Movieform: React.FC = () => {
 			duration: durationTotalMinutes,
 			year,
 			description,
-			isFavorite: false
+			isFavorite: false,
+			director
 		};
 		console.log(movieObj);
 
@@ -130,7 +132,7 @@ const Movieform: React.FC = () => {
 					</h4>
 					<Rating
 						name="size-large"
-						value={rating}
+						value={rating / 2}
 						precision={0.5}
 						size="large"
 						onChange={(e, newValue) => setRating(newValue ? newValue * 2 : 0)}
@@ -178,7 +180,7 @@ const Movieform: React.FC = () => {
 
 			<div className="line-input line-optional">
 				<h3>Optional</h3>
-				<div>
+				<div className="producer-wrapper wrapper">
 					<label htmlFor="movie-company">Producer</label>
 					<input
 						id="movie-company"
@@ -187,7 +189,22 @@ const Movieform: React.FC = () => {
 							setProducer(e.target.value as string)}
 					/>
 				</div>
-				<div className="duration-wrapper">
+				<div className="director-wrapper wrapper">
+					<label htmlFor="movie-director">Director</label>
+					<input
+						id="movie-director"
+						type="text"
+						onChange={(e: React.ChangeEvent<HTMLInputElement>) => setDirector(e.target.value)}
+					/>
+				</div>
+
+				<div className="year-wrapper wrapper">
+					<label htmlFor="movie-year">
+						Year <span>(1970~2022)</span>
+					</label>
+					<input id="movie-year" type="number" min="1970" max="2022" onChange={yearChangeHandler} />
+				</div>
+				<div className="duration-wrapper wrapper">
 					<div>Duration</div>
 					<div className="input-hours">
 						<input
@@ -221,12 +238,6 @@ const Movieform: React.FC = () => {
 						/>{" "}
 						<label htmlFor="movie-duration">m</label>
 					</div>
-				</div>
-				<div>
-					<label htmlFor="movie-year">
-						Year <span>(1970~2022)</span>
-					</label>
-					<input id="movie-year" type="number" min="1970" max="2022" onChange={yearChangeHandler} />
 				</div>
 			</div>
 

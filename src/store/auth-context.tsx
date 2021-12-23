@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
 	userName: string | null;
@@ -18,24 +19,9 @@ const authObj: Props = {
 
 const AuthContext = React.createContext<Props>(authObj);
 
-const getUserName = async (email: string) => {
-	await fetch(`https://react-http-7e82d-default-rtdb.firebaseio.com/users.json`)
-		.then((res) => {
-			if (res.ok) {
-				console.log("Request SuccessfuL!");
-			}
-			return res.json();
-		})
-		.then((data) => {
-			console.log(data);
-		})
-		.catch((err) => {
-			console.log("Error occued while fetching userName", err);
-		});
-	return "Jonas";
-};
-
 export const AuthContextProvider: React.FC = (props) => {
+	const navigate = useNavigate();
+
 	const retrievedToken = localStorage.getItem("token");
 	const [ token, setToken ] = useState<string | null>(retrievedToken);
 
@@ -53,6 +39,7 @@ export const AuthContextProvider: React.FC = (props) => {
 	const logout = () => {
 		setToken(null);
 		localStorage.removeItem("token");
+		navigate("/home");
 	};
 
 	const values = {

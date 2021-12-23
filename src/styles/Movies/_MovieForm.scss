@@ -42,6 +42,10 @@
 		}
 	}
 
+	& .line-title {
+		padding-bottom: 3rem;
+	}
+
 	& .genre-rating {
 		display: flex;
 		justify-content: flex-start;
@@ -69,7 +73,7 @@
 
 		& .genre-wrapper {
 			transform: translateY(-.7rem);
-			margin-left: -3rem;
+			margin-left: 8rem;
 			& select {
 				font-size: 1.3rem;
 				font-weight: 400;
@@ -128,6 +132,7 @@
 	}
 
 	& .line-url {
+		padding-bottom: 3.2rem;
 		& label {
 		}
 		& input {
@@ -137,18 +142,46 @@
 
 	& .line-optional {
 		display: flex;
-		justify-content: space-between;
+		min-width: 30rem;
+		justify-content: flex-start;
 		flex-wrap: wrap;
 		padding-top: .2rem;
+		padding-bottom: 3rem;
 
 		& h3 {
+			font-size: 2.5rem;
 			flex: 0 0 100%;
 			font-weight: 500;
-			margin-bottom: 1.2rem;
+			margin-bottom: 1.9rem;
+		}
+
+		& .wrapper {
+			flex: 1 0 40%;
+
+			& input {
+				width: 80%;
+			}
+		}
+
+		& .director-wrapper,
+		.duration-wrapper {
+			margin-left: 6.5rem;
+		}
+
+		& .year-wrapper,
+		.duration-wrapper {
+			margin-top: 2rem;
+		}
+
+		& .year-wrapper {
+			max-width: 40rem;
+
+			& input {
+				// width: 66%;
+			}
 		}
 
 		& .duration-wrapper {
-			width: 30%;
 			display: flex;
 			flex-wrap: wrap;
 
@@ -192,6 +225,8 @@
 	}
 
 	& .line-description {
+		padding-top: 3rem;
+		padding-bottom: 3.3rem;
 		& h3 {
 			font-weight: 500;
 			margin-bottom: .5rem;
@@ -201,7 +236,7 @@
 			border-radius: .5rem;
 			font-size: 1.8rem;
 			font-family: sans-serif;
-			width: 80%;
+			min-width: 82%;
 		}
 	}
 
