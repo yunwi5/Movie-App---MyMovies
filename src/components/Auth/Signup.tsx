@@ -3,25 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { API_KEY, validateUserName, validateEmail, validatePassword } from "../../utilities/auth-util";
 import LoadingSpinner from "../UI/LoadingSpinner";
 import AuthModal from "../UI/Modal/AuthModal";
-
-const addUserToDb = async (enteredName: string, enteredEmail: string) => {
-	const res2 = await fetch(`https://react-http-7e82d-default-rtdb.firebaseio.com/users.json`, {
-		method: "POST",
-		headers: { "Content-Type": "application/json" },
-		body: JSON.stringify({
-			userName: enteredName,
-			email: enteredEmail,
-			movies: []
-		})
-	});
-	if (res2.ok) {
-		console.log("username store successful!");
-	} else {
-		const data = await res2.json();
-		console.log(data);
-		alert("username store went wrong");
-	}
-};
+import { addUser } from "../../api/user-api";
 
 const Signup: React.FC = () => {
 	const navigate = useNavigate();
@@ -89,7 +71,7 @@ const Signup: React.FC = () => {
 			});
 			setShowModal(true);
 			// Add user to DB with username attached. Currently, this part is undone.
-			addUserToDb(userNameRef.current!.value, emailRef.current!.value);
+			addUser(userNameRef.current!.value, emailRef.current!.value);
 		} else {
 			setModalContent({
 				heading: "Sign Up Unsuccessful...",

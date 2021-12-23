@@ -1,29 +1,27 @@
 import React, { useContext, useState, useMemo } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toDurationString } from "../../utilities/movies-util";
 import MovieContext from "../../store/movie-context";
 import DeleteModal from '../UI/Modal/DeleteModal';
 import MovieSidebar from '../movies/MovieSidebar';
+import Movie from '../../models/Movie';
 import Rating from "@mui/material/Rating";
 import getSimilarMovies from '../../utilities/movies-select-util';
 
 
 // The functionality inclused deleting movie, editing movie (not available at the moment)
 // Maybe adding comment.
-const MovieDetail: React.FC = () => {
+const MovieDetail: React.FC<{movie: Movie}> = ({movie}) => {
 	const navigate = useNavigate();
-	const params = useParams();
-	const movieId = params.movieId ? params.movieId : "";
 
 	const movieCtx = useContext(MovieContext);
-	const movie = movieCtx.getMovie(movieId);
+	const movieId = movie.id;
 	const moviesList = movieCtx.moviesList;
 
 	const [navIsActive, setNavIsActive] = useState(false);
 	const [enableBackdrop, setEnableBackdrop] = useState(false);
 
 	const [showModal, setShowModal] = useState(false);
-
 	const [showSidebar, setShowSidebar] = useState(false); 
 
 
@@ -34,10 +32,6 @@ const MovieDetail: React.FC = () => {
 	}, [movieId]) 
 
 	
-	// Not Found Page is displayed instead
-	if (!movie) {
-		return <p>Sorry, Movie is not found.</p>;
-	}
 
 	const deleteModalContent = {
 		id: movieId,

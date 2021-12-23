@@ -9,6 +9,7 @@ interface Props {
 	deleteMovie: (id: string) => void;
 	editMovie: (movie: Movie) => void;
 	getMovie: (id: string) => Movie | undefined;
+	retrieveUserMovies: (userMovies: Movie[]) => void;
 }
 
 const contextObj: Props = {
@@ -19,7 +20,8 @@ const contextObj: Props = {
 	editMovie: (movie: Movie) => {},
 	getMovie: (id: string): Movie | undefined => {
 		return undefined;
-	}
+	},
+	retrieveUserMovies: (userMovies: Movie[]) => {}
 };
 
 const MovieContext: React.Context<Props> = React.createContext(contextObj);
@@ -49,13 +51,18 @@ export const MovieContextProvider: React.FC = (props) => {
 		return movie;
 	};
 
+	const retrieveUserMovies = (userMovies: Movie[]) => {
+		setMoviesList(userMovies);
+	};
+
 	const value = {
 		storeMovies,
 		moviesList,
 		addMovie,
 		deleteMovie,
 		editMovie,
-		getMovie
+		getMovie,
+		retrieveUserMovies
 	};
 
 	return <MovieContext.Provider value={value}>{props.children}</MovieContext.Provider>;
