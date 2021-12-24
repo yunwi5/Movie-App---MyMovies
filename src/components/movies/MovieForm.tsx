@@ -69,7 +69,8 @@ const Movieform: React.FC = () => {
 			year,
 			description,
 			isFavorite: false,
-			director
+			director,
+			isFromStore: false
 		};
 		console.log(movieObj);
 

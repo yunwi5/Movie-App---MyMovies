@@ -89,7 +89,6 @@ const Signup: React.FC = () => {
 		const formIsValid = validateUserInput();
 		if (!formIsValid) return;
 
-		const enteredName = userNameRef.current!.value;
 		const enteredEmail = emailRef.current!.value;
 		const enteredPassword = passwordRef.current!.value;
 		// Form is valid, so send HTTP Request.

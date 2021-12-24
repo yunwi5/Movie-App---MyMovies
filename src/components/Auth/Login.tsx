@@ -112,7 +112,6 @@ const Login: React.FC = () => {
 	};
 
 	const formIsInvalid = emailState.emailMessage || passwordState.passwordMessage;
-	console.log("login form is invalid", formIsInvalid);
 
 	return (
 		<form className={`auth-form ${formIsInvalid ? "auth-form--invalid" : ""}`} onSubmit={submitHandler}>

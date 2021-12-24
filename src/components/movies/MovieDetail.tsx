@@ -16,7 +16,8 @@ const MovieDetail: React.FC<{movie: Movie}> = ({movie}) => {
 
 	const movieCtx = useContext(MovieContext);
 	const movieId = movie.id;
-	const moviesList = movieCtx.moviesList;
+	// Get Similar Movies from the store, not from the User Movies
+	const moviesList = movieCtx.storeMovies;
 
 	const [navIsActive, setNavIsActive] = useState(false);
 	const [enableBackdrop, setEnableBackdrop] = useState(false);
@@ -31,13 +32,14 @@ const MovieDetail: React.FC<{movie: Movie}> = ({movie}) => {
 		return similarMoviesAvailable.slice(0, Math.min(similarMoviesAvailable.length, 7));
 	}, [movieId]) 
 
-	
+	// This will differentiate between store movies and user custom movies.
+	const movieIsFromStore = movie.isFromStore;
 
 	const deleteModalContent = {
-		id: movieId,
+		movie,
 		message: `Are you sure you want to delete ${movie.title}?`,
 		onDelete: () => {
-			movieCtx.deleteMovie(movieId);
+			movieCtx.deleteMovie(movie);
 			setShowModal(false);
 			navigate('/movies');
 		},
@@ -77,7 +79,8 @@ const MovieDetail: React.FC<{movie: Movie}> = ({movie}) => {
 		movieCtx.editMovie(newMovie);
 	}
 
-	
+	const isFromStore = movie.isFromStore;
+
 	return (
 		<React.Fragment>
 		{showModal && <DeleteModal modalContent={deleteModalContent}  />}

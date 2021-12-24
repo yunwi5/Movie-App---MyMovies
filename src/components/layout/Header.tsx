@@ -11,7 +11,7 @@ const Header: React.FC = () => {
 
 	const submitHandler = (e: React.FormEvent) => {
 		e.preventDefault();
-		navigate("/movies/" + searchWord, { replace: false });
+		navigate("/store-movies/" + searchWord, { replace: false });
 	};
 
 	return (

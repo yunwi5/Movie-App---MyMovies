@@ -1,21 +1,27 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import Movie from "../../models/Movie";
 import { toDurationString } from "../../utilities/movies-util";
 import DeleteModal from "../UI/Modal/DeleteModal";
+import MovieContext from "../../store/movie-context";
 import Rating from "@mui/material/Rating";
 
 interface Props {
 	movie: Movie;
-	onDelete: (id: string) => void;
+	onDelete: (movie: Movie) => void;
 	onEdit: (movie: Movie) => void;
+	isForUser: boolean;
 }
 
 const MovieCard: React.FC<Props> = (props) => {
-	const { movie, onDelete, onEdit } = props;
+	const { movie, onDelete, onEdit, isForUser } = props;
+
+	const navigate = useNavigate();
+	const movieCtx = useContext(MovieContext);
+
 	const [ showModal, setShowModal ] = useState(false);
 	const modalContent = {
-		id: movie.id,
+		movie,
 		message: `Are you sure you want to delete ${movie.title}?`,
 		onDelete,
 		onClose: () => {
@@ -33,6 +39,18 @@ const MovieCard: React.FC<Props> = (props) => {
 		setShowModal(true);
 	};
 
+	const addHandler = () => {
+		movieCtx.addMovie(movie);
+	};
+
+	const navigateToDetail = () => {
+		if (movie.isFromStore) {
+			navigate(`/movie-detail/store/${movie.id}`);
+			return;
+		}
+		navigate(`/movie-detail/user/${movie.id}`);
+	};
+
 	return (
 		<React.Fragment>
 			<div key={movie.id} className="movie-card">
@@ -45,25 +63,33 @@ const MovieCard: React.FC<Props> = (props) => {
 					<div className="first-line">
 						<h3>{movie.title}</h3>
 						{movie.year && <em className="year">({movie.year})</em>}
-						<div className="delete-mark-wrapper">
-							<span className="delete-mark">
-								<i className="fa fa-bars" />
-							</span>
-							<ul className="setting-list">
-								<li onClick={favoriteChangeHandler}>
-									<i className="fa fa-star" />
-									{movie.isFavorite ? "Unfavorite" : "Favorite"}
-								</li>
-								<li>
-									<i className="fa fa-pencil" />
-									Edit
-								</li>
-								<li onClick={deleteHandler}>
-									<i className="fa fa-eraser" />
-									Delete
-								</li>
-							</ul>
-						</div>
+						{/* Enable favorite & editing & deleting only if this is user Movie */}
+						{isForUser && (
+							<div className="delete-mark-wrapper">
+								<span className="delete-mark">
+									<i className="fa fa-bars" />
+								</span>
+								<ul className="setting-list">
+									<li onClick={favoriteChangeHandler}>
+										<i className="fa fa-star" />
+										{movie.isFavorite ? "Unfavorite" : "Favorite"}
+									</li>
+									<li>
+										<i className="fa fa-pencil" />
+										Edit
+									</li>
+									<li onClick={deleteHandler}>
+										<i className="fa fa-eraser" />
+										Delete
+									</li>
+								</ul>
+							</div>
+						)}
+						{!isForUser && (
+							<div className="add-mark-wrapper" onClick={addHandler}>
+								<i className="fa fa-plus" />
+							</div>
+						)}
 					</div>
 
 					<div className="second-line">
@@ -87,10 +113,8 @@ const MovieCard: React.FC<Props> = (props) => {
 							<ul className="movie-card__genre-list">
 								{movie.genreList.map((genre, idx) => <li key={idx}>{genre}</li>)}
 							</ul>
-							<button className="detail">
-								<Link className="detail-link" to={`/movie-detail/${movie.id}`}>
-									Detail
-								</Link>
+							<button className="detail" onClick={navigateToDetail}>
+								<span className="detail-link">Detail</span>
 							</button>
 						</div>
 					</div>

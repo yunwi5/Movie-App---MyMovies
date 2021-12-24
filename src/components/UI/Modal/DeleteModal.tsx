@@ -1,12 +1,13 @@
 import React from "react";
 import Modal from "./Modal";
+import Movie from "../../../models/Movie";
 
 interface ModalProps {
-	modalContent: { id: string; message: string; onDelete: (id: string) => void; onClose: () => void };
+	modalContent: { movie: Movie; message: string; onDelete: (movie: Movie) => void; onClose: () => void };
 }
 
 const DeleteModal: React.FC<ModalProps> = ({ modalContent }) => {
-	const { id, message, onDelete, onClose } = modalContent;
+	const { movie, message, onDelete, onClose } = modalContent;
 
 	return (
 		<Modal onClose={onClose}>
@@ -16,7 +17,7 @@ const DeleteModal: React.FC<ModalProps> = ({ modalContent }) => {
 					<i className="fa fa-angle-right" />
 					{"  " + message}{" "}
 				</p>
-				<button onClick={onDelete.bind(null, id)} className="btn-delete">
+				<button onClick={onDelete.bind(null, movie)} className="btn-delete">
 					Delete
 				</button>
 			</div>

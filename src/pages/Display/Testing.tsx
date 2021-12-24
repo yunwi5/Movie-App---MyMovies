@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { getAllUsers, getUserById, getUserBySearch } from "../../api/user-api";
+import { getAllUsers, getUserById } from "../../api/user-api";
 
-const Home: React.FC = () => {
+const Testing: React.FC = () => {
 	const [ users, setUsers ] = useState<{}>([]);
 
 	const uploadUsersHandler = async () => {
-		const users = await getAllUsers();
-		setUsers(users);
+		const users = await getUserById("-Mrb2tNZ0KYySwNUKqz8");
+		setUsers([ users ]);
 	};
 	return (
 		<main>
@@ -19,4 +19,4 @@ const Home: React.FC = () => {
 	);
 };
 
-export default Home;
+export default Testing;

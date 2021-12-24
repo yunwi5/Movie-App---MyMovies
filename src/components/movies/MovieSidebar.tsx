@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Movie from "../../models/Movie";
 
 type Prop = {
@@ -10,9 +10,10 @@ type Prop = {
 const MovieSidebar: React.FC<Prop> = ({ movies, onClose }) => {
 	const navigate = useNavigate();
 
+	// Always recommend Store Movies. I think this makes more sense!
 	const switchMovieHandler = (movieId: string) => {
 		onClose();
-		navigate(`/movie-detail/${movieId}`);
+		navigate(`/movie-detail/store/${movieId}`);
 	};
 
 	return (

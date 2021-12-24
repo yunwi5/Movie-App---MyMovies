@@ -19,7 +19,6 @@ const MovieRating: React.FC<Props> = (props) => {
 	};
 
 	if (clear) {
-		console.log("Clear the radios!");
 		radioRef.current!.checked = false;
 	}
 

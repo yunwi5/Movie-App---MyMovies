@@ -4,14 +4,15 @@ import MovieGenre from "./MovieGenre";
 import Movie, { GenreList } from "../../../models/Movie";
 
 interface Props {
-	onFilter: (ratingThreshold: number, filterGenresList: string[]) => void;
 	moviesList: Movie[];
+	onFilter: (ratingThreshold: number, filterGenresList: string[]) => void;
 	onRatingCount: (ratingThreshold: number) => number;
 	onGenreCount: (genreName: string) => number;
+	isForUser: boolean;
 }
 
 const MovieFilter: React.FC<Props> = (props) => {
-	const { onFilter, moviesList, onRatingCount, onGenreCount } = props;
+	const { moviesList, onFilter, onRatingCount, onGenreCount, isForUser } = props;
 
 	// Movies Lis length changes when the movie is deleted. So, need to update ratingsCount and genresCount
 	const moviesListLength = moviesList.length;
@@ -96,7 +97,8 @@ const MovieFilter: React.FC<Props> = (props) => {
 				<div className="icon-wrapper" onClick={() => setShowRatingFilter((prev) => !prev)}>
 					<i className={`fa fa-chevron-up ${showRatingFilter ? "" : "fa-reverse"}`} />
 				</div>
-				<h3>Ratings</h3>
+				{isForUser && <h3>Your Ratings</h3>}
+				{!isForUser && <h3>Google Ratings</h3>}
 				<ul className="ratings-filter__list">
 					<MovieRating
 						value={9}

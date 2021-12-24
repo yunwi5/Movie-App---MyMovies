@@ -9,18 +9,24 @@ import MenuItem from "@mui/material/MenuItem";
 import { InputLabel, FormControl } from "@mui/material";
 import { SelectChangeEvent } from "@mui/material";
 
-const MoviesList: React.FC<{ searchWord: string | undefined }> = ({ searchWord }) => {
+interface Props {
+	initialMovies: Movie[];
+	isForUser: boolean;
+}
+
+const MoviesList: React.FC<Props> = ({ isForUser, initialMovies }) => {
 	const movieCtx = useContext(MovieContext);
-	const initialMoviesList = filterMovies(movieCtx.moviesList, searchWord);
+	const initialMoviesLength = initialMovies.length;
+
 	// Seach Filter is already done here.
-	const [ moviesList, setMoviesList ] = useState(initialMoviesList);
+	const [ moviesList, setMoviesList ] = useState(initialMovies);
 
 	// Sorting
 	const [ sortingStandard, setSortingStandard ] = useState<string>("");
 	const [ sortingDirection, setSortingDirection ] = useState<string>("");
 
 	// Filter Movies
-	const [ filteredMovies, setFilteredMovies ] = useState(initialMoviesList);
+	const [ filteredMovies, setFilteredMovies ] = useState(initialMovies);
 
 	// pages
 	const [ currentPage, setCurrentPage ] = useState<number>(1);
@@ -30,11 +36,16 @@ const MoviesList: React.FC<{ searchWord: string | undefined }> = ({ searchWord }
 	// Control sidebar
 	const [ showSidebar, setShowSidebar ] = useState(false);
 
-	const deleteMovieHandler = (id: string) => {
-		movieCtx.deleteMovie(id);
-		const newMoviesList = [ ...moviesList ].filter((movie) => movie.id !== id);
+	// Testing rendered List
+	// console.log("Inside component, initialMovies length:", initialMovies.length);
+	// console.log("Inside component, moviesList length:", moviesList.length);
+	// console.log("Inside component, filteredMovies length:", filteredMovies.length);
+
+	const deleteMovieHandler = (movie: Movie) => {
+		movieCtx.deleteMovie(movie);
+		const newMoviesList = [ ...moviesList ].filter((m) => m.id !== movie.id);
 		setMoviesList(newMoviesList);
-		const newFilteredMoviesList = [ ...filteredMovies ].filter((movie) => movie.id !== id);
+		const newFilteredMoviesList = [ ...filteredMovies ].filter((m) => m.id !== movie.id);
 		setFilteredMovies(newFilteredMoviesList);
 	};
 
@@ -63,7 +74,6 @@ const MoviesList: React.FC<{ searchWord: string | undefined }> = ({ searchWord }
 	};
 
 	const filterHandler = (ratingThreshold: number, filterGenresList: string[]) => {
-		console.log("filterHandler: ratingThreshold:", ratingThreshold, "genres:", filterGenresList);
 		const ratingSurvivedMovies = moviesList.filter((movie) => movie.rating >= ratingThreshold);
 
 		if (filterGenresList.length < 1) {
@@ -84,11 +94,14 @@ const MoviesList: React.FC<{ searchWord: string | undefined }> = ({ searchWord }
 		setFilteredMovies(genreSurvivedMovies);
 	};
 
+	// If initialMovies Length changes, this means the page re-loads with
+	// new search word.
 	useEffect(
 		() => {
-			setMoviesList(initialMoviesList);
+			setMoviesList(initialMovies);
+			setFilteredMovies(initialMovies);
 		},
-		[ searchWord ]
+		[ initialMoviesLength ]
 	);
 
 	useEffect(
@@ -117,9 +130,10 @@ const MoviesList: React.FC<{ searchWord: string | undefined }> = ({ searchWord }
 				onFilter={filterHandler}
 				onRatingCount={getRatingCount}
 				onGenreCount={getGenreCount}
+				isForUser={isForUser}
 			/>
 			<div className="movies-container">
-				<h2>Your Movie Collection</h2>
+				{isForUser ? <h2>Your Movie Collection</h2> : <h2>Our Store Movies</h2>}
 				<div className="select-wrapper">
 					<button className="btn-filter" onClick={() => setShowSidebar((prevState) => !prevState)}>
 						<i className="fa fa-filter" />
@@ -175,6 +189,7 @@ const MoviesList: React.FC<{ searchWord: string | undefined }> = ({ searchWord }
 							movie={movie}
 							onDelete={deleteMovieHandler}
 							onEdit={editMovieHandler}
+							isForUser={isForUser}
 						/>
 					))}
 				</ul>

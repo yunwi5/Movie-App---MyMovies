@@ -45,6 +45,33 @@ interface Movie {
 	year: number | null;
 	isFavorite: boolean;
 	director: string | null;
+	isFromStore: boolean;
+	// UserMovie needs to have key, so that user can send DELETE request using the movie key.
+	key?: string;
 }
+
+// class UserMovie implements Movie {
+// 	id: string;
+// 	title: string;
+// 	rating: number;
+// 	description: string;
+// 	imgUrl: string;
+// 	genreList: genre[];
+// 	producer: string | null;
+// 	duration: number | null;
+// 	year: number | null;
+// 	isFavorite: boolean;
+// 	director: string | null;
+// 	isFromStore: boolean;
+// 	// UserMovie nees to have key, so that user can send DELETE request using the movie key.
+// 	key?: string;
+
+// 	constructor(movieObj: Object) {
+// 		this.id = movieObj.id;
+// 		this.title = inTitle;
+// 	}
+// }
+
+// export UserMovie;
 
 export default Movie;

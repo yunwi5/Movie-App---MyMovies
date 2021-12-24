@@ -3,13 +3,14 @@ import { useParams } from "react-router-dom";
 import MovieContext from "../../store/movie-context";
 import MovieDetail from "../../components/movies/MovieDetail";
 
-const MovieDetailPage: React.FC = () => {
+const MovieDetailStore: React.FC = () => {
 	// Movie Detail Page will contain not only MovieDetail, but also its sidebar
 	const params = useParams();
 	const movieId = params.movieId || "";
 
 	const movieCtx = useContext(MovieContext);
-	const movie = movieCtx.getMovie(movieId);
+
+	const movie = movieCtx.getStoreMovie(movieId);
 
 	// Not Found Page is displayed instead
 	if (!movie) {
@@ -19,4 +20,4 @@ const MovieDetailPage: React.FC = () => {
 	return <MovieDetail movie={movie} />;
 };
 
-export default MovieDetailPage;
+export default MovieDetailStore;

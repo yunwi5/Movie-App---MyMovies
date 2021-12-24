@@ -53,4 +53,28 @@ const sortMovies = (moviesList: Movie[], sortingStandard: string, dir: string | 
 	}
 };
 
+// Create DUMMY MOVIES for starting users.
+export function toUserMovies (dummyMovies: Movie[], moviesAmount: number) {
+	let userMovies: Movie[] = [];
+	for (let i = 0; i < dummyMovies.length; i++) {
+		if (i >= moviesAmount) break;
+		const m = dummyMovies[i];
+		userMovies.push({ ...m, isFromStore: false });
+	}
+	return userMovies;
+}
+
+// Convert Movies Obj to Movies Array.
+// Being used in movie-api.ts getUserBySearch and getUserById Fn.
+export function toMovieArray (movies: Object | Array<Movie>) {
+	if (Array.isArray(movies)) return movies;
+
+	let moviesArray: Movie[] = [];
+	Object.entries(movies).forEach(([ key, value ]) => {
+		moviesArray.push({ ...value, key });
+	});
+
+	return moviesArray;
+}
+
 export default sortMovies;
