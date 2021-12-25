@@ -5,28 +5,43 @@ import { toDurationString } from "../../utilities/movies-util";
 import DeleteModal from "../UI/Modal/DeleteModal";
 import MovieContext from "../../store/movie-context";
 import Rating from "@mui/material/Rating";
+import AddModal from "../UI/Modal/AddModal";
 
 interface Props {
 	movie: Movie;
-	onDelete: (movie: Movie) => void;
 	onEdit: (movie: Movie) => void;
 	isForUser: boolean;
 }
 
 const MovieCard: React.FC<Props> = (props) => {
-	const { movie, onDelete, onEdit, isForUser } = props;
+	const { movie, onEdit, isForUser } = props;
 
 	const navigate = useNavigate();
 	const movieCtx = useContext(MovieContext);
 
-	const [ showModal, setShowModal ] = useState(false);
-	const modalContent = {
+	const [ showDeleteModal, setShowDeleteModal ] = useState(false);
+	const deleteModalContent = {
 		movie,
 		message: `Are you sure you want to delete ${movie.title}?`,
-		onDelete,
+		onDelete: () => {
+			movieCtx.deleteMovie(movie);
+			navigate("/movies");
+		},
 		onClose: () => {
-			console.log("Why not close?");
-			setShowModal(false);
+			setShowDeleteModal(false);
+		}
+	};
+
+	const [ showAddModal, setShowAddModal ] = useState(false);
+	const addModalContent = {
+		movie,
+		message: `Movie ${movie.title} will be added to your collection!`,
+		onAdd: () => {
+			movieCtx.addMovie(movie);
+			navigate("/movies");
+		},
+		onClose: () => {
+			setShowAddModal(false);
 		}
 	};
 
@@ -36,11 +51,11 @@ const MovieCard: React.FC<Props> = (props) => {
 	};
 
 	const deleteHandler = () => {
-		setShowModal(true);
+		setShowDeleteModal(true);
 	};
 
 	const addHandler = () => {
-		movieCtx.addMovie(movie);
+		setShowAddModal(true);
 	};
 
 	const navigateToDetail = () => {
@@ -120,7 +135,8 @@ const MovieCard: React.FC<Props> = (props) => {
 					</div>
 				</div>
 			</div>
-			{showModal && <DeleteModal modalContent={modalContent} />}
+			{showAddModal && <AddModal modalContent={addModalContent} />}
+			{showDeleteModal && <DeleteModal modalContent={deleteModalContent} />}
 		</React.Fragment>
 	);
 };

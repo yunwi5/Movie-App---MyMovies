@@ -3,10 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { toDurationString } from "../../utilities/movies-util";
 import MovieContext from "../../store/movie-context";
 import DeleteModal from '../UI/Modal/DeleteModal';
-import MovieSidebar from '../movies/MovieSidebar';
+import MovieSidebar from './MovieSupport/MovieSidebar';
 import Movie from '../../models/Movie';
 import Rating from "@mui/material/Rating";
 import getSimilarMovies from '../../utilities/movies-select-util';
+import AddModal from "../UI/Modal/AddModal";
+import MovieNavIcon from "./MovieSupport/MovieNavIcon";
 
 
 // The functionality inclused deleting movie, editing movie (not available at the moment)
@@ -22,8 +24,10 @@ const MovieDetail: React.FC<{movie: Movie}> = ({movie}) => {
 	const [navIsActive, setNavIsActive] = useState(false);
 	const [enableBackdrop, setEnableBackdrop] = useState(false);
 
-	const [showModal, setShowModal] = useState(false);
 	const [showSidebar, setShowSidebar] = useState(false); 
+
+	const [showDeleteModal, setShowDeleteModal] = useState(false);
+	const [showAddModal, setShowAddModal] = useState(false);
 
 
 	const similarMovies = useMemo(() => {
@@ -32,19 +36,29 @@ const MovieDetail: React.FC<{movie: Movie}> = ({movie}) => {
 		return similarMoviesAvailable.slice(0, Math.min(similarMoviesAvailable.length, 7));
 	}, [movieId]) 
 
-	// This will differentiate between store movies and user custom movies.
-	const movieIsFromStore = movie.isFromStore;
-
 	const deleteModalContent = {
 		movie,
 		message: `Are you sure you want to delete ${movie.title}?`,
 		onDelete: () => {
 			movieCtx.deleteMovie(movie);
-			setShowModal(false);
+			setShowDeleteModal(false);
 			navigate('/movies');
 		},
 		onClose: () => {
-			setShowModal(false);
+			setShowDeleteModal(false);
+		}
+	}
+
+	const addModalContent = {
+		movie,
+		message: `Movie  ${movie.title} will be added to your collection`,
+		onAdd: () => {
+			movieCtx.addMovie(movie);
+			setShowAddModal(false);
+			navigate(`/movie-detail/user/${movie.id}`);
+		},
+		onClose: () => {
+			setShowAddModal(false);
 		}
 	}
 
@@ -79,32 +93,24 @@ const MovieDetail: React.FC<{movie: Movie}> = ({movie}) => {
 		movieCtx.editMovie(newMovie);
 	}
 
-	const isFromStore = movie.isFromStore;
+	const isForUser = !movie.isFromStore;
 
 	return (
 		<React.Fragment>
-		{showModal && <DeleteModal modalContent={deleteModalContent}  />}
+		{showDeleteModal && <DeleteModal modalContent={deleteModalContent}  />}
+		{showAddModal && <AddModal modalContent={addModalContent} />}
 		<main className="movie-detail">
 			{showSidebar && similarMovies && < MovieSidebar  movies={similarMovies} onClose={() => setShowSidebar(false)} /> }
 			<section className="movie-detail__top" onClick={backdropNavHandler}>
-				<div className={`movie-detail__nav ${navIsActive ? "movie-detail__nav--active" : ""}`}>
-					<div className="icon-wrapper" onClick={toggleNavHandler}>
-						<i className="fa fa-bars"></i>
-					</div>
-					<ul className="movie-detail__nav-bar">
-						<li className="similar" onClick={() => setShowSidebar(true)}>
-							<i className="fa fa-video-camera" />
-							Similar Movies
-						</li>
-						<li className="edit">
-							<i className="fa fa-pencil" /> Edit
-						</li>
-						<li className="delete" onClick={() => setShowModal(true)}>
-							<i className="fa fa-eraser" />
-							Delete
-						</li>
-					</ul>
-				</div>
+
+				{isForUser && 
+				<MovieNavIcon 
+					navIsActive={navIsActive} 
+					onToggle={toggleNavHandler} 
+					onShowSidebar={() => setShowSidebar(true)} 
+					onShowModal={() => setShowDeleteModal(true)}
+				/>}
+
 				<div className="movie-detail__heading">
 					<div className="img-wrapper">
 						<img src={movie.imgUrl} />
@@ -142,7 +148,8 @@ const MovieDetail: React.FC<{movie: Movie}> = ({movie}) => {
 				</div>
 
 				<div className="movie-detail__links">
-					<button className="btn btn-favorite" onClick={setFavoriteHandler}>{movie.isFavorite ? "Unfavorite" : "Favorite"}</button>
+					{isForUser && <button className="btn btn-favorite" onClick={setFavoriteHandler}>{movie.isFavorite ? "Unfavorite" : "Favorite"}</button> }
+					{!isForUser && <button className="btn btn-add" onClick={() => setShowAddModal(true)}>Collect</button>}
 					<button className="btn btn-watch"><a href={watchUrl}>Watch</a></button>
 					<button className="btn btn-more"><a href={moreDetailUrl}>See More</a></button>
 					{!showSidebar && 

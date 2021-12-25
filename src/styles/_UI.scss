@@ -76,6 +76,8 @@
 	margin: 0 auto;
 
 	& h2 {
+		font-size: 2.2rem;
+		text-transform: uppercase;
 	}
 
 	& ul {
@@ -92,22 +94,6 @@
 		color: var(--color-primary-lighter);
 	}
 
-	& button {
-		align-self: center;
-		margin-top: 3rem;
-		width: 40%;
-		padding: 1rem 1.5rem;
-		font-size: 1.8rem;
-	}
-}
-
-//////////////////////////////////////
-/////// DELETE MODAL VARAITION
-.modal-content--delete {
-	& h2 {
-		color: rgb(218, 85, 85);
-	}
-
 	& p {
 		display: flex;
 		font-size: 1.4rem;
@@ -119,14 +105,47 @@
 	}
 
 	& button {
-		cursor: pointer;
-		border: rgb(218, 85, 85);
+		align-self: center;
+		margin-top: 3rem;
+		width: 40%;
+		padding: 1rem 1.5rem;
+		font-size: 1.8rem;
 		border-radius: 2rem;
+		cursor: pointer;
+	}
+}
+
+//////////////////////////////////////
+/////// DELETE MODAL VARAITION
+.modal-content--delete {
+	& h2 {
+		color: rgb(218, 85, 85);
+	}
+
+	& button {
+		border: rgb(218, 85, 85);
 		color: rgb(218, 85, 85);
 	}
 
 	& button:hover {
 		background-color: rgb(218, 85, 85);
 		color: var(--color-grey-light-2);
+	}
+}
+
+//////////////////////////////////////
+/////// ADD MODAL
+.modal-content--add {
+	& h2 {
+		color: var(--color-secondary);
+	}
+
+	& button {
+		background-color: var(--color-secondary);
+		color: var(--color-grey-light-2);
+	}
+
+	.fa {
+		color: var(--color-primary-little-dark);
 	}
 }

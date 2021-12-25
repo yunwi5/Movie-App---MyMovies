@@ -36,7 +36,6 @@ export const AuthContextProvider: React.FC = (props) => {
 
 	const [ token, setToken ] = useState<string | null>(retrievedToken);
 	const [ email, setEmail ] = useState<string | null>(retrievedEmail);
-
 	const [ userId, setUserId ] = useState<string | null>(retrievedId);
 
 	const [ user, setUser ] = useState<User | null>(null);
@@ -48,14 +47,7 @@ export const AuthContextProvider: React.FC = (props) => {
 		setToken(token);
 		setEmail(email);
 		localStorage.setItem("token", token);
-		localStorage.setItem(email, email);
-		localStorage.setItem(
-			"userState",
-			JSON.stringify({
-				token,
-				email
-			})
-		);
+		localStorage.setItem("email", email);
 	};
 
 	const logout = () => {
@@ -65,7 +57,6 @@ export const AuthContextProvider: React.FC = (props) => {
 		setUserId(null);
 		localStorage.removeItem("token");
 		localStorage.removeItem("email");
-		localStorage.removeItem("userState");
 		localStorage.removeItem("id");
 		navigate("/home");
 	};

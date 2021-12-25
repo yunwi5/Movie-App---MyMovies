@@ -1,20 +1,28 @@
-import React, { useState } from "react";
-import { getAllUsers, getUserById, getUserBySearch } from "../../api/user-api";
+import React, { useState, useContext } from "react";
+import AuthContext from "../../store/auth-context";
 
 const Home: React.FC = () => {
-	const [ users, setUsers ] = useState<{}>([]);
+	const user = useContext(AuthContext).user;
+	const userName = user!.userName;
 
-	const uploadUsersHandler = async () => {
-		const users = await getAllUsers();
-		setUsers(users);
-	};
+	// Main Home Page
+	// This page should display various visual information to the user.
+	// What to display ?
+
 	return (
-		<main>
-			<h2>Hi, Home</h2>
-			<button className="btn-gen" onClick={uploadUsersHandler}>
-				Get all users
-			</button>
-			<pre style={{ fontSize: "17px" }}>{JSON.stringify(users, null, 2)}</pre>
+		<main className="home">
+			<section className="home__heading">
+				<img alt="heading img" />
+				<h1>Welcome to MyMovies App, {userName}</h1>
+			</section>
+
+			<section className="home__about">
+				<h2>Why use MyMovies App?</h2>
+			</section>
+
+			<footer className="home__footer">
+				<h2>Hope you enjoy our service!</h2>
+			</footer>
 		</main>
 	);
 };

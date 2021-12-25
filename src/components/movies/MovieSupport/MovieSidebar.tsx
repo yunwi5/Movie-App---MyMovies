@@ -1,6 +1,5 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Movie from "../../models/Movie";
+import Movie from "../../../models/Movie";
 
 type Prop = {
 	movies: Movie[];

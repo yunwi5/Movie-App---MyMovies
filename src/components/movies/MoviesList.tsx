@@ -2,8 +2,11 @@ import React, { useContext, useState, useEffect } from "react";
 import MovieContext from "../../store/movie-context";
 import MovieFilter from "./MoviesFilter/MovieFilter";
 import MovieCard from "./MovieCard";
+import MoviePageNav from "./MovieSupport/MoviePageNav";
+
 import Movie, { genre as MovieGenre } from "../../models/Movie";
 import sortMovies, { filterMovies, getCurrentPageMovies } from "../../utilities/movies-util";
+
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import { InputLabel, FormControl } from "@mui/material";
@@ -40,14 +43,6 @@ const MoviesList: React.FC<Props> = ({ isForUser, initialMovies }) => {
 	// console.log("Inside component, initialMovies length:", initialMovies.length);
 	// console.log("Inside component, moviesList length:", moviesList.length);
 	// console.log("Inside component, filteredMovies length:", filteredMovies.length);
-
-	const deleteMovieHandler = (movie: Movie) => {
-		movieCtx.deleteMovie(movie);
-		const newMoviesList = [ ...moviesList ].filter((m) => m.id !== movie.id);
-		setMoviesList(newMoviesList);
-		const newFilteredMoviesList = [ ...filteredMovies ].filter((m) => m.id !== movie.id);
-		setFilteredMovies(newFilteredMoviesList);
-	};
 
 	const editMovieHandler = (newMovie: Movie) => {
 		movieCtx.editMovie(newMovie);
@@ -187,33 +182,18 @@ const MoviesList: React.FC<Props> = ({ isForUser, initialMovies }) => {
 						<MovieCard
 							key={movie.id}
 							movie={movie}
-							onDelete={deleteMovieHandler}
 							onEdit={editMovieHandler}
 							isForUser={isForUser}
 						/>
 					))}
 				</ul>
-				<section className="page-nav">
-					<div
-						className={`page-nav__icon-wrap ${currentPage === 1
-							? "page-nav__icon-wrap--invalid"
-							: ""}`}
-						onClick={prevPageHandler}
-					>
-						<i className="fa fa-angle-left" />
-					</div>
-					<p className="page-numbers">
-						<strong>{currentPage}</strong> <i className="fa fa-minus" /> {totalPages}
-					</p>
-					<div
-						className={`page-nav__icon-wrap ${currentPage === totalPages
-							? "page-nav__icon-wrap--invalid"
-							: ""}`}
-						onClick={nextPageHandler}
-					>
-						<i className="fa fa-angle-right" />
-					</div>
-				</section>
+
+				<MoviePageNav
+					currentPage={currentPage}
+					totalPages={totalPages}
+					onPrev={prevPageHandler}
+					onNext={nextPageHandler}
+				/>
 			</div>
 		</main>
 	);

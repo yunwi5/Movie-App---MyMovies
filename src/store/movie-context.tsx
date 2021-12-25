@@ -20,12 +20,8 @@ const contextObj: Props = {
 	addMovie: (movie: Movie) => {},
 	deleteMovie: (movie: Movie) => {},
 	editMovie: (movie: Movie) => {},
-	getUserMovie: (id: string): Movie | undefined => {
-		return undefined;
-	},
-	getStoreMovie: (id: string): Movie | undefined => {
-		return undefined;
-	},
+	getUserMovie: (id: string): Movie | undefined => undefined,
+	getStoreMovie: (id: string): Movie | undefined => undefined,
 };
 
 const MovieContext: React.Context<Props> = React.createContext(contextObj);
@@ -44,18 +40,22 @@ export const MovieContextProvider: React.FC = (props) => {
 
 	const addMovie = async (newMovie: Movie) => {
 		const isAlreadyAdded = moviesList.findIndex((m) => m.id === newMovie.id);
-		if (isAlreadyAdded >= 0) return;
-
+		if (isAlreadyAdded >= 0) {
+			alert(`Movie ${newMovie.title} was already added to your collection!`);
+			return;
+		}
 		// The movies were not previously added.
 		if (newMovie.isFromStore) {
 			newMovie = { ...newMovie, isFromStore: false };
 		}
-		setMoviesList((prevMovies) => [ newMovie, ...prevMovies ]);
-
 		// Send some POST request to the Server at the same time!
 		if (!id || !newMovie.id) return;
 		console.log('Try adding movie to the user!');
-		await addMovieToUser(id, newMovie);
+		const movieKey = await addMovieToUser(id, newMovie);
+		newMovie.key = movieKey;
+
+		// Set the movie lst after getting movieKey from the Server.
+		setMoviesList((prevMovies) => [ newMovie, ...prevMovies ]);
 	};
 
 	const deleteMovie = (movie: Movie) => {
@@ -73,6 +73,11 @@ export const MovieContextProvider: React.FC = (props) => {
 		const idx = moviesList.findIndex((m) => m.id === newMovie.id);
 		newMovies[idx] = newMovie;
 		setMoviesList(newMovies);
+
+		// Put modified movie to the Database with PUT Request.
+		// Currently, the only modification is isFavorite property.
+		if(!id) return;
+		putUserMovie(id, newMovie);
 	};
 
 	const getUserMovie = (id: string) => {
@@ -84,15 +89,13 @@ export const MovieContextProvider: React.FC = (props) => {
 		const storeMovie = storeMovies.find((movie) => movie.id === id);
 		return storeMovie;
 	};
-
-
 	
 	useEffect(() => {
 		if (email) {
 			setMoviesList(authCtx.user?.movies || []);
 		}
 
-	}, [id])
+	}, [id, email])
 
 	const value = {
 		storeMovies,
