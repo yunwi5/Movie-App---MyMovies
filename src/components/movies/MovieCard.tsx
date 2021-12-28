@@ -69,7 +69,7 @@ const MovieCard: React.FC<Props> = (props) => {
 	return (
 		<React.Fragment>
 			<div key={movie.id} className="movie-card">
-				{movie.isFavorite && <i className="fa fa-star-o" />}
+				{movie.isFavorite && <i className="fa fa-star fa-favorite" />}
 				<div className="image-wrapper">
 					<img src={movie.imgUrl} />
 				</div>
@@ -89,7 +89,7 @@ const MovieCard: React.FC<Props> = (props) => {
 										<i className="fa fa-star" />
 										{movie.isFavorite ? "Unfavorite" : "Favorite"}
 									</li>
-									<li>
+									<li onClick={() => navigate(`/movie-edit/${movie.id}`)}>
 										<i className="fa fa-pencil" />
 										Edit
 									</li>

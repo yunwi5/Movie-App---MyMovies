@@ -65,7 +65,7 @@
 
 		&:hover {
 			color: #fff;
-			background: linear-gradient(0.25turn, var(--color-primary-dark), var(--color-primary));
+			background: linear-gradient(0.25turn, var(--color-primary), var(--color-primary-light));
 		}
 	}
 
@@ -75,21 +75,21 @@
 	}
 
 	& .auth-link {
+		margin-left: .5rem;
 		font-weight: 700;
 		color: var(--color-primary-darkest);
+		text-decoration: none;
+		border-bottom: 2px solid $color-primary-dark-1;
 
 		&:hover {
-			color: var(--color-primary-light);
+			color: darken($color-primary, 15%);
+			border-bottom: 2px solid darken($color-primary, 15%);
 		}
 	}
 }
 
 .auth-form--invalid {
 	height: 82%;
-
-	// & .wrapper {
-	// 	margin-bottom: .5rem;
-	// }
 
 	& .password-wrapper {
 		margin-top: 2rem;

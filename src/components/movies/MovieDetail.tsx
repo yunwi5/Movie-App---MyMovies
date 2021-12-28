@@ -106,6 +106,7 @@ const MovieDetail: React.FC<{movie: Movie}> = ({movie}) => {
 				{isForUser && 
 				<MovieNavIcon 
 					navIsActive={navIsActive} 
+					onEdit={() => navigate(`/movie-edit/${movie.id}`)}
 					onToggle={toggleNavHandler} 
 					onShowSidebar={() => setShowSidebar(true)} 
 					onShowModal={() => setShowDeleteModal(true)}
@@ -117,7 +118,7 @@ const MovieDetail: React.FC<{movie: Movie}> = ({movie}) => {
 					</div>
 					<div className="heading-content">
 						<h1 className="movie-title">{movie.title} 
-							{movie.isFavorite ? <i className="fa fa-star-o" ></i> : ''}
+							{movie.isFavorite ? <i className="fa fa-bookmark" ></i> : ''}
 						</h1>
 						<p className="movie-time">
 							<span className="movie-time__main">
@@ -148,8 +149,13 @@ const MovieDetail: React.FC<{movie: Movie}> = ({movie}) => {
 				</div>
 
 				<div className="movie-detail__links">
-					{isForUser && <button className="btn btn-favorite" onClick={setFavoriteHandler}>{movie.isFavorite ? "Unfavorite" : "Favorite"}</button> }
-					{!isForUser && <button className="btn btn-add" onClick={() => setShowAddModal(true)}>Collect</button>}
+					{isForUser && <button className="btn btn-favorite" onClick={setFavoriteHandler}>
+						{!movie.isFavorite && <><i className="fa fa-star" ></i>Favorite</>}
+						{movie.isFavorite && <><i className="fa fa-star-o" ></i>Unfavorite</>}
+					</button> }
+					{!isForUser && <button className="btn btn-add" onClick={() => setShowAddModal(true)}> 
+						Collect
+					</button>}
 					<button className="btn btn-watch"><a href={watchUrl}>Watch</a></button>
 					<button className="btn btn-more"><a href={moreDetailUrl}>See More</a></button>
 					{!showSidebar && 

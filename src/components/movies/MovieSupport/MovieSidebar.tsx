@@ -18,13 +18,16 @@ const MovieSidebar: React.FC<Prop> = ({ movies, onClose }) => {
 	return (
 		<aside className="movies-sidebar">
 			<h2 onClick={onClose}>
-				Similar Films <i className="fa fa-angle-right" />
+				Similar Store Films <i className="fa fa-angle-right" />
 			</h2>
 
 			<ul>
 				{movies.map((movie, idx) => (
 					<li className={`movie-card ${idx <= 2 ? "" : "movie-card--below"}`} key={idx}>
-						<div className="image-wrapper" onClick={switchMovieHandler.bind(null, movie.id)}>
+						<div
+							className="image-wrapper"
+							onClick={switchMovieHandler.bind(null, movie.id)}
+						>
 							<img src={movie.imgUrl} alt="Movie image" />
 						</div>
 						<div className="movie-content">
@@ -34,6 +37,7 @@ const MovieSidebar: React.FC<Prop> = ({ movies, onClose }) => {
 								{movie.rating}
 								<i className="fa fa-star" />
 							</p>
+							{movie.director && <p>{movie.director}</p>}
 							<p>{movie.genreList[0]}</p>
 						</div>
 					</li>

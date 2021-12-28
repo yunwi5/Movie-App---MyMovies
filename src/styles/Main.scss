@@ -1,13 +1,23 @@
-@import 'Base';
-@import 'Layout';
-@import 'Animation';
-@import 'UI';
-@import 'Auth';
-@import 'Movies/Movies';
-@import 'Movies/MovieForm';
-@import 'Movies/MovieFilter';
-@import 'Movies/MovieDetail';
-@import 'NotFound';
-@import 'Display/Home';
-@import 'Display/About';
-@import 'Display/MovieStore';
+@import 'Abstracts/Variables';
+@import 'Abstracts/Mixins';
+
+@import 'Base/Animation';
+@import 'Base/Base';
+@import 'Base/Button';
+@import 'Base/Typography';
+
+@import 'Components/Auth';
+@import 'Components/UI';
+
+@import 'Components/Movies/Movies';
+@import 'Components/Movies/MovieDetail';
+@import 'Components/Movies/MovieEdit';
+@import 'Components/Movies/MovieForm';
+@import 'Components/Movies/MovieFilter';
+
+@import 'Layout/Layout';
+
+@import 'Pages/About';
+@import 'Pages/Home';
+@import 'Pages/NotFound';
+@import 'Pages/MovieStore';

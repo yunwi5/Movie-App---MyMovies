@@ -1,12 +1,15 @@
+import { Link } from "react-router-dom";
+
 interface NavIconProps {
 	navIsActive: boolean;
+	onEdit: () => void;
 	onToggle: () => void;
 	onShowSidebar: () => void;
 	onShowModal: () => void;
 }
 
 const MovieNavIcon: React.FC<NavIconProps> = (props) => {
-	const { navIsActive, onToggle, onShowSidebar, onShowModal } = props;
+	const { navIsActive, onEdit, onToggle, onShowSidebar, onShowModal } = props;
 
 	return (
 		<div className={`movie-detail__nav ${navIsActive ? "movie-detail__nav--active" : ""}`}>
@@ -18,7 +21,7 @@ const MovieNavIcon: React.FC<NavIconProps> = (props) => {
 					<i className="fa fa-video-camera" />
 					Similar Movies
 				</li>
-				<li className="edit">
+				<li className="edit" onClick={onEdit}>
 					<i className="fa fa-pencil" /> Edit
 				</li>
 				<li className="delete" onClick={onShowModal}>

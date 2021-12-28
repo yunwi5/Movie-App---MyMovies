@@ -38,6 +38,11 @@ body,
 		&:hover {
 			color: var(--color-grey-light-2);
 		}
+
+		.heading {
+			text-decoration: none;
+			color: inherit;
+		}
 	}
 
 	& .fa {
@@ -67,7 +72,7 @@ body,
 			border: none;
 			flex: 1;
 			height: 100%;
-			font-size: 1.5rem;
+			font-size: 1.7rem;
 			color: var(--color-grey-dark-2);
 			background: transparent;
 
@@ -78,12 +83,12 @@ body,
 
 		& span {
 			margin-right: 1rem;
-			font-size: 1.9rem;
+			font-size: 1.5rem;
 			transition: all .3s linear;
-			cursor: default;
+			cursor: pointer;
 
 			&:hover {
-				transform: translateY(-.25rem);
+				transform: translateY(-.15rem);
 			}
 		}
 	}
@@ -91,7 +96,7 @@ body,
 	& ul {
 		list-style: none;
 		display: flex;
-		font-size: 1.8rem;
+		font-size: 1.95rem;
 		padding: 0;
 		height: 100%;
 
@@ -121,7 +126,8 @@ body,
 				background-color: var(--color-primary-darkest);
 				transform: scaleY(0);
 				transform-origin: bottom;
-				transition: transform .2s, width .4s cubic-bezier(1, .01, 0, .98) .2s, background-color .1s;
+				transition: transform .2s, width .4s cubic-bezier(1, .01, 0, .98) .2s,
+					background-color .1s;
 			}
 
 			&:hover::before {
@@ -129,14 +135,46 @@ body,
 				width: 100%;
 			}
 		}
+
+		.userIcon {
+			text-align: center;
+			font-size: 3.3rem;
+
+			.fa {
+				margin-right: 0;
+			}
+		}
 	}
 }
 
-.heading {
+// NAV li
+.nav-item {
+	padding: .5rem 1rem;
 	text-decoration: none;
 	color: inherit;
+	position: relative;
+
+	&::after {
+		content: "";
+		width: 100%;
+		position: absolute;
+		left: 0;
+		bottom: -.3rem;
+		background-color: var(--color-grey-light-2);
+	}
+
+	&:hover::after {
+		content: '';
+		height: 1.8px;
+	}
 }
 
+.nav-active {
+	color: var(--color-grey-light-3);
+	border-bottom: 2px solid var(--color-grey-light-3);
+}
+
+// NESTING NAV
 .nav-front {
 	&__categories {
 		position: relative;
@@ -189,36 +227,6 @@ body,
 			}
 		}
 	}
-}
-
-.nav-item {
-	padding: .5rem 1rem;
-	text-decoration: none;
-	color: inherit;
-	position: relative;
-
-	&::after {
-		content: "";
-		width: 100%;
-		position: absolute;
-		left: 0;
-		bottom: -.3rem;
-		background-color: var(--color-grey-light-2);
-	}
-
-	&:hover::after {
-		content: '';
-		height: 1.8px;
-	}
-}
-
-.nav-active {
-	color: var(--color-grey-light-3);
-	border-bottom: 2px solid var(--color-grey-light-3);
-}
-
-.userIcon {
-	font-size: 3.3rem;
 }
 
 /////////////////////////////////////////////

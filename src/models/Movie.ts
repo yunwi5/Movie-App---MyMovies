@@ -27,7 +27,7 @@ export type genre =
 	| "Comedies"
 	| "Music & Musicals"
 	| "Science-Fiction & Fantasy"
-	| "Action & Adventurs"
+	| "Action & Adventures"
 	| "Documentaries"
 	| "Other";
 

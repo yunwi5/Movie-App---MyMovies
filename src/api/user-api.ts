@@ -3,12 +3,14 @@ import User from "../models/User";
 import Movie from "../models/Movie";
 import { toUserMovies, toMovieArray } from "../utilities/movies-util";
 
-export const FIREBASE_DOMAIN = "https://react-http-7e82d-default-rtdb.firebaseio.com";
+// UPDATED
+export const API_KEY = "AIzaSyDTZ0QbMDjcR020EQXdsQ7KSOcfJwPT7vQ";
+export const FIREBASE_DOMAIN = "https://react-movie-app-336f6-default-rtdb.firebaseio.com";
 
 // This Fn is called when the new user is signed in!
 export const addUser = async (enteredName: string, enteredEmail: string) => {
 	console.log("Try adding user!");
-	const amountBooksToAdd = Math.floor(Math.random() * 7);
+	const amountBooksToAdd = Math.floor(Math.random() * 7) + 2;
 
 	const res2 = await fetch(`${FIREBASE_DOMAIN}/users.json`, {
 		method: "POST",
@@ -33,7 +35,7 @@ export const addUser = async (enteredName: string, enteredEmail: string) => {
 // Call after the first time when the user is already logged in, but instead refreshes the screen.
 export const getUserById = async (userId: string) => {
 	console.log("call api getUserById");
-	const response = await fetch(`https://react-http-7e82d-default-rtdb.firebaseio.com/users/${userId}.json`);
+	const response = await fetch(`${FIREBASE_DOMAIN}/users/${userId}.json`);
 	const data = await response.json();
 
 	if (!response.ok) {

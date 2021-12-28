@@ -12,7 +12,7 @@ const DUMMY_MOVIES: Movie[] = [
 		director: "Joe Russo",
 		duration: 182,
 		year: 2019,
-		genreList: [ "Action & Adventurs", "Science-Fiction & Fantasy" ],
+		genreList: [ "Action & Adventures", "Science-Fiction & Fantasy" ],
 		isFavorite: false,
 		isFromStore: true
 	},
@@ -27,7 +27,7 @@ const DUMMY_MOVIES: Movie[] = [
 		director: "Anthony Russo & Joe Russo",
 		duration: null,
 		year: 2018,
-		genreList: [ "Action & Adventurs", "Science-Fiction & Fantasy" ],
+		genreList: [ "Action & Adventures", "Science-Fiction & Fantasy" ],
 		isFavorite: false,
 		isFromStore: true
 	},
@@ -41,7 +41,7 @@ const DUMMY_MOVIES: Movie[] = [
 		director: "Christopher Nolan",
 		duration: 152,
 		year: 2009,
-		genreList: [ "Action & Adventurs", "Thriller" ],
+		genreList: [ "Action & Adventures", "Thriller" ],
 		isFavorite: false,
 		isFromStore: true
 	},
@@ -56,7 +56,7 @@ const DUMMY_MOVIES: Movie[] = [
 		director: "Jon Watts",
 		duration: null,
 		year: 2017,
-		genreList: [ "Action & Adventurs" ],
+		genreList: [ "Action & Adventures" ],
 		isFavorite: false,
 		isFromStore: true
 	},
@@ -72,7 +72,7 @@ const DUMMY_MOVIES: Movie[] = [
 		director: "James Gunn & David Ayer",
 		duration: 132,
 		year: 2016,
-		genreList: [ "Action & Adventurs" ],
+		genreList: [ "Action & Adventures" ],
 		isFavorite: false,
 		isFromStore: true
 	},
@@ -135,7 +135,7 @@ const DUMMY_MOVIES: Movie[] = [
 		director: "Haruo Sotozaki",
 		duration: 117,
 		year: 2021,
-		genreList: [ "Anime", "Action & Adventurs" ],
+		genreList: [ "Anime", "Action & Adventures" ],
 		isFavorite: false,
 		isFromStore: true
 	},
@@ -167,7 +167,7 @@ const DUMMY_MOVIES: Movie[] = [
 		director: "Sam Raimi",
 		duration: 121,
 		year: 2002,
-		genreList: [ "Action & Adventurs", "Science-Fiction & Fantasy" ],
+		genreList: [ "Action & Adventures", "Science-Fiction & Fantasy" ],
 		isFavorite: false,
 		isFromStore: true
 	},
@@ -183,7 +183,7 @@ const DUMMY_MOVIES: Movie[] = [
 		director: "Sam Raimi",
 		duration: 127,
 		year: 2004,
-		genreList: [ "Action & Adventurs", "Science-Fiction & Fantasy" ],
+		genreList: [ "Action & Adventures", "Science-Fiction & Fantasy" ],
 		isFavorite: false,
 		isFromStore: true
 	},
@@ -199,7 +199,7 @@ const DUMMY_MOVIES: Movie[] = [
 		director: "Sam Raimi",
 		duration: 139,
 		year: 2007,
-		genreList: [ "Action & Adventurs", "Science-Fiction & Fantasy" ],
+		genreList: [ "Action & Adventures", "Science-Fiction & Fantasy" ],
 		isFavorite: false,
 		isFromStore: true
 	},
@@ -215,7 +215,7 @@ const DUMMY_MOVIES: Movie[] = [
 		director: "Taika Waititi & Alan Taylor & Kenneth Branagh",
 		duration: 114,
 		year: 2011,
-		genreList: [ "Action & Adventurs", "Science-Fiction & Fantasy" ],
+		genreList: [ "Action & Adventures", "Science-Fiction & Fantasy" ],
 		isFavorite: false,
 		isFromStore: true
 	},
@@ -230,7 +230,7 @@ const DUMMY_MOVIES: Movie[] = [
 		director: "Alan Taylor",
 		duration: 112,
 		year: 2013,
-		genreList: [ "Action & Adventurs", "Science-Fiction & Fantasy" ],
+		genreList: [ "Action & Adventures", "Science-Fiction & Fantasy" ],
 		isFavorite: false,
 		isFromStore: true
 	},
@@ -246,7 +246,7 @@ const DUMMY_MOVIES: Movie[] = [
 		director: "Joe Johnston",
 		duration: 124,
 		year: 2011,
-		genreList: [ "Action & Adventurs", "Science-Fiction & Fantasy" ],
+		genreList: [ "Action & Adventures", "Science-Fiction & Fantasy" ],
 		isFavorite: false,
 		isFromStore: true
 	},
@@ -262,7 +262,7 @@ const DUMMY_MOVIES: Movie[] = [
 		director: "Joe Russo & Anthony Russo",
 		duration: 148,
 		year: 2016,
-		genreList: [ "Action & Adventurs", "Science-Fiction & Fantasy" ],
+		genreList: [ "Action & Adventures", "Science-Fiction & Fantasy" ],
 		isFavorite: false,
 		isFromStore: true
 	}

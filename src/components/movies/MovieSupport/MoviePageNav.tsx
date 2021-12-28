@@ -11,13 +11,15 @@ const MoviePageNav: React.FC<PageProps> = (props) => {
 	return (
 		<section className="page-nav">
 			<div
-				className={`page-nav__icon-wrap ${currentPage === 1 ? "page-nav__icon-wrap--invalid" : ""}`}
+				className={`page-nav__icon-wrap ${currentPage === 1
+					? "page-nav__icon-wrap--invalid"
+					: ""}`}
 				onClick={onPrev}
 			>
 				<i className="fa fa-angle-left" />
 			</div>
 			<p className="page-numbers">
-				<strong>{currentPage}</strong> <i className="fa fa-minus" /> {totalPages}
+				<strong>{currentPage}</strong> &ndash; {totalPages}
 			</p>
 			<div
 				className={`page-nav__icon-wrap ${currentPage === totalPages

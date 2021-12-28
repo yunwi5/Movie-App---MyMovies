@@ -15,6 +15,7 @@
 		flex-direction: column;
 		align-items: space-between;
 		position: relative;
+		z-index: 0;
 	}
 
 	&__bottom {
@@ -108,9 +109,10 @@
 			font-weight: 500;
 
 			& .fa {
-				margin-left: 1.5rem;
-				transform: translateY(.5rem);
-				color: gold;
+				margin-left: 1.8rem;
+				// transform: translateY(.1rem);
+				font-size: 75%;
+				color: var(--color-gold-light-1);
 			}
 		}
 
@@ -234,14 +236,22 @@
 	& .btn-favorite,
 	.btn-add {
 		background-color: #0077b6;
-		color: var(--color-grey-dark-1);
+		color: var(--color-secondary-light-1);
 		font-weight: 590;
-		color: #333;
+		padding: 1.8rem 1.1rem;
+
+		.fa {
+			margin-right: 1rem;
+		}
 
 		&:hover {
 			background-color: #01527e;
 			border: 1.2px solid #01527e;
 		}
+	}
+
+	& .btn-favorite:hover {
+		color: gold;
 	}
 
 	& .btn-watch {

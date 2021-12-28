@@ -1,9 +1,10 @@
 import React, { useState, useRef } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { API_KEY, validateUserName, validateEmail, validatePassword } from "../../utilities/auth-util";
+import { validateUserName, validateEmail, validatePassword } from "../../utilities/auth-util";
 import LoadingSpinner from "../UI/LoadingSpinner";
 import AuthModal from "../UI/Modal/AuthModal";
 import { addUser } from "../../api/user-api";
+import { API_KEY } from "../../api/user-api";
 
 const Signup: React.FC = () => {
 	const navigate = useNavigate();
@@ -11,22 +12,35 @@ const Signup: React.FC = () => {
 	const [ isLoading, setIsLoading ] = useState(false);
 	// Modal
 	const [ showModal, setShowModal ] = useState(false);
-	const [ modalContent, setModalContent ] = useState({ heading: "", messages: [ "" ], onClose: () => {} });
+	const [ modalContent, setModalContent ] = useState({
+		heading: "",
+		messages: [ "" ],
+		onClose: () => {}
+	});
 
 	const userNameRef = useRef<HTMLInputElement>(null);
-	const [ userNameState, setUserNameState ] = useState<{ valid: boolean; userNameMessage: string | null }>({
+	const [ userNameState, setUserNameState ] = useState<{
+		valid: boolean;
+		userNameMessage: string | null;
+	}>({
 		valid: true,
 		userNameMessage: null
 	});
 
 	const emailRef = useRef<HTMLInputElement>(null);
-	const [ emailState, setEmailState ] = useState<{ valid: boolean; emailMessage: string | null }>({
+	const [ emailState, setEmailState ] = useState<{
+		valid: boolean;
+		emailMessage: string | null;
+	}>({
 		valid: true,
 		emailMessage: null
 	});
 
 	const passwordRef = useRef<HTMLInputElement>(null);
-	const [ passwordState, setPasswordState ] = useState<{ valid: boolean; passwordMessage: string | null }>({
+	const [ passwordState, setPasswordState ] = useState<{
+		valid: boolean;
+		passwordMessage: string | null;
+	}>({
 		valid: true,
 		passwordMessage: null
 	});
@@ -63,7 +77,10 @@ const Signup: React.FC = () => {
 		if (isSuccess) {
 			setModalContent({
 				heading: "Sign Up Successful!",
-				messages: [ "You are not the member of MyMovies!", "Please login and enjoy the service!" ],
+				messages: [
+					"You are not the member of MyMovies!",
+					"Please login and enjoy the service!"
+				],
 				onClose: () => {
 					navigate("/auth/login");
 					setShowModal(false);
@@ -133,12 +150,18 @@ const Signup: React.FC = () => {
 
 	return (
 		<form
-			className={`auth-form ${formIsInvalid ? "auth-form--invalid signup-form--invalid" : ""}`}
+			className={`auth-form ${formIsInvalid
+				? "auth-form--invalid signup-form--invalid"
+				: ""}`}
 			onSubmit={submitHandler}
 		>
 			<h2>Sign Up and Start Collection!</h2>
 
-			<div className={`username-wrapper wrapper ${userNameState.valid ? "" : "wrapper--invalid"}`}>
+			<div
+				className={`username-wrapper wrapper ${userNameState.valid
+					? ""
+					: "wrapper--invalid"}`}
+			>
 				<label htmlFor="username-input">
 					<i className="fa fa-user" />
 				</label>
@@ -150,17 +173,29 @@ const Signup: React.FC = () => {
 					ref={userNameRef}
 				/>
 			</div>
-			{!userNameState.valid && <p className="error-message">{userNameState.userNameMessage}</p>}
+			{!userNameState.valid && (
+				<p className="error-message">{userNameState.userNameMessage}</p>
+			)}
 
 			<div className={`email-wrapper wrapper ${emailState.valid ? "" : "wrapper--invalid"}`}>
 				<label htmlFor="email-input">
 					<i className="fa fa-envelope" />
 				</label>
-				<input type="email" placeholder="Email" id="email-input" name="email-input" ref={emailRef} />
+				<input
+					type="email"
+					placeholder="Email"
+					id="email-input"
+					name="email-input"
+					ref={emailRef}
+				/>
 			</div>
 			{!emailState.valid && <p className="error-message">{emailState.emailMessage}</p>}
 
-			<div className={`password-wrapper wrapper ${passwordState.valid ? "" : "wrapper--invalid"}`}>
+			<div
+				className={`password-wrapper wrapper ${passwordState.valid
+					? ""
+					: "wrapper--invalid"}`}
+			>
 				<label htmlFor="password-input">
 					<i className="fa fa-lock" />
 				</label>
@@ -172,7 +207,9 @@ const Signup: React.FC = () => {
 					ref={passwordRef}
 				/>
 			</div>
-			{!passwordState.valid && <p className="error-message">{passwordState.passwordMessage}</p>}
+			{!passwordState.valid && (
+				<p className="error-message">{passwordState.passwordMessage}</p>
+			)}
 
 			{!isLoading && <button>Sign Up</button>}
 			{isLoading && <LoadingSpinner />}

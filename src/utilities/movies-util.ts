@@ -11,7 +11,9 @@ export const getCurrentPageMovies = (movies: Movie[], currentPage: number, perPa
 // Used in MoviesList
 export const filterMovies = (movies: Movie[], searchWord: string | undefined) => {
 	if (!searchWord) return movies;
-	const newMovies = movies.filter((movie) => movie.title.toLowerCase().includes(searchWord.toLowerCase()));
+	const newMovies = movies.filter((movie) =>
+		movie.title.toLowerCase().includes(searchWord.toLowerCase())
+	);
 	return newMovies;
 };
 

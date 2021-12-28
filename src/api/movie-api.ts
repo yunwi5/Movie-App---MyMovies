@@ -38,7 +38,8 @@ export async function deleteMovieFromUser (userId: string, movie: Movie) {
 	// Send DELETE REQUEST to the surver.
 
 	try {
-		if (!movie.key || !(movie.key.length > 0)) throw new Error("Movie key is not even defined!");
+		if (!movie.key || !(movie.key.length > 0))
+			throw new Error("Movie key is not even defined!");
 		const deleteUrl = `${FIREBASE_DOMAIN}/users/${userId}/movies/${movie.key}.json`;
 		const response = await fetch(deleteUrl, {
 			method: "DELETE"

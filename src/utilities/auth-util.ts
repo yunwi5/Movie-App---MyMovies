@@ -1,5 +1,3 @@
-export const API_KEY = "AIzaSyBH5RAej6rhsIZTnJuAPDbcI-AFb-4SyAE";
-
 export const validateUserName = (inputName: string | null) => {
 	if (!inputName) {
 		return { valid: false, message: "You need to enter your username!" };

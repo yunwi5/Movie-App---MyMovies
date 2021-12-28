@@ -81,27 +81,21 @@
 	}
 
 	& ul {
-		margin-top: 1rem;
+		margin-top: .5rem;
 		list-style: none;
 		font-size: 1.4rem;
 
 		& li {
-			padding: .5rem 0;
+			@include prefix-row;
 		}
 	}
 
-	.fa {
+	& i {
 		color: var(--color-primary-lighter);
 	}
 
 	& p {
-		display: flex;
-		font-size: 1.4rem;
-
-		& .fa {
-			margin-right: .7rem;
-			transform: translateY(.3rem);
-		}
+		@include prefix-row;
 	}
 
 	& button {

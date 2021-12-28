@@ -1,0 +1,152 @@
+.home {
+	.heading {
+		background-image: linear-gradient(
+				to right,
+				rgba($color-grey-dark-5, .25),
+				rgba($color-grey-dark-3, .25)
+			),
+			url(https://images.unsplash.com/photo-1524712245354-2c4e5e7121c0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80);
+		width: 100vw;
+		height: 90vh;
+		-webkit-transform: scaleX(-1);
+		transform: scaleX(-1);
+		opacity: 0.95;
+		position: relative;
+		text-align: left;
+
+		& > * {
+			transform: scaleX(-1);
+		}
+
+		&__content {
+			position: absolute;
+			top: 30%;
+			right: 9%;
+			color: $color-grey-light-1;
+		}
+
+		&__title {
+		}
+
+		&__paragraphs {
+			margin-top: 3rem;
+			font-size: 2rem;
+			line-height: 2.8rem;
+		}
+
+		strong {
+			font-weight: 600;
+		}
+
+		&__link {
+			display: inline-block;
+			margin-top: 13rem;
+			text-decoration: none;
+			background-image: linear-gradient($color-secondary-light-3, $color-secondary);
+
+			-webkit-background-clip: text;
+			color: transparent;
+			&::after {
+				@include after-underline($color-secondary-light-1, $color-secondary-light-2);
+				height: 1.2px;
+				width: 0;
+			}
+			&:hover {
+				background-image: linear-gradient(
+					$color-secondary-light-1,
+					$color-secondary-light-2
+				);
+			}
+			&:hover::after {
+				width: 100%;
+			}
+			svg {
+				color: $color-secondary;
+			}
+			&:hover svg {
+				color: darken($color-secondary-light-1, 10%);
+			}
+		}
+	}
+	&__about {
+		width: 100vw;
+		height: 100vh;
+		background-image: linear-gradient(
+			to right bottom,
+			$color-grey-dark-5,
+			$color-grey-dark-2
+		);
+		color: $color-grey-light-2;
+		padding-top: 3.8rem;
+		h1 {
+			font-size: 5.6rem;
+			width: 30%;
+			margin: 0 auto;
+			text-align: center;
+		}
+		.cards-wrapper {
+			width: 90%;
+			margin: 0 auto;
+			margin-top: 6rem;
+			display: flex;
+			justify-content: space-between;
+		}
+		.card {
+			background-color: rgba($color-primary-dark-3, .7);
+			padding: 2rem 0;
+			border-radius: 3px;
+			transition: all .5s ease;
+			box-shadow: 0 2rem 2rem rgba($color-grey-dark-1, .25);
+			&:hover {
+				transform: translateY(-2rem);
+				box-shadow: .1rem 2rem 5rem rgba($color-grey-light-2, .25);
+			}
+			&__icon {
+				margin-top: 1.5rem;
+				font-size: 9rem;
+				color: $color-primary-light-2;
+			}
+			&__heading {
+				margin-top: 4.5rem;
+				font-size: 2.7rem;
+				font-weight: 400;
+				text-transform: uppercase;
+				@include text-gradient($color-primary-dark-1,
+					$color-primary-light-0);
+			}
+			&__paragraphs {
+				margin-top: 4rem;
+				font-size: 1.6rem;
+				line-height: 2.8rem;
+			}
+			p {
+				width: 79%;
+				padding-bottom: .7rem;
+				margin: 0 auto;
+				border-bottom: 1px solid $color-grey-light-2;
+				margin-bottom: 1.5rem;
+				@include text-gradient($color-primary, $color-primary-light-0);
+			}
+		}
+		.btn-wrapper {
+			margin-top: 5rem;
+		}
+		.btn {
+			@include btn-fancy-hover(
+                lighten($color-primary-dark-3, 30%), 
+                lighten($color-primary-dark-2, 10%)
+            );
+			background-color: $color-grey-light-3;
+			padding: 2rem 3.5rem;
+			color: darken($color-grey-dark-3, 10%);
+		}
+	}
+	&__what {
+		h1 {
+			width: 60%;
+		}
+	}
+}
+.col-1-of-4 {
+	width: calc((100% - 3 * #{$gutter-horizontal}) / 4);
+}

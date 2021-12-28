@@ -1,9 +1,10 @@
 import React, { useRef, useState, useContext } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { API_KEY, validateEmail, validatePassword } from "../../utilities/auth-util";
+import { validateEmail, validatePassword } from "../../utilities/auth-util";
 import AuthContext from "../../store/auth-context";
 import LoadingSpinner from "../UI/LoadingSpinner";
 import AuthModal from "../UI/Modal/AuthModal";
+import { API_KEY } from "../../api/user-api";
 
 const Login: React.FC = () => {
 	const authCtx = useContext(AuthContext);
@@ -11,16 +12,26 @@ const Login: React.FC = () => {
 
 	const [ isLoading, setIsLoading ] = useState(false);
 	const [ showModal, setShowModal ] = useState(false);
-	const [ modalContent, setModalContent ] = useState({ heading: "", messages: [ "" ], onClose: () => {} });
+	const [ modalContent, setModalContent ] = useState({
+		heading: "",
+		messages: [ "" ],
+		onClose: () => {}
+	});
 
 	const emailRef = useRef<HTMLInputElement>(null);
-	const [ emailState, setEmailState ] = useState<{ valid: boolean; emailMessage: string | null }>({
+	const [ emailState, setEmailState ] = useState<{
+		valid: boolean;
+		emailMessage: string | null;
+	}>({
 		valid: true,
 		emailMessage: null
 	});
 
 	const passwordRef = useRef<HTMLInputElement>(null);
-	const [ passwordState, setPasswordState ] = useState<{ valid: boolean; passwordMessage: string | null }>({
+	const [ passwordState, setPasswordState ] = useState<{
+		valid: boolean;
+		passwordMessage: string | null;
+	}>({
 		valid: true,
 		passwordMessage: null
 	});
@@ -50,7 +61,10 @@ const Login: React.FC = () => {
 		if (isSuccess) {
 			setModalContent({
 				heading: "Login Successful!",
-				messages: [ "You can see the overview of the service in About page.", "Hope you enjoy!" ],
+				messages: [
+					"You can see the overview of the service in About page.",
+					"Hope you enjoy!"
+				],
 				onClose: () => {
 					navigate("/movies");
 					setShowModal(false);
@@ -114,18 +128,31 @@ const Login: React.FC = () => {
 	const formIsInvalid = emailState.emailMessage || passwordState.passwordMessage;
 
 	return (
-		<form className={`auth-form ${formIsInvalid ? "auth-form--invalid" : ""}`} onSubmit={submitHandler}>
+		<form
+			className={`auth-form ${formIsInvalid ? "auth-form--invalid" : ""}`}
+			onSubmit={submitHandler}
+		>
 			<h2>Login And Enjoy!</h2>
 
 			<div className={`email-wrapper wrapper ${emailState.valid ? "" : "wrapper--invalid"}`}>
 				<label htmlFor="email-input">
 					<i className="fa fa-envelope" />
 				</label>
-				<input type="email" placeholder="Email" id="email-input" name="email-input" ref={emailRef} />
+				<input
+					type="email"
+					placeholder="Email"
+					id="email-input"
+					name="email-input"
+					ref={emailRef}
+				/>
 			</div>
 			{!emailState.valid && <p className="error-message">{emailState.emailMessage}</p>}
 
-			<div className={`password-wrapper wrapper ${passwordState.valid ? "" : "wrapper--invalid"}`}>
+			<div
+				className={`password-wrapper wrapper ${passwordState.valid
+					? ""
+					: "wrapper--invalid"}`}
+			>
 				<label htmlFor="password-input">
 					<i className="fa fa-lock" />
 				</label>
@@ -137,7 +164,9 @@ const Login: React.FC = () => {
 					ref={passwordRef}
 				/>
 			</div>
-			{!passwordState.valid && <p className="error-message">{passwordState.passwordMessage}</p>}
+			{!passwordState.valid && (
+				<p className="error-message">{passwordState.passwordMessage}</p>
+			)}
 
 			{!isLoading && <button>Log In</button>}
 			{isLoading && <LoadingSpinner />}

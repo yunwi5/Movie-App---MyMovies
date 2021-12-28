@@ -12,6 +12,7 @@ import MovieAdd from "./pages/Movies/MovieAdd";
 import Auth from "./pages/Auth";
 import MovieDetailStore from "./pages/Movies/MovieDetailStore";
 import MovieDetailUser from "./pages/Movies/MovieDetailUser";
+import MovieEditPage from "./pages/Movies/MovieEditPage";
 import NotFound from "./pages/NotFound";
 
 import Authcontext from "./store/auth-context";
@@ -37,6 +38,7 @@ function App () {
 				{isLoggedIn && <Route path="/add-movie" element={<MovieAdd />} />}
 				{isLoggedIn && <Route path="/movie-detail/store/:movieId" element={<MovieDetailStore />} />}
 				{isLoggedIn && <Route path="/movie-detail/user/:movieId" element={<MovieDetailUser />} />}
+				{isLoggedIn && <Route path="/movie-edit/:movieId" element={<MovieEditPage />} />}
 
 				<Route path="/auth/*" element={<Auth />} />
 				<Route path="*" element={<NotFound />} />
