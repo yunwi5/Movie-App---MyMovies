@@ -2,17 +2,17 @@
 
 export const GenreList = [
 	"Anime",
-	"Drama",
+	"Action & Adventures",
+	"Science-Fiction & Fantasy",
 	"Thriller",
-	"Horror",
-	"Children & Family Movies",
 	"TV Shows",
 	"Romantic Movies",
 	"Comedies",
 	"Music & Musicals",
-	"Science-Fiction & Fantasy",
-	"Action & Adventurs",
+	"Drama",
 	"Documentaries",
+	"Children & Family Movies",
+	"Horror",
 	"Other"
 ];
 

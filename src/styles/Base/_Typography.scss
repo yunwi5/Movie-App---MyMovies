@@ -21,10 +21,18 @@ h1 {
 		@include after-underline($color-grey-light-3, $color-grey-light-1);
 		width: 0;
 		transform-origin: bottom;
-		transition: transform .2s, width .4s cubic-bezier(1, .01, 0, .98) .2s, background-color .1s;
+		transition: transform .2s, width .4s cubic-bezier(1, .01, 0, .98) .2s,
+			background-color .1s;
 	}
 
 	&:hover::after {
 		width: 100%;
 	}
+}
+
+.gradient-sub-heading {
+	text-transform: capitalize;
+	font-size: 3.8rem;
+	font-weight: 500;
+	@include text-gradient($color-grey-light-1, $color-grey-dark-1);
 }

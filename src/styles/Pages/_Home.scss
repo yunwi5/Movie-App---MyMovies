@@ -1,4 +1,6 @@
 .home {
+	& > * {
+	}
 	.heading {
 		background-image: linear-gradient(
 				to right,
@@ -70,6 +72,7 @@
 	}
 	&__about {
 		width: 100vw;
+		min-height: 110vh;
 		height: 100vh;
 		background-image: linear-gradient(
 			to right bottom,
@@ -129,21 +132,190 @@
 			}
 		}
 		.btn-wrapper {
-			margin-top: 5rem;
+			margin-top: 8rem;
 		}
 		.btn {
-			@include btn-fancy-hover(
-                lighten($color-primary-dark-3, 30%), 
-                lighten($color-primary-dark-2, 10%)
+			@include btn-fancy-hover-no-bg(
+			    darken($color-primary-dark-3, 15%), 
+                $color-primary-light-2 
             );
-			background-color: $color-grey-light-3;
+			@include btn-text-gradient($color-primary-dark-1, $color-primary-light-1);
 			padding: 2rem 3.5rem;
-			color: darken($color-grey-dark-3, 10%);
+		}
+	}
+	&__genres {
+		max-height: 400rem;
+		width: 100vw;
+		@include flex-column(darken($color-primary-dark-3, 15%));
+		align-items: center;
+		.genres-text {
+			width: 80%;
+			min-height: 15rem;
+			margin: 0 auto;
+			margin-top: 6rem;
+		}
+		.genres-text__heading {
+			min-width: 67%;
+			max-width: 69%;
+			margin: 0 auto;
+			margin-bottom: 5rem;
+			@include heading-with-underline($color-grey-light-1, $color-grey-dark-1);
+		}
+		p {
+			max-width: 70%;
+			margin: 0 auto;
+			font-size: 1.8rem;
+			line-height: 2.8rem;
+			color: $color-grey-light-1;
+		}
+		.genres-cards {
+			width: 80%;
+			min-height: 110rem;
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			grid-column-gap: 7.5rem;
+			grid-row-gap: 5rem;
+			grid-template-rows: repeat(auto-fit, minmax(150px, 1fr));
+			margin-top: 5rem;
+		}
+		.genre-card {
+			perspective: 150rem;
+			-moz-perspective: 150rem;
+			padding: 2rem 0;
+			color: $color-grey-light-1;
+			border-radius: 3.5px;
+			position: relative;
+			.card__side {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+				box-shadow: $shadow-light;
+				backface-visibility: hidden;
+				box-shadow: 0 2rem 3rem rgba($color-grey-light-2, .25);
+				transition: all .6s ease;
+			}
+			.carde__side:hover {
+				box-shadow: 0 2rem 6rem rgba($color-grey-light-1, .25);
+			}
+			.card__side--front {
+				@include flex-column-center($color-secondary-dark-3);
+			}
+			.card__side--back {
+				background-color: $color-secondary-darkest-1;
+				height: 100%;
+				transform: rotateY(180deg);
+				color: lighten($color-secondary-light-1, 15%);
+			}
+			&:hover .card__side--front {
+				transform: rotateY(-180deg) translateY(-1rem);
+			}
+			&:hover .card__side--back {
+				transform: rotateY(0deg) translateY(-1rem);
+			}
+			.img-circle {
+				width: 12rem;
+				height: 12rem;
+				border-radius: 50%;
+				overflow: hidden;
+				margin-bottom: 2rem;
+				display: flex;
+				justify-items: center;
+			}
+			.img-content {
+				height: 100%;
+				transform: translateX(-22%);
+			}
+			h3 {
+				font-size: 2.3rem;
+				font-weight: 400;
+			}
+			.back-icon {
+				font-size: 3.5rem;
+				margin-top: 2rem;
+				margin-bottom: 3rem;
+			}
+			h4 {
+				min-width: 80%;
+				text-transform: capitalize;
+				font-size: 2rem;
+				font-weight: 400;
+				line-height: 3rem;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -51%);
+			}
+			.explore-link {
+				@include better-link-style($color-primary-light-0, $color-primary);
+				transform: translateY(1.5rem);
+				font-size: 2.2rem;
+				position: absolute;
+				left: 50%;
+				bottom: 1.5rem;
+				transform: translateX(-50%);
+			}
+		}
+		.btn-wrapper {
+			text-align: center;
+			margin: 10rem 0;
+		}
+		.btn-link {
+			@include btn-text-gradient($color-secondary, $color-secondary-light-1);
 		}
 	}
 	&__what {
+		min-height: 110vh;
+		max-height: 400rem;
+		padding-top: 5rem;
+		@include flex-column(lighten($color-secondary-darkest-1, 10%));
 		h1 {
-			width: 60%;
+			@include text-gradient($color-grey-light-1, $color-secondary-light-1);
+			@include heading-with-underline($color-grey-light-2, $color-secondary-light-1);
+			min-width: 35%;
+			max-width: 60rem;
+			margin: 0 auto;
+		}
+		.content-box {
+			display: flex;
+			align-items: center;
+			min-height: 80rem;
+			position: relative;
+		}
+		h3 {
+			width: 50rem;
+			margin-left: 3rem;
+			font-size: 2.7rem;
+			line-height: 4rem;
+			color: $color-grey-light-2;
+			text-transform: capitalize;
+			border: 1px solid $color-primary-dark-2;
+		}
+		.logos {
+			position: absolute;
+			top: 20%;
+			left: 25%;
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			transform: translateX(8rem) rotateX(-20deg) rotateY(-40deg);
+		}
+		.logo-wrapper {
+			padding: 0.5rem 2rem;
+			border: 1px solid $color-primary-light-2;
+		}
+		.company-logo {
+			// border: 1px solid $color-secondary;
+			width: 33rem;
+			height: 22rem;
+		}
+	}
+	&__footer {
+		margin-top: 12rem;
+		margin-bottom: -8rem;
+		h1 {
+			text-transform: uppercase; // min-width: 50%;
 		}
 	}
 }
