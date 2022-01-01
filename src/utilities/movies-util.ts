@@ -1,7 +1,13 @@
 import Movie from "../models/Movie";
+import { genre as Genre } from "../models/Movie";
+import { getGenreImgUrlStore } from "./movies-img";
 
 // Used in MoviesList
-export const getCurrentPageMovies = (movies: Movie[], currentPage: number, perPage: number) => {
+export const getCurrentPageMovies = (
+	movies: Movie[],
+	currentPage: number,
+	perPage: number
+) => {
 	const start_index = (currentPage - 1) * perPage;
 	const end_index = start_index + perPage;
 	const currentPageMovies = movies.slice(start_index, end_index);
@@ -26,7 +32,7 @@ export const toDurationString = (totalMinutes: number | null) => {
 	return timeString;
 };
 
-// Helper function for sortMovies at the moment
+// Helper function for sortMovies() at the moment
 const compareMovies = (m1: Movie, m2: Movie, sortingStandard: string): number => {
 	switch (sortingStandard) {
 		case "rating":
@@ -44,16 +50,35 @@ const compareMovies = (m1: Movie, m2: Movie, sortingStandard: string): number =>
 	return -1;
 };
 
+export enum SortingStandard {
+	RATING = "rating",
+	TITLE = "title",
+	YEAR = "year"
+}
+
+export enum Direction {
+	ASCENDING = "ASC",
+	DESCENDING = "DES"
+	// descending
+}
+
 // Used in MoviesList
-const sortMovies = (moviesList: Movie[], sortingStandard: string, dir: string | null) => {
+function sortMovies (moviesList: Movie[], sortingStandard: string, dir: string | null) {
 	if (!dir) return;
 
-	if (dir === "ASC") {
-		moviesList.sort((movieA, movieB) => compareMovies(movieA, movieB, sortingStandard));
+	if (dir === Direction.ASCENDING) {
+		moviesList.sort((movieA, movieB) =>
+			compareMovies(movieA, movieB, sortingStandard)
+		);
 	} else {
-		moviesList.sort((movieA, movieB) => compareMovies(movieB, movieA, sortingStandard));
+		moviesList.sort((movieA, movieB) =>
+			compareMovies(movieB, movieA, sortingStandard)
+		);
 	}
-};
+	return moviesList;
+}
+
+export default sortMovies;
 
 // Create DUMMY MOVIES for starting users.
 export function toUserMovies (dummyMovies: Movie[], moviesAmount: number) {
@@ -79,4 +104,31 @@ export function toMovieArray (movies: Object | Array<Movie>) {
 	return moviesArray;
 }
 
-export default sortMovies;
+// Used In StorePage and SingleStorePage Components For
+export function getMoviesAndUrlForGenre (genre: Genre, moviesList: Movie[]) {
+	const imgUrl = getGenreImgUrlStore(genre);
+	let resultMovies: Movie[] = moviesList.filter((movie) =>
+		movie.genreList.includes(genre)
+	);
+
+	return {
+		imgUrl,
+		movies: resultMovies,
+		genre: genre
+	};
+}
+
+// Used In Movie Genre Section For Adding Store Movies To The Existing Single Genre Movies List.
+// This Fn is used temporarily to add extra store movies as a placeholder.
+// Our current store has only 17 movies, so in order to facilitate Horizontal Scroll functionality,
+// Need to add some extra movies at the end of Single Genre List.
+// If there are duplicates, the unique key rule is violated, so always make sure all items are unique.
+export function concatUniqueMovies (moviesListA: Movie[], moviesListB: Movie[]) {
+	let concatedMovies = [ ...moviesListA ];
+	for (const m of moviesListB) {
+		if (!concatedMovies.includes(m)) {
+			concatedMovies.push(m);
+		}
+	}
+	return concatedMovies;
+}

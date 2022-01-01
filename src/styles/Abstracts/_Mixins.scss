@@ -72,6 +72,11 @@
 	}
 }
 
+@mixin remove-link-default($text-color) {
+	text-decoration: none;
+	color: $text-color;
+}
+
 // FOR HEADING UNDERLINES
 @mixin after-underline($color-1, $color-2) {
 	content: "";

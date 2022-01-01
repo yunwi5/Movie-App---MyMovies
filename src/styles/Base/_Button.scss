@@ -88,3 +88,14 @@
 		color: inherit;
 	}
 }
+
+.btn-dark-transparent {
+	padding: 1.5rem 2.5rem;
+	font-size: 1.8rem;
+	background-color: rgba($color-black, .7);
+	color: rgba($color-grey-light-2, .9);
+	border: none;
+	border-radius: 2.3rem;
+	transition: all .3s ease-out;
+	cursor: pointer;
+}

@@ -45,7 +45,8 @@ const textInputReducer = (state: State, action: Action) => {
 	if (action.type === EditState.CONFIRM_EDIT) {
 		// console.log("confirm editing!", state.changedValue, action.value);
 		const newDefaultValue = action.value || state.defaultValue;
-		return { defaultValue: newDefaultValue, isEditing: false, changedValue: newDefaultValue };
+		const newChangedValue = action.value || "";
+		return { defaultValue: newDefaultValue, isEditing: false, changedValue: newChangedValue };
 	}
 
 	return state;
@@ -54,8 +55,6 @@ const textInputReducer = (state: State, action: Action) => {
 const MovieEdit: React.FC<{ movie: Movie }> = ({ movie }) => {
 	const navigate = useNavigate();
 	const movieCtx = useContext(MovieContext);
-
-	const [showModal, setShowModal] = useState(false);
 
 	const [isFavorite, setIsFavorite] = useState(movie.isFavorite);
 
@@ -115,17 +114,85 @@ const MovieEdit: React.FC<{ movie: Movie }> = ({ movie }) => {
 		isEditing: false
 	});
 
+	// Success Modal Configuration
+	const [showModal, setShowModal] = useState(false);
+	
+	const defaultModalContent = {
+		isSuccess: true, 
+		message: `Your change on ${titleState.changedValue} is now permanent`,
+		onClose: () => {
+			navigate(`/movie-detail/user/${movie.id}`)
+			setShowModal(false);
+		}
+	}
+	const [modalContent, setModalContent] = useState(defaultModalContent);
+
+
+	function checkFormIsValid () {
+		let errorMessages: string[] = []
+		let invalidCount = 0;
+
+		// Title, ImageUrl, Description, Rating and Genres are
+		// always required!
+		if (!titleState.changedValue) {
+			errorMessages.push('Title');
+			invalidCount++;
+		}
+
+		if (!urlState.changedValue) {
+			errorMessages.push('Image Url');
+			invalidCount++;
+		}
+
+		if (!descState.changedValue) {
+			errorMessages.push('Description')
+			invalidCount++;
+		}
+
+		if (!ratingState.changedValue) {
+			errorMessages.push('Rating');
+			invalidCount++;
+		}
+
+		if (!genresState.changedValue) {
+			errorMessages.push('Genres');
+			invalidCount++;
+		}
+		return { 
+			invalidCount,
+			errorMessages
+		};
+	}
+
 	const submitHandler = () => {
+		
+		const { invalidCount, errorMessages} = checkFormIsValid();
+
+		if (invalidCount > 0) {
+			console.log('Edit is invalid!');
+			const errorModalContent = {
+				isSuccess: false, 
+				message: `${errorMessages.join(", ")} Should NOT be Empty!`,
+				onClose: () => {
+					setShowModal(false);
+				}
+			}
+			setModalContent(errorModalContent);
+			setShowModal(true);
+			return;
+		}
+
 		const newUrl = urlState.changedValue || movie.imgUrl;
 		const newTitle = titleState.changedValue || movie.title;
+		const newDescription = descState.changedValue || movie.description;
+		const ratingInNumber = parseFloat(ratingState.changedValue || "" + movie.rating);
+
 		const newProducer = producerState.changedValue;
 		const newDirector = directorState.changedValue;
-		const newDescription = descState.changedValue || movie.description;
 		const yearInNumber = parseInt(yearState.changedValue || "" + movie.year);
 		const durationInNumber = parseInt(durationState.changedValue || "" + movie.duration);
-		const ratingInNumber = parseFloat(ratingState.changedValue || "" + movie.rating);
 		// Genres are in string. Parse it.
-		const genresInList = JSON.parse(genresState.changedValue || "");
+		const genresInList = JSON.parse(genresState.changedValue || "[]");
 
 		// Construct a new movie and then pass it to editMovie Fn.
 		const newMovieObj: Movie = {
@@ -142,23 +209,11 @@ const MovieEdit: React.FC<{ movie: Movie }> = ({ movie }) => {
 			isFavorite
 		};
 
-		console.log(newMovieObj);
 		movieCtx.editMovie(newMovieObj);
 		setShowModal(true);
 	};
 
-	console.log(yearState.changedValue);
-
 	const findMoreUrl = `https://www.google.com/search?q=${movie.title}`;
-
-	const modalContent = {
-		isSuccess: true, 
-		message: `Your change on ${titleState.changedValue} is now permanent`,
-		onClose: () => {
-			navigate(`/movie-detail/user/${movie.id}`)
-			setShowModal(false);
-		}
-	}
 
 	return (
 		<Fragment>

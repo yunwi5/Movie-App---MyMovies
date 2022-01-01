@@ -173,7 +173,14 @@ const MovieDetail: React.FC<{movie: Movie}> = ({movie}) => {
 				</div>
 
 				<div className="movie-detail__genres">
-					<ul>{movie.genreList.map((genre, idx) => <li key={idx}>{genre}</li>)}</ul>
+					<ul>{movie.genreList.map((genre, idx) => 
+						<li 
+							onClick={() => navigate(`/movie-store/${genre}`)} 
+							key={idx}
+						>
+							{genre}
+						</li>)}
+					</ul>
 				</div>
 			</section>
 		</main>

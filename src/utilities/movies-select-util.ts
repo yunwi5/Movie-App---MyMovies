@@ -32,17 +32,6 @@ function haveSameDirector (movieA: Movie, movieB: Movie) {
 
 const MOVIES_TO_SHOW = 6;
 
-// function pushMoviessToList (list: Movie[], movie: Movie, bookCount: number) {
-// 	if (bookCount < MOVIES_TO_SHOW) {
-// 		for (const m of list) {
-// 			if (bookCount >= MOVIES_TO_SHOW) break;
-// 			list.push(m);
-// 			bookCount++;
-// 		}
-// 	}
-// 	return bookCount;
-// }
-
 const getSimilarMovies = (movies: Movie[], movie: Movie) => {
 	let priorityList: Movie[] = [];
 	let primaryList: Movie[] = [];

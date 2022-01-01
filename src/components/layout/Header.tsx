@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { NavLink, Link, useNavigate } from "react-router-dom";
+import { GenreList } from "../../models/Movie";
 import AuthContext from "../../store/auth-context";
 
 const Header: React.FC = () => {
@@ -14,33 +15,55 @@ const Header: React.FC = () => {
 		navigate("/store-movies/" + searchWord, { replace: false });
 	};
 
+	const genreListNoOthers = GenreList.slice(0, GenreList.length - 1);
+
 	return (
 		<header className="header">
 			<h3>
 				<NavLink
 					to="/home"
-					className={(navData) => (navData.isActive ? "heading heading-active" : "heading")}
+					className={(navData) =>
+						navData.isActive ? "heading heading-active" : "heading"}
 				>
-					MyMovies
+					<span>MyMovies</span>
 				</NavLink>
 			</h3>
 			<ul className="nav-front">
 				<li className="nav-front__categories nav-main-item">
-					<a className="nav-item">
+					<NavLink
+						className={(navData) =>
+							navData.isActive ? "nav-item nav-active" : "nav-item"}
+						to="/movie-store"
+					>
 						<i className="fa fa-shopping-bag" />
-						Movie Store
-					</a>
-					{/* Nested navigation for browsing movies */}
+						<span>Movie Store</span>
+					</NavLink>
+					{/* 1st (level 1) Nested navigation for browsing movies */}
 					<ul className="nested-nav">
-						<li>
-							<Link to="/movie-store">
-								Browse Our Store <i className="fa fa-angle-right" />
+						<li className="nested-nav__item">
+							<Link to="/movie-store" className="nested-nav__link">
+								<span>Browse Our Store</span>{" "}
+								<i className="fa fa-angle-right" />
 							</Link>
 						</li>
-						<li>
-							<Link to="/movie-store">
-								Browse By Genre <i className="fa fa-angle-right" />
+						<li className="nested-nav__item genre-nav">
+							<Link to="/movie-store" className="nested-nav__link">
+								<span>Browse By Genre</span>{" "}
+								<i className="fa fa-angle-right" />
 							</Link>
+							{/* 2nd Nested (level 2) Navigation For Browsing Movie Genres */}
+							<ul className="nested-nested-nav">
+								{genreListNoOthers.map((genre, idx) => (
+									<li className="nested-nav__item" key={idx}>
+										<Link
+											className="nested-nav__link"
+											to={`/movie-store/${genre}`}
+										>
+											{genre}
+										</Link>
+									</li>
+								))}
+							</ul>
 						</li>
 					</ul>
 				</li>
@@ -63,7 +86,8 @@ const Header: React.FC = () => {
 			<ul className="nav-main">
 				<li className="nav-main-item">
 					<NavLink
-						className={(navData) => (navData.isActive ? "nav-item nav-active" : "nav-item")}
+						className={(navData) =>
+							navData.isActive ? "nav-item nav-active" : "nav-item"}
 						to="about"
 					>
 						<i className="fa fa-quote-right" />
@@ -73,7 +97,8 @@ const Header: React.FC = () => {
 				{isLoggedIn && (
 					<li className="nav-main-item">
 						<NavLink
-							className={(navData) => (navData.isActive ? "nav-item nav-active" : "nav-item")}
+							className={(navData) =>
+								navData.isActive ? "nav-item nav-active" : "nav-item"}
 							to="/movies"
 						>
 							<i className="fa fa-th-list" />
@@ -84,7 +109,8 @@ const Header: React.FC = () => {
 				{isLoggedIn && (
 					<li className="nav-main-item">
 						<NavLink
-							className={(navData) => (navData.isActive ? "nav-item nav-active" : "nav-item")}
+							className={(navData) =>
+								navData.isActive ? "nav-item nav-active" : "nav-item"}
 							to="add-movie"
 						>
 							<i className="fa fa-plus-square" />
@@ -95,7 +121,8 @@ const Header: React.FC = () => {
 				{!isLoggedIn && (
 					<li className="nav-main-item">
 						<NavLink
-							className={(navData) => (navData.isActive ? "nav-item nav-active" : "nav-item")}
+							className={(navData) =>
+								navData.isActive ? "nav-item nav-active" : "nav-item"}
 							to="auth/login"
 						>
 							<i className="fa fa-sign-in" />
@@ -106,7 +133,8 @@ const Header: React.FC = () => {
 				{!isLoggedIn && (
 					<li className="nav-main-item">
 						<NavLink
-							className={(navData) => (navData.isActive ? "nav-item nav-active" : "nav-item")}
+							className={(navData) =>
+								navData.isActive ? "nav-item nav-active" : "nav-item"}
 							to="auth/signup"
 						>
 							<i className="fa fa-user-plus" />

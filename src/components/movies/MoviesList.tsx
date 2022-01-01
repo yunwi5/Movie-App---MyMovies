@@ -3,14 +3,13 @@ import MovieContext from "../../store/movie-context";
 import MovieFilter from "./MoviesFilter/MovieFilter";
 import MovieCard from "./MovieCard";
 import MoviePageNav from "./MovieSupport/MoviePageNav";
+import MovieSearchbar from "./MovieSupport/MovieSearchbar";
 
 import Movie, { genre as MovieGenre } from "../../models/Movie";
-import sortMovies, { filterMovies, getCurrentPageMovies } from "../../utilities/movies-util";
-
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
-import { InputLabel, FormControl } from "@mui/material";
-import { SelectChangeEvent } from "@mui/material";
+import sortMovies, {
+	filterMovies,
+	getCurrentPageMovies
+} from "../../utilities/movies-util";
 
 interface Props {
 	initialMovies: Movie[];
@@ -30,6 +29,7 @@ const MoviesList: React.FC<Props> = ({ isForUser, initialMovies }) => {
 
 	// Filter Movies
 	const [ filteredMovies, setFilteredMovies ] = useState(initialMovies);
+	const filterMoviesLength = filteredMovies.length;
 
 	// pages
 	const [ currentPage, setCurrentPage ] = useState<number>(1);
@@ -69,7 +69,9 @@ const MoviesList: React.FC<Props> = ({ isForUser, initialMovies }) => {
 	};
 
 	const filterHandler = (ratingThreshold: number, filterGenresList: string[]) => {
-		const ratingSurvivedMovies = moviesList.filter((movie) => movie.rating >= ratingThreshold);
+		const ratingSurvivedMovies = moviesList.filter(
+			(movie) => movie.rating >= ratingThreshold
+		);
 
 		if (filterGenresList.length < 1) {
 			setFilteredMovies(ratingSurvivedMovies);
@@ -105,7 +107,7 @@ const MoviesList: React.FC<Props> = ({ isForUser, initialMovies }) => {
 			sortMovies(filteredMoviesCopy, sortingStandard, sortingDirection);
 			setFilteredMovies(filteredMoviesCopy);
 		},
-		[ sortingDirection ]
+		[ sortingDirection, sortingStandard ]
 	);
 
 	const prevPageHandler = () => {
@@ -129,56 +131,23 @@ const MoviesList: React.FC<Props> = ({ isForUser, initialMovies }) => {
 			/>
 			<div className="movies-container">
 				{isForUser ? <h2>Your Movie Collection</h2> : <h2>Our Store Movies</h2>}
-				<div className="select-wrapper">
-					<button className="btn-filter" onClick={() => setShowSidebar((prevState) => !prevState)}>
-						<i className="fa fa-filter" />
-						&ensp;Filter
-					</button>
-					<FormControl
-						className="movie-select"
-						variant={sortingStandard ? "filled" : "standard"}
-						sx={{ m: 1, minWidth: 120, fontSize: 50 }}
-					>
-						<InputLabel id="simple-sort-standard-label">Sort by</InputLabel>
-						<Select
-							label="Sort by"
-							labelId="simple-sort-standard-label"
-							id="simple-sort-standard"
-							defaultValue=""
-							value={sortingStandard}
-							onChange={(e: SelectChangeEvent) => {
-								setSortingStandard(e.target.value as string);
-							}}
-						>
-							<MenuItem value="rating">Rating</MenuItem>
-							<MenuItem value="title">Title</MenuItem>
-							<MenuItem value="year">Year</MenuItem>
-						</Select>
-					</FormControl>
-					<FormControl
-						className="movie-select"
-						variant={sortingDirection ? "filled" : "standard"}
-						sx={{ m: 1, minWidth: 120 }}
-					>
-						<InputLabel id="simple-sort-direction-label">Direction</InputLabel>
-						<Select
-							label="Direction"
-							labelId="simple-sort-direction-label"
-							id="simple-sort-direction"
-							defaultValue=""
-							value={sortingDirection}
-							onChange={(event: SelectChangeEvent<unknown>) => {
-								setSortingDirection(event.target.value as string);
-							}}
-						>
-							<MenuItem value="ASC">Ascending</MenuItem>
-							<MenuItem value="Des">Descending</MenuItem>
-						</Select>
-					</FormControl>
-					<span>{filteredMovies.length} Movies</span>
-				</div>
+				<MovieSearchbar
+					onShowSidebar={() => setShowSidebar((prevState) => !prevState)}
+					sortingStandard={sortingStandard}
+					onSortingStandard={(newStandard: string) =>
+						setSortingStandard(newStandard)}
+					sortingDirection={sortingDirection}
+					onSortingDirection={(newDirection: string) =>
+						setSortingDirection(newDirection)}
+					moviesLength={filteredMovies.length}
+				/>
+
 				<ul className="movies-list">
-					{getCurrentPageMovies(filteredMovies, currentPage, perPage).map((movie) => (
+					{getCurrentPageMovies(
+						filteredMovies,
+						currentPage,
+						perPage
+					).map((movie) => (
 						<MovieCard
 							key={movie.id}
 							movie={movie}
@@ -187,6 +156,8 @@ const MoviesList: React.FC<Props> = ({ isForUser, initialMovies }) => {
 						/>
 					))}
 				</ul>
+
+				{!filterMoviesLength && <p>No Movies Found For Your Search and Filter</p>}
 
 				<MoviePageNav
 					currentPage={currentPage}

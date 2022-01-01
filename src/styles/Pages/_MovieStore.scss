@@ -1,0 +1,221 @@
+.genre-stores-container {
+	background-color: rgba($color-black, .9);
+}
+
+.genre-section {
+	width: 98.9vw;
+	min-height: 100vh;
+	max-height: 90rem;
+	color: $color-grey-light-1;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	overflow: hidden;
+
+	&:not(:last-child) {
+		margin-bottom: 1rem;
+	}
+
+	& > * {
+		text-align: left;
+	}
+
+	$medium-margin-left: 3.5rem;
+	$posters-list-width: 95%;
+	$column-gap: 3rem;
+
+	.heading,
+	.sub-heading {
+		max-width: 70%;
+		margin-left: $medium-margin-left;
+	}
+
+	.heading {
+		margin-top: 11rem;
+		font-size: 5rem;
+		text-transform: uppercase;
+		@include text-gradient($color-grey-light-1, darken($color-grey-light-3, 30%));
+		&::after {
+			content: "";
+			width: 0;
+			height: 0;
+		}
+	}
+
+	.sub-heading {
+		margin-top: 3rem;
+		font-size: 2.5rem;
+		font-weight: 500;
+		text-transform: capitalize;
+	}
+
+	.movie-box {
+		width: 100%;
+		// border: 1px solid gold;
+
+		> * {
+			width: 95%;
+			margin: 0 auto;
+			padding: 1rem 0;
+		}
+
+		&__heading {
+			font-size: 2rem;
+			padding-top: 1rem;
+			display: flex;
+			align-items: flex-end;
+		}
+
+		.label {
+		}
+
+		.link {
+			color: $color-secondary-dark-1;
+			font-size: 1.7rem;
+			@include better-link-style($color-secondary, $color-secondary);
+			padding: 0;
+			margin-left: 1.3rem;
+			&:hover {
+				color: $color-secondary-light-2;
+			}
+		}
+
+		.btn-shuffle {
+			margin-left: auto;
+			margin-right: 1.5rem;
+			margin-bottom: -.8rem;
+			font-size: 1.8rem;
+			@include text-gradient($color-primary, $color-primary-dark-1);
+			cursor: pointer;
+
+			&__icon {
+				margin-left: .6rem;
+				color: $color-primary;
+			}
+		}
+	}
+	.posters-container {
+		display: flex;
+		position: relative;
+		min-height: 30.5rem;
+		justify-content: space-between;
+		align-items: center;
+		// border: 1px solid #fff;
+		overflow-x: hidden;
+		overflow-y: visible;
+		background-color: rgba(33, 33, 33, .75);
+	}
+	.horizontal-scroll {
+		background-color: rgba(#222, .78);
+		color: $color-grey-light-2;
+		border-radius: 50%;
+		box-shadow: 0 2rem 3rem rgba($color-black, .8);
+		border: none;
+		width: 5rem;
+		height: 5rem;
+		font-size: 3rem;
+		position: relative;
+		cursor: pointer;
+		z-index: 1;
+		transition: opacity .5s ease-out;
+		&:hover {
+			background-color: $color-grey-light-3;
+			color: $color-grey-dark-5;
+		}
+
+		&--invalid {
+			opacity: 0;
+		}
+	}
+	.posters-list {
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-start;
+		align-items: center;
+		position: absolute;
+		width: 100%;
+		transition: all .5s ease-out;
+		z-index: 0;
+	}
+	.movie {
+		list-style: none;
+		cursor: pointer;
+		width: calc((#{$posters-list-width} - (#{$column-gap} * 5)) / 6);
+		transition: all .3s ease-out;
+		position: relative;
+
+		// USE margin-right to control the space between movies.
+		// Useful to use in smaller-size screen including mobile view.
+		// Need to increase right margin to 10rem or so.
+		&:not(:last-child) {
+			margin-right: $column-gap;
+		}
+
+		&__img {
+			width: 18rem;
+			height: 27rem;
+		}
+		&__btn {
+			opacity: 0;
+			position: absolute;
+			bottom: 2.5rem;
+			left: 50%;
+			transform: translateX(-50%);
+			text-decoration: none;
+
+			&:hover {
+				color: gold;
+			}
+		}
+
+		&:hover {
+			transform: scale(1.1, 1.1);
+		}
+
+		&:hover .movie__btn {
+			opacity: 1;
+		}
+	}
+}
+
+.single-genre-store {
+	width: 99vw;
+	position: relative;
+
+	background-image: linear-gradient(
+		to bottom,
+		darken($color-grey-dark-5, 0%),
+		darken($color-grey-dark-3, 10%),
+		darken($color-grey-dark-5, 0%)
+	);
+
+	.genre-section--long {
+		min-height: 160rem;
+		position: relative;
+		justify-content: space-evenly;
+	}
+
+	.background-img {
+		position: absolute;
+		top: 50%;
+		left: 0;
+		transform: translateY(-55%);
+		width: 100vw;
+		height: 100%;
+		z-index: -1;
+	}
+
+	.heading {
+		margin-top: 1rem;
+	}
+
+	.heading p {
+		font-size: 70%;
+		line-height: 4.7rem;
+		@include text-gradient($color-grey-light-1, $color-grey-dark-3);
+	}
+
+	.label {
+		font-size: 2.2rem;
+	}
+}

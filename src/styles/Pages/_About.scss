@@ -1,0 +1,133 @@
+.about-page {
+	width: 100%;
+
+	.add-section {
+		background-color: $color-primary-light-1;
+		border-radius: 5px;
+		display: flex;
+		flex-direction: column;
+		max-width: 100%;
+		margin: 0 auto;
+		margin-top: 7rem;
+		font-size: 1.7rem;
+		padding: 4rem 7rem;
+
+		&__heading {
+			font-size: 1.8rem;
+			text-align: left;
+			color: $color-grey-dark-5;
+
+			h2 {
+				font-size: 3rem;
+				width: 50%;
+			}
+		}
+
+		&__container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			height: 80rem;
+		}
+
+		.horizontal-line {
+			width: 3px;
+			height: 95%;
+			background-color: $color-primary-dark-2;
+		}
+
+		.about-card {
+			display: flex;
+			flex-direction: column;
+			@include flex-column-center($color-primary-light-1);
+			background-image: linear-gradient(
+				to right bottom,
+				$color-primary-dark-2,
+				darken($color-primary-dark-2, 5%)
+			);
+			justify-content: space-around;
+			min-height: 70rem;
+			max-width: 61rem;
+			border: 1px solid $color-primary;
+			border-radius: 5px;
+			& > * {
+				max-width: 85%;
+			}
+		}
+		.img-wrapper {
+			width: 25rem;
+			height: 25rem;
+			border-radius: 50%;
+			background-color: blue;
+			overflow: hidden;
+			text-align: center;
+		}
+		img {
+			height: 100%;
+			transform: translateX(-25%);
+		}
+		.text-content {
+			max-width: 85%;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			p {
+				// text-align: left;
+				max-width: 80%;
+				font-size: 1.7rem;
+				line-height: 2.9rem;
+				// @include text-gradient($color-primary-darkest-1, darken($color-primary-dark-3, 0%));
+				@include text-gradient($color-primary-light-0, $color-primary-light-1);
+			}
+		}
+		.card-heading {
+			@include heading-with-underline(
+                $color-primary-light-3, 
+                $color-primary-light-0
+            );
+			@include text-gradient(
+                $color-primary-light-3, 
+                $color-primary-light-0
+            );
+			font-size: 2.35rem;
+			margin: 2rem 0;
+		}
+		.add-link {
+			@include btn-fancy-hover-no-bg($color-primary, darken($color-primary, 1%));
+			@include remove-link-default($color-primary-dark-3);
+			// border: 1px solid $color-primary-dark-1;
+			// padding-left: 2rem; // padding-right: 2rem;
+			padding: 1.7rem 2.5rem;
+			border-radius: 6rem;
+			&:hover {
+				color: $color-primary-darkest-1 !important;
+				background-color: purple !important;
+				background: linear-gradient(
+					0.25turn,
+					darken($color-primary, 5%),
+					darken($color-primary, 5%)
+				);
+			}
+		}
+		&__footer {
+			text-align: left;
+			color: $color-grey-dark-5;
+			.user-message {
+				width: 80%;
+			}
+			.user-message:not(:last-child) {
+				margin-bottom: 1.1rem;
+			}
+			.quote-icon {
+			}
+			span {
+			}
+		}
+	}
+	.sorting-section {
+	}
+	.detail-section {
+	}
+	.edit-section {
+	}
+}

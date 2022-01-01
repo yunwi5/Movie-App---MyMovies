@@ -13,14 +13,21 @@ const SuccessModal: React.FC<ModalProps> = ({ modalContent }) => {
 		<Modal onClose={onClose}>
 			<div className="modal-content modal-content--add">
 				{isSuccess && <h2>Update Successful!</h2>}
-				{!isSuccess && <h2>Sorry, Update Unsuccessful...</h2>}
+				{!isSuccess && <h2>Update Unsuccessful...</h2>}
 				<p>
 					<i className="fa fa-angle-right" />
 					{"  " + message}{" "}
 				</p>
-				<button onClick={onClose} className="btn-delete">
-					Confirm
-				</button>
+				{isSuccess && (
+					<button onClick={onClose} className="btn-delete">
+						Confirm
+					</button>
+				)}
+				{!isSuccess && (
+					<button onClick={onClose} className="btn-delete">
+						Go Back
+					</button>
+				)}
 			</div>
 		</Modal>
 	);
