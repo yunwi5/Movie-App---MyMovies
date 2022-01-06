@@ -6,10 +6,11 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
-### 'npm install'
+### `npm install`
  
- Please use the above command to install all the dependencies in package.json. Dependencies of this project
- includes React Router, Material UI, Fontawesome Icons, Testing libraries etc.
+ Please use the above command to install all the dependencies in package.json. 
+ Dependencies of this project includes React Router, Material UI, Fontawesome Icons, 
+ Testing libraries etc.
 
 ### `npm start`
 
