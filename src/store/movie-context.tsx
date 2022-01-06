@@ -46,7 +46,9 @@ export const MovieContextProvider: React.FC = (props) => {
 		}
 		// The movies were not previously added.
 		if (newMovie.isFromStore) {
-			newMovie = { ...newMovie, isFromStore: false };
+			// When adding movies, make sure to clear the existing comments, because
+			// those comments are Store Comments which are not relevant to user specific movie collection.
+			newMovie = { ...newMovie, isFromStore: false, comments: [] };
 		}
 		// Send some POST request to the Server at the same time!
 		if (!id || !newMovie.id) return;

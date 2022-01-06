@@ -14,7 +14,8 @@ const DUMMY_MOVIES: Movie[] = [
 		year: 2019,
 		genreList: [ "Action & Adventures", "Science-Fiction & Fantasy" ],
 		isFavorite: false,
-		isFromStore: true
+		isFromStore: true,
+		comments: []
 	},
 	{
 		id: "m2",
@@ -29,7 +30,8 @@ const DUMMY_MOVIES: Movie[] = [
 		year: 2018,
 		genreList: [ "Action & Adventures", "Science-Fiction & Fantasy" ],
 		isFavorite: false,
-		isFromStore: true
+		isFromStore: true,
+		comments: []
 	},
 	{
 		id: "m3",
@@ -43,7 +45,8 @@ const DUMMY_MOVIES: Movie[] = [
 		year: 2009,
 		genreList: [ "Action & Adventures", "Thriller" ],
 		isFavorite: false,
-		isFromStore: true
+		isFromStore: true,
+		comments: []
 	},
 	{
 		id: "m4",
@@ -58,7 +61,8 @@ const DUMMY_MOVIES: Movie[] = [
 		year: 2017,
 		genreList: [ "Action & Adventures" ],
 		isFavorite: false,
-		isFromStore: true
+		isFromStore: true,
+		comments: []
 	},
 	{
 		id: "m5",
@@ -74,7 +78,8 @@ const DUMMY_MOVIES: Movie[] = [
 		year: 2016,
 		genreList: [ "Action & Adventures" ],
 		isFavorite: false,
-		isFromStore: true
+		isFromStore: true,
+		comments: []
 	},
 	{
 		id: "m6",
@@ -89,7 +94,8 @@ const DUMMY_MOVIES: Movie[] = [
 		year: 2016,
 		genreList: [ "Anime", "Romantic Movies" ],
 		isFavorite: false,
-		isFromStore: true
+		isFromStore: true,
+		comments: []
 	},
 	{
 		id: "m8",
@@ -105,7 +111,8 @@ const DUMMY_MOVIES: Movie[] = [
 		year: 2016,
 		genreList: [ "Anime", "Romantic Movies" ],
 		isFavorite: false,
-		isFromStore: true
+		isFromStore: true,
+		comments: []
 	},
 	{
 		id: "m9",
@@ -121,7 +128,8 @@ const DUMMY_MOVIES: Movie[] = [
 		year: 2010,
 		genreList: [ "Science-Fiction & Fantasy" ],
 		isFavorite: false,
-		isFromStore: true
+		isFromStore: true,
+		comments: []
 	},
 	{
 		id: "m10",
@@ -137,7 +145,8 @@ const DUMMY_MOVIES: Movie[] = [
 		year: 2021,
 		genreList: [ "Anime", "Action & Adventures" ],
 		isFavorite: false,
-		isFromStore: true
+		isFromStore: true,
+		comments: []
 	},
 	{
 		id: "m11",
@@ -153,7 +162,8 @@ const DUMMY_MOVIES: Movie[] = [
 		year: 2020,
 		genreList: [ "Anime", "Romantic Movies" ],
 		isFavorite: false,
-		isFromStore: true
+		isFromStore: true,
+		comments: []
 	},
 	{
 		id: "m12",
@@ -169,7 +179,8 @@ const DUMMY_MOVIES: Movie[] = [
 		year: 2002,
 		genreList: [ "Action & Adventures", "Science-Fiction & Fantasy" ],
 		isFavorite: false,
-		isFromStore: true
+		isFromStore: true,
+		comments: []
 	},
 	{
 		id: "m13",
@@ -185,7 +196,8 @@ const DUMMY_MOVIES: Movie[] = [
 		year: 2004,
 		genreList: [ "Action & Adventures", "Science-Fiction & Fantasy" ],
 		isFavorite: false,
-		isFromStore: true
+		isFromStore: true,
+		comments: []
 	},
 	{
 		id: "m14",
@@ -201,7 +213,8 @@ const DUMMY_MOVIES: Movie[] = [
 		year: 2007,
 		genreList: [ "Action & Adventures", "Science-Fiction & Fantasy" ],
 		isFavorite: false,
-		isFromStore: true
+		isFromStore: true,
+		comments: []
 	},
 	{
 		id: "m15",
@@ -217,7 +230,8 @@ const DUMMY_MOVIES: Movie[] = [
 		year: 2011,
 		genreList: [ "Action & Adventures", "Science-Fiction & Fantasy" ],
 		isFavorite: false,
-		isFromStore: true
+		isFromStore: true,
+		comments: []
 	},
 	{
 		id: "m16",
@@ -232,7 +246,8 @@ const DUMMY_MOVIES: Movie[] = [
 		year: 2013,
 		genreList: [ "Action & Adventures", "Science-Fiction & Fantasy" ],
 		isFavorite: false,
-		isFromStore: true
+		isFromStore: true,
+		comments: []
 	},
 	{
 		id: "m17",
@@ -248,7 +263,8 @@ const DUMMY_MOVIES: Movie[] = [
 		year: 2011,
 		genreList: [ "Action & Adventures", "Science-Fiction & Fantasy" ],
 		isFavorite: false,
-		isFromStore: true
+		isFromStore: true,
+		comments: []
 	},
 	{
 		id: "m18",
@@ -264,7 +280,8 @@ const DUMMY_MOVIES: Movie[] = [
 		year: 2016,
 		genreList: [ "Action & Adventures", "Science-Fiction & Fantasy" ],
 		isFavorite: false,
-		isFromStore: true
+		isFromStore: true,
+		comments: []
 	}
 ];
 

@@ -1,8 +1,10 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 
-import AuthContext from "../../store/auth-context";
+import MovieContext from "../../store/movie-context";
+import { getGenreMoviesCount } from "../../utilities/genre-movie-util";
 import { GenreList } from "../../models/Movie";
+// import Movie, { genre as Genre } from "../../models/Movie";
 import { getGenreImgUrl } from "../../utilities/movies-img";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
@@ -21,7 +23,12 @@ import { ReactComponent as PPLogo } from "../../assets/SVG/Paramount_Pictures_Lo
 import { ReactComponent as CPLogo } from "../../assets/SVG/Columbia_Pictures_Logo.svg";
 
 const Home: React.FC = () => {
+	const storeMovies = useContext(MovieContext).storeMovies;
 	const genreList = GenreList.slice(0, GenreList.length - 1);
+
+	const genreCountsList = genreList.map((genre) =>
+		getGenreMoviesCount(storeMovies, genre)
+	);
 
 	return (
 		<main className="home">
@@ -138,7 +145,10 @@ const Home: React.FC = () => {
 									className="back-icon"
 									icon={faCircleCheck as IconProp}
 								/>
-								<h4>10+ Movies On {genre}</h4>
+								{/* Now Genre Movies Count should be dynamic */}
+								<h4>
+									{genreCountsList[idx]} Movies On {genre}
+								</h4>
 								<Link
 									className="btn explore-link"
 									to={`/movie-store/${genre}`}
