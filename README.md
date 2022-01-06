@@ -8,7 +8,7 @@ In the project directory, you can run:
 
 ### `npm install`
  
- Please use the above command to install all the dependencies in package.json. 
+ Please use the above command to install all the dependencies in package.json.  \
  Dependencies of this project includes React Router, Material UI, Fontawesome Icons, 
  Testing libraries etc.
 
