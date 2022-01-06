@@ -34,18 +34,16 @@ function App () {
 				<Route path="/movie-store/:genreName" element={<SingleStorePage />} />
 
 				{isLoggedIn && <Route path="/movies" element={<UserMoviesList />} />}
+				{isLoggedIn && <Route path="/store-movies" element={<MoviesSearch />} />}
 				{isLoggedIn && (
 					<Route path="/store-movies/:searchWord" element={<MoviesSearch />} />
 				)}
-				{isLoggedIn && <Route path="/store-movies" element={<MoviesSearch />} />}
 
 				{isLoggedIn && <Route path="/add-movie" element={<MovieAdd />} />}
-				{isLoggedIn && (
-					<Route
-						path="/movie-detail/store/:movieId"
-						element={<MovieDetailStore />}
-					/>
-				)}
+				<Route
+					path="/movie-detail/store/:movieId"
+					element={<MovieDetailStore />}
+				/>
 				{isLoggedIn && (
 					<Route
 						path="/movie-detail/user/:movieId"

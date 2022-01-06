@@ -20,13 +20,12 @@ const GenreSection: React.FC<Props> = (props) => {
 		backgroundImage: `linear-gradient(to right, 
             rgba(20, 20, 20, .9), 
             rgba(30, 30, 30, .85), 
-             rgba(40, 40, 40, .8),
-             rgba(230, 230, 230, .07),
-             rgba(40, 40, 40, .8),
+             rgba(40, 40, 40, .65),
+             rgba(230, 230, 230, .1),
+             rgba(40, 40, 40, .65),
             rgba(30, 30, 30, .85), 
              rgba(20, 20, 20, .9)), 
-               url(${imgUrl})`,
-		backgroundSize: "cover"
+               url(${imgUrl})`
 	};
 
 	const moviesCount = movies.length;

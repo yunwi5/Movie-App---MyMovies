@@ -111,6 +111,18 @@
 	-webkit-background-clip: text;
 	color: transparent;
 }
+
+// HEADING GRADIENT
+@mixin heading-gradient($color-1, $color-2) {
+	text-transform: capitalize;
+	font-size: 3.5rem;
+	font-weight: 500;
+	@include text-gradient($color-1, $color-2);
+	&::after {
+		display: none;
+	}
+}
+
 // BUTTON MIXIN
 @mixin btn-fancy-hover($color1, $color2) {
 	font-size: 1.8rem;

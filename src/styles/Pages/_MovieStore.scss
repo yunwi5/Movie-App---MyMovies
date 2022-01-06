@@ -11,6 +11,8 @@
 	flex-direction: column;
 	justify-content: space-between;
 	overflow: hidden;
+	background-blend-mode: darken;
+	background-size: cover;
 
 	&:not(:last-child) {
 		margin-bottom: 1rem;

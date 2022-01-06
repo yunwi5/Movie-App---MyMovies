@@ -130,7 +130,7 @@ const MoviesList: React.FC<Props> = ({ isForUser, initialMovies }) => {
 				isForUser={isForUser}
 			/>
 			<div className="movies-container">
-				{isForUser ? <h2>Your Movie Collection</h2> : <h2>Our Store Movies</h2>}
+				{isForUser ? <h2>Your Movie Collection</h2> : <h2>The Store Movies</h2>}
 				<MovieSearchbar
 					onShowSidebar={() => setShowSidebar((prevState) => !prevState)}
 					sortingStandard={sortingStandard}

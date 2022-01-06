@@ -29,9 +29,11 @@ const SingleGenreStore: React.FC<Props> = ({ singleGenreStore }) => {
 		backgroundImage: `linear-gradient(to right,
 	        rgba(20, 20, 20, .9),
 	        rgba(30, 30, 30, .85),
-	         rgba(40, 40, 40, .8),
+	        rgba(35, 35, 35, .7),
+	         rgba(40, 40, 40, .6),
 	         rgba(230, 230, 230, .07),
-	         rgba(40, 40, 40, .8),
+	         rgba(40, 40, 40, .6),
+	        rgba(35, 35, 35, .7),
 	        rgba(30, 30, 30, .85),
 	         rgba(20, 20, 20, .9)),
 	           url(${imgUrl})`
@@ -48,7 +50,10 @@ const SingleGenreStore: React.FC<Props> = ({ singleGenreStore }) => {
 	// Uses several scroll bars.
 	return (
 		<main className="single-genre-store">
-			<section className="genre-section genre-section--long">
+			<section
+				className="genre-section genre-section--long"
+				style={backgroundStyle}
+			>
 				{/* <div className="background-img" style={backgroundStyle} /> */}
 				<h1 className="heading">
 					{genre} <br /> <p>({moviesCount}+ Movies)</p>
