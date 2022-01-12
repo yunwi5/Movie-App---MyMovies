@@ -21,6 +21,5 @@
     "jsx": "react-jsx"
   },
   "include": [
-    "src"
-, "babel.config.js"  ]
+    "src"]
 }

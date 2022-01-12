@@ -1,4 +1,5 @@
 import { Comment } from "../../models/Movie";
+import { getAllMovieComments } from "../../api/store-comment-api";
 
 export function userAlreadyReviewed (comments: Comment[], userEmail: string) {
 	return comments.some((c) => c.userEmail === userEmail);
@@ -13,6 +14,11 @@ export function verityIfUserDownVoted (
 	userEmail: string
 ) {
 	return downVotesList.some((email) => email === userEmail);
+}
+
+export async function getInitialComments (movieId: string) {
+	const storedComments = await getAllMovieComments(movieId);
+	return storedComments || [];
 }
 
 export const DUMMY_COMMENTS: Comment[] = [

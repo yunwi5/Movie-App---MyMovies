@@ -73,7 +73,7 @@ const MovieDetail: React.FC<{ movie: Movie }> = ({ movie }) => {
 					onShowAddModal={showAddModalHandler}
 					onShowDeleteModal={showDeleteModalHandler}
 				/>
-				<DetailFooter movie={movie} />
+				<DetailFooter movie={movie} isFromStore={movie.isFromStore} />
 			</main>
 		</Fragment>
 	);

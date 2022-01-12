@@ -6,25 +6,16 @@ import AuthContext from "../../../store/auth-context";
 import { getFormattedDateString } from "../../../utilities/string-util";
 import {
 	DUMMY_COMMENTS,
-	userAlreadyReviewed
+	userAlreadyReviewed,
+	getInitialComments
 } from "../../../utilities/comment-util/user-comment-util";
 import {
 	addCommentToMovie,
-	getAllMovieComments,
 	editMovieComment,
 	deleteMovieComment
 } from "../../../api/store-comment-api";
 
-interface Props {
-	movie: Movie;
-}
-
-async function getInitialComments (movieId: string) {
-	const storedComments = await getAllMovieComments(movieId);
-	return storedComments || [];
-}
-
-const StoreComment: React.FC<Props> = ({ movie }) => {
+const StoreComment: React.FC<{ movie: Movie }> = ({ movie }) => {
 	const authCtx = useContext(AuthContext);
 	const user = authCtx.user;
 

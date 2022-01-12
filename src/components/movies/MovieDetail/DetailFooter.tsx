@@ -4,10 +4,11 @@ import StoreReviews from "../../Comments/StoreReviews/StoreReviews";
 
 interface Props {
 	movie: Movie;
+	isFromStore: boolean;
 }
 
 const DetailFooter: React.FC<Props> = (props) => {
-	const { movie } = props;
+	const { movie, isFromStore } = props;
 	const navigate = useNavigate();
 
 	return (
@@ -17,7 +18,7 @@ const DetailFooter: React.FC<Props> = (props) => {
 				<p>{movie.description}</p>
 			</div>
 
-			<StoreReviews movie={movie} />
+			{isFromStore && <StoreReviews movie={movie} />}
 
 			<div className="movie-detail__genres">
 				<ul>

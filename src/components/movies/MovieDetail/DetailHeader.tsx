@@ -75,7 +75,7 @@ const DetailHeader: React.FC<Props> = (props) => {
 						onClose={() => setShowSidebar(false)}
 					/>
 				)}
-        <section className="movie-detail__top" onClick={backdropNavHandler}>
+        		<section className="movie-detail__top" onClick={backdropNavHandler}>
 
 				{isForUser && 
 				<MovieNavIcon 
