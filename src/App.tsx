@@ -43,12 +43,6 @@ function App () {
 				{isLoggedIn && (
 					<Route path="/store-movies" element={<MoviesSearch />} />
 				)}
-				{isLoggedIn && (
-					<Route
-						path="/store-movies/:searchWord"
-						element={<MoviesSearch />}
-					/>
-				)}
 
 				{isLoggedIn && (
 					<Route path="/add-movie" element={<MovieAdd />} />

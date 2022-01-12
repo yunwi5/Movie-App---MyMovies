@@ -18,11 +18,9 @@ interface Props {
 
 const MoviesList: React.FC<Props> = ({ isForUser, initialMovies }) => {
 	const movieCtx = useContext(MovieContext);
-	const initialMoviesLength = initialMovies.length;
 
 	// Seach Filter is already done here.
 	const [ moviesList, setMoviesList ] = useState(initialMovies);
-
 	// Sorting
 	const [ sortingStandard, setSortingStandard ] = useState<string>("");
 	const [ sortingDirection, setSortingDirection ] = useState<string>("");
@@ -94,14 +92,12 @@ const MoviesList: React.FC<Props> = ({ isForUser, initialMovies }) => {
 		setFilteredMovies(genreSurvivedMovies);
 	};
 
-	// If initialMovies Length changes, this means the page re-loads with
-	// new search word.
 	useEffect(
 		() => {
 			setMoviesList(initialMovies);
 			setFilteredMovies(initialMovies);
 		},
-		[ initialMoviesLength ]
+		[ initialMovies ]
 	);
 
 	useEffect(

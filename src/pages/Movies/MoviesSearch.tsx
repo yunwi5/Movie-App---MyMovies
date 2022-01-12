@@ -1,13 +1,18 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import MovieContext from "../../store/movie-context";
 import MoviesList from "../../components/movies/MoviesList";
 import { filterMovies } from "../../utilities/movie-util/movies-util";
 
+function useQuery () {
+	const { search } = useLocation();
+	return React.useMemo(() => new URLSearchParams(search), [ search ]);
+}
+
 // Display Store Movies to the user, not the Users Movies.
 const MoviesSearch: React.FC = () => {
-	const params = useParams();
-	const searchWord = params.searchWord;
+	const query = useQuery();
+	const searchWord = query.get("search");
 
 	const movieCtx = useContext(MovieContext);
 	const storeMovies = movieCtx.storeMovies;
@@ -17,13 +22,12 @@ const MoviesSearch: React.FC = () => {
 
 	useEffect(
 		() => {
+			if (searchWord === null) return;
 			const newFilteredMovies = filterMovies(storeMovies, searchWord);
 			setFilteredStoreMovies(newFilteredMovies);
 		},
 		[ searchWord ]
 	);
-
-	console.log("movies length:", filteredStoreMovies.length);
 
 	return <MoviesList isForUser={false} initialMovies={filteredStoreMovies} />;
 };

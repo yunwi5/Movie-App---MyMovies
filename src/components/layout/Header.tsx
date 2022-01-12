@@ -14,7 +14,7 @@ const Header: React.FC = () => {
 
 	const submitHandler = (e: React.FormEvent) => {
 		e.preventDefault();
-		navigate("/store-movies/" + searchWord, { replace: false });
+		navigate(`/store-movies?search=${searchWord}`, { replace: false });
 	};
 
 	const genreListNoOthers = GenreList.slice(0, GenreList.length - 1);
