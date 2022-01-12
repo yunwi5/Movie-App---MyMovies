@@ -197,7 +197,6 @@
 
 	&__item--genres {
 		select {
-			// padding: 1rem;
 			@include item-input;
 			background-color: #fff;
 			max-width: 70%;

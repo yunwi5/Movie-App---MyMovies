@@ -294,7 +294,8 @@
 
 .movie-detail__about {
 	& h2 {
-		font-size: 3rem;
+		font-size: 3.5rem;
+		font-weight: 400;
 		width: 66%;
 	}
 
@@ -339,10 +340,10 @@
 // MOVIE SIDEBAR
 .movies-sidebar {
 	position: absolute;
-	top: 10.5rem;
+	top: 3rem;
 	right: 0;
 	text-align: left;
-	color: var(--color-grey-light-1);
+
 	background-color: transparent;
 	max-width: 40rem;
 
@@ -358,6 +359,7 @@
 		margin-left: .5rem;
 		cursor: pointer;
 		min-width: 88%;
+		color: lighten($color-grey-light-3, 10%);
 
 		& .fa {
 			margin-left: 5%;
@@ -372,6 +374,43 @@
 				transform: translateY(.1rem);
 				animation: InfiniteLeftRight 1s infinite ease-out;
 			}
+		}
+	}
+
+	.side-section {
+		margin-top: 1.5rem;
+
+		&:not(:first-child) {
+			margin-top: 3.5rem;
+		}
+
+		& .heading {
+			font-size: 2.1rem;
+			font-weight: 700;
+			color: $color-grey-dark-4;
+			line-height: 3rem;
+			padding-left: .3rem;
+			margin-bottom: 1.1rem;
+		}
+
+		& .heading span {
+			color: $color-primary-dark-3;
+		}
+
+		& .heading .dynamic-pro {
+			color: $color-secondary-dark-2;
+		}
+	}
+
+	.side-section:first-child {
+		color: $color-grey-light-1;
+
+		& .heading {
+			color: $color-grey-light-1;
+		}
+
+		& .movie-card--below {
+			color: $color-grey-dark-5;
 		}
 	}
 
@@ -390,7 +429,8 @@
 		& .image-wrapper {
 			cursor: pointer;
 			& img {
-				max-width: 12.2rem;
+				border-radius: 3px;
+				max-width: 13rem;
 			}
 		}
 

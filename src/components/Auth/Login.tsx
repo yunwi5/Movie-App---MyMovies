@@ -4,7 +4,7 @@ import { validateEmail, validatePassword } from "../../utilities/auth-util";
 import AuthContext from "../../store/auth-context";
 import LoadingSpinner from "../UI/LoadingSpinner";
 import AuthModal from "../UI/Modal/AuthModal";
-import { API_KEY } from "../../api/user-api";
+import { API_KEY } from "../../api/user-auth-api";
 
 const Login: React.FC = () => {
 	const authCtx = useContext(AuthContext);
@@ -38,10 +38,14 @@ const Login: React.FC = () => {
 
 	const validateUserInput = () => {
 		const enteredEmail = emailRef.current!.value;
-		const { valid: emailIsValid, message: emailMes } = validateEmail(enteredEmail);
+		const { valid: emailIsValid, message: emailMes } = validateEmail(
+			enteredEmail
+		);
 
 		const enteredPassword = passwordRef.current!.value;
-		const { valid: passIsValid, message: passMes } = validatePassword(enteredPassword);
+		const { valid: passIsValid, message: passMes } = validatePassword(
+			enteredPassword
+		);
 
 		if (!emailIsValid) {
 			setEmailState({ valid: false, emailMessage: emailMes });
@@ -74,7 +78,10 @@ const Login: React.FC = () => {
 		} else {
 			setModalContent({
 				heading: "Login Unsuccessful...",
-				messages: [ "Something went wrong in your login process", reqMessage || "" ],
+				messages: [
+					"Something went wrong in your login process",
+					reqMessage || ""
+				],
 				onClose: () => {
 					setShowModal(false);
 				}
@@ -125,7 +132,8 @@ const Login: React.FC = () => {
 		}
 	};
 
-	const formIsInvalid = emailState.emailMessage || passwordState.passwordMessage;
+	const formIsInvalid =
+		emailState.emailMessage || passwordState.passwordMessage;
 
 	return (
 		<form
@@ -134,7 +142,11 @@ const Login: React.FC = () => {
 		>
 			<h2>Login And Enjoy!</h2>
 
-			<div className={`email-wrapper wrapper ${emailState.valid ? "" : "wrapper--invalid"}`}>
+			<div
+				className={`email-wrapper wrapper ${emailState.valid
+					? ""
+					: "wrapper--invalid"}`}
+			>
 				<label htmlFor="email-input">
 					<i className="fa fa-envelope" />
 				</label>
@@ -146,7 +158,9 @@ const Login: React.FC = () => {
 					ref={emailRef}
 				/>
 			</div>
-			{!emailState.valid && <p className="error-message">{emailState.emailMessage}</p>}
+			{!emailState.valid && (
+				<p className="error-message">{emailState.emailMessage}</p>
+			)}
 
 			<div
 				className={`password-wrapper wrapper ${passwordState.valid

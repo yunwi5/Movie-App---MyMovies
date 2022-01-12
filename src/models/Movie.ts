@@ -32,10 +32,16 @@ export type genre =
 	| "Other";
 
 export interface Comment {
+	id: string;
+	movieId: string;
 	userName: string;
+	userEmail: string;
 	commentText: string;
 	dateString: string;
 	rating: number;
+	upVotesList: string[];
+	downVotesList: string[];
+	key?: string;
 }
 
 // Movie interface

@@ -1,6 +1,6 @@
 import React, { useState, Fragment } from "react";
 import MovieEditIcon from "./MovieEditIcon";
-import { toDurationString } from "../../../utilities/movies-util";
+import { toDurationString } from "../../../utilities/movie-util/movies-util";
 
 interface InputProps {
 	defaultValue: string;
@@ -35,7 +35,10 @@ const DurationEdit: React.FC<InputProps> = (props) => {
 					isEditing={isEditing}
 					onStartEdit={onStartEdit}
 					onCancel={onCancel}
-					onConfirm={onConfirm.bind(null, toMinutesString(hours, minutes))}
+					onConfirm={onConfirm.bind(
+						null,
+						toMinutesString(hours, minutes)
+					)}
 				/>
 			</label>
 			{isEditing && (

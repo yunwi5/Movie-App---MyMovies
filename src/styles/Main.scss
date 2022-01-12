@@ -5,6 +5,7 @@
 @import 'Base/Base';
 @import 'Base/Button';
 @import 'Base/Typography';
+@import 'Base/Elements';
 
 @import 'Components/Auth';
 @import 'Components/UI';
@@ -14,6 +15,7 @@
 @import 'Components/Movies/MovieEdit';
 @import 'Components/Movies/MovieForm';
 @import 'Components/Movies/MovieFilter';
+@import 'Components/Reviews/StoreReviews';
 
 @import 'Layout/Layout';
 
@@ -21,3 +23,5 @@
 @import 'Pages/Home';
 @import 'Pages/NotFound';
 @import 'Pages/MovieStore';
+
+@import 'Pages/Others/Admin';

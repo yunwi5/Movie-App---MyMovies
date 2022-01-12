@@ -14,6 +14,7 @@ import Auth from "./pages/Auth";
 import MovieDetailStore from "./pages/Movies/MovieDetailStore";
 import MovieDetailUser from "./pages/Movies/MovieDetailUser";
 import MovieEditPage from "./pages/Movies/MovieEditPage";
+import AdminPage from "./pages/Admin/AdminPage";
 import NotFound from "./pages/NotFound";
 
 import Authcontext from "./store/auth-context";
@@ -31,15 +32,27 @@ function App () {
 				<Route path="/about" element={<About />} />
 				{/* Store movies do not need login to watch. Need to fix later on */}
 				<Route path="/movie-store" element={<StorePage />} />
-				<Route path="/movie-store/:genreName" element={<SingleStorePage />} />
+				<Route
+					path="/movie-store/:genreName"
+					element={<SingleStorePage />}
+				/>
 
-				{isLoggedIn && <Route path="/movies" element={<UserMoviesList />} />}
-				{isLoggedIn && <Route path="/store-movies" element={<MoviesSearch />} />}
 				{isLoggedIn && (
-					<Route path="/store-movies/:searchWord" element={<MoviesSearch />} />
+					<Route path="/movies" element={<UserMoviesList />} />
+				)}
+				{isLoggedIn && (
+					<Route path="/store-movies" element={<MoviesSearch />} />
+				)}
+				{isLoggedIn && (
+					<Route
+						path="/store-movies/:searchWord"
+						element={<MoviesSearch />}
+					/>
 				)}
 
-				{isLoggedIn && <Route path="/add-movie" element={<MovieAdd />} />}
+				{isLoggedIn && (
+					<Route path="/add-movie" element={<MovieAdd />} />
+				)}
 				<Route
 					path="/movie-detail/store/:movieId"
 					element={<MovieDetailStore />}
@@ -51,8 +64,13 @@ function App () {
 					/>
 				)}
 				{isLoggedIn && (
-					<Route path="/movie-edit/:movieId" element={<MovieEditPage />} />
+					<Route
+						path="/movie-edit/:movieId"
+						element={<MovieEditPage />}
+					/>
 				)}
+
+				{isLoggedIn && <Route path="/admin" element={<AdminPage />} />}
 
 				<Route path="/auth/*" element={<Auth />} />
 				<Route path="*" element={<NotFound />} />

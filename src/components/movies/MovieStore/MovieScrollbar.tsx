@@ -1,7 +1,7 @@
 import { Fragment, useRef, useState, useLayoutEffect } from "react";
 import { Link } from "react-router-dom";
 import Movie from "../../../models/Movie";
-import { toDurationString } from "../../../utilities/movies-util";
+import { shuffleList } from "../../../utilities/list-util";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import {
@@ -15,24 +15,6 @@ interface Props {
 	genre: string;
 	listTag: string;
 	showLinkAndShuffle: boolean;
-}
-
-function shuffleList (initialList: Movie[]) {
-	const copyList = [ ...initialList ];
-	const listLength = copyList.length;
-	let currentIndex = copyList.length - 1;
-
-	while (currentIndex >= 0) {
-		// Create random index between index 0 and moviesLength - 1
-		let randomIndex = Math.floor(Math.random() * listLength);
-		[ copyList[currentIndex], copyList[randomIndex] ] = [
-			copyList[randomIndex],
-			copyList[currentIndex]
-		];
-		currentIndex--;
-	}
-
-	return copyList;
 }
 
 const MovieScrollbar: React.FC<Props> = (props) => {
@@ -95,7 +77,10 @@ const MovieScrollbar: React.FC<Props> = (props) => {
 							See More
 						</Link>
 
-						<span className="btn-shuffle" onClick={shuffleListHandler}>
+						<span
+							className="btn-shuffle"
+							onClick={shuffleListHandler}
+						>
 							Shuffle
 							<FontAwesomeIcon
 								className="btn-shuffle__icon"

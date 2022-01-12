@@ -6,6 +6,8 @@ import Movie, { genre as MovieGenre } from "../../models/Movie";
 import { toShortcutString } from "../../utilities/string-util";
 import { Rating } from "@mui/material";
 
+import InputRating from "../UI/InputRating";
+
 const defaultGenreList: MovieGenre[] = [ "Other" ];
 
 type State = { hours: number; minutes: number };
@@ -55,10 +57,12 @@ const Movieform: React.FC = () => {
 	const submitHandler = (e: React.FormEvent) => {
 		e.preventDefault();
 
-		const submitGenres = genreList.length !== 0 ? genreList : defaultGenreList;
+		const submitGenres =
+			genreList.length !== 0 ? genreList : defaultGenreList;
 		submitGenres.sort((s1, s2) => (s1 <= s2 ? -1 : 1));
 
-		const durationTotalMinutes = durationState.hours * 60 + durationState.minutes;
+		const durationTotalMinutes =
+			durationState.hours * 60 + durationState.minutes;
 
 		const movieObj: Movie = {
 			id: new Date().toISOString(),
@@ -105,7 +109,9 @@ const Movieform: React.FC = () => {
 		const index = genreList.indexOf(newGenre);
 		// if index is not -1, then it already exists.
 		if (index >= 0) return;
-		const newGenreList = [ ...genreList ].filter((genre) => genre !== newGenre);
+		const newGenreList = [ ...genreList ].filter(
+			(genre) => genre !== newGenre
+		);
 		newGenreList.push(newGenre);
 		setGenreList(newGenreList);
 	};
@@ -115,15 +121,18 @@ const Movieform: React.FC = () => {
 		setGenreList(newGenres);
 	};
 
-	const genreListElements = genreList.map((genre: MovieGenre, idx: number) => (
-		<li
-			key={idx}
-			onClick={(e: React.MouseEvent<HTMLLIElement>) => genreDeleteHandler(genre)}
-		>
-			<i className="fa fa-angle-right" />
-			{toShortcutString(genre)}
-		</li>
-	));
+	const genreListElements = genreList.map(
+		(genre: MovieGenre, idx: number) => (
+			<li
+				key={idx}
+				onClick={(e: React.MouseEvent<HTMLLIElement>) =>
+					genreDeleteHandler(genre)}
+			>
+				<i className="fa fa-angle-right" />
+				{toShortcutString(genre)}
+			</li>
+		)
+	);
 
 	return (
 		<form className="movie-form" onSubmit={submitHandler}>
@@ -138,31 +147,10 @@ const Movieform: React.FC = () => {
 				/>
 			</div>
 			<div className="line-input genre-rating">
-				<div className="rating-wrapper">
-					<h4>
-						Rating <span>(max 10)</span>
-					</h4>
-					<Rating
-						name="size-large"
-						value={rating / 2}
-						precision={0.5}
-						size="large"
-						onChange={(e, newValue) => setRating(newValue ? newValue * 2 : 0)}
-					/>
-					<input
-						id="rating"
-						value={rating}
-						placeholder="(1dp)"
-						type="number"
-						min="0"
-						max="10"
-						step="0.1"
-						onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-							setRating(+e.target.value)}
-						required
-					/>
-				</div>
-
+				<InputRating
+					rating={rating}
+					onRatingChange={(newValue: number) => setRating(newValue)}
+				/>
 				<div className="genre-wrapper">
 					<label htmlFor="genre">
 						Genre <span>(max 4 genres)</span>
@@ -183,11 +171,15 @@ const Movieform: React.FC = () => {
 						<option value="TV Shows">TV Shows</option>
 						<option value="Romantic Movies">Romantic Movies</option>
 						<option value="Comedies">Comedies</option>
-						<option value="Music & Musicals">Music & Musicals</option>
+						<option value="Music & Musicals">
+							Music & Musicals
+						</option>
 						<option value="Sci-Fiction & Fantasy">
 							Sci-Fiction & Fantasy
 						</option>
-						<option value="Action & Adventures">Action & Adventures</option>
+						<option value="Action & Adventures">
+							Action & Adventures
+						</option>
 						<option value="Documentaries">Documentaries</option>
 						<option value="Other">Other</option>
 					</select>
@@ -248,7 +240,9 @@ const Movieform: React.FC = () => {
 							min="0"
 							max="10"
 							defaultValue={0}
-							onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+							onChange={(
+								e: React.ChangeEvent<HTMLInputElement>
+							) =>
 								dispatchDuration({
 									type: "HOURS",
 									newHours: +e.target.value
@@ -264,7 +258,9 @@ const Movieform: React.FC = () => {
 							min="0"
 							max="59"
 							defaultValue={0}
-							onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+							onChange={(
+								e: React.ChangeEvent<HTMLInputElement>
+							) =>
 								dispatchDuration({
 									type: "MINUTES",
 									newMinutes: +e.target.value

@@ -2,7 +2,7 @@ import { useContext } from "react";
 import MovieContext from "../../../store/movie-context";
 import Movie from "../../../models/Movie";
 import MovieScrollbar from "./MovieScrollbar";
-import { concatUniqueMovies } from "../../../utilities/movies-util";
+import { concatUniqueMovies } from "../../../utilities/movie-util/movies-util";
 
 interface Props {
 	movies: Movie[];

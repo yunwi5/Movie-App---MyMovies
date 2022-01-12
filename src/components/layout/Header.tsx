@@ -2,10 +2,12 @@ import React, { useContext, useState } from "react";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import { GenreList } from "../../models/Movie";
 import AuthContext from "../../store/auth-context";
+import UserInitial from "../UI/UserInitial";
 
 const Header: React.FC = () => {
 	const authCtx = useContext(AuthContext);
 	const isLoggedIn = authCtx.isLoggedIn;
+	const username = authCtx.user ? authCtx.user.userName : "";
 
 	const navigate = useNavigate();
 	const [ searchWord, setSearchWord ] = useState<string>("");
@@ -32,7 +34,9 @@ const Header: React.FC = () => {
 				<li className="nav-front__categories nav-main-item">
 					<NavLink
 						className={(navData) =>
-							navData.isActive ? "nav-item nav-active" : "nav-item"}
+							navData.isActive
+								? "nav-item nav-active"
+								: "nav-item"}
 						to="/movie-store"
 					>
 						<i className="fa fa-shopping-bag" />
@@ -41,13 +45,19 @@ const Header: React.FC = () => {
 					{/* 1st (level 1) Nested navigation for browsing movies */}
 					<ul className="nested-nav">
 						<li className="nested-nav__item">
-							<Link to="/movie-store" className="nested-nav__link">
+							<Link
+								to="/movie-store"
+								className="nested-nav__link"
+							>
 								<span>Browse Our Store</span>{" "}
 								<i className="fa fa-angle-right" />
 							</Link>
 						</li>
 						<li className="nested-nav__item genre-nav">
-							<Link to="/movie-store" className="nested-nav__link">
+							<Link
+								to="/movie-store"
+								className="nested-nav__link"
+							>
 								<span>Browse By Genre</span>{" "}
 								<i className="fa fa-angle-right" />
 							</Link>
@@ -87,7 +97,9 @@ const Header: React.FC = () => {
 				<li className="nav-main-item">
 					<NavLink
 						className={(navData) =>
-							navData.isActive ? "nav-item nav-active" : "nav-item"}
+							navData.isActive
+								? "nav-item nav-active"
+								: "nav-item"}
 						to="about"
 					>
 						<i className="fa fa-quote-right" />
@@ -98,7 +110,9 @@ const Header: React.FC = () => {
 					<li className="nav-main-item">
 						<NavLink
 							className={(navData) =>
-								navData.isActive ? "nav-item nav-active" : "nav-item"}
+								navData.isActive
+									? "nav-item nav-active"
+									: "nav-item"}
 							to="/movies"
 						>
 							<i className="fa fa-th-list" />
@@ -110,7 +124,9 @@ const Header: React.FC = () => {
 					<li className="nav-main-item">
 						<NavLink
 							className={(navData) =>
-								navData.isActive ? "nav-item nav-active" : "nav-item"}
+								navData.isActive
+									? "nav-item nav-active"
+									: "nav-item"}
 							to="add-movie"
 						>
 							<i className="fa fa-plus-square" />
@@ -122,7 +138,9 @@ const Header: React.FC = () => {
 					<li className="nav-main-item">
 						<NavLink
 							className={(navData) =>
-								navData.isActive ? "nav-item nav-active" : "nav-item"}
+								navData.isActive
+									? "nav-item nav-active"
+									: "nav-item"}
 							to="auth/login"
 						>
 							<i className="fa fa-sign-in" />
@@ -134,7 +152,9 @@ const Header: React.FC = () => {
 					<li className="nav-main-item">
 						<NavLink
 							className={(navData) =>
-								navData.isActive ? "nav-item nav-active" : "nav-item"}
+								navData.isActive
+									? "nav-item nav-active"
+									: "nav-item"}
 							to="auth/signup"
 						>
 							<i className="fa fa-user-plus" />
@@ -150,9 +170,10 @@ const Header: React.FC = () => {
 						</a>
 					</li>
 				)}
-				{isLoggedIn && (
+				{isLoggedIn &&
+				username && (
 					<li className="userIcon nav-main-item">
-						<i className="fa fa-user-circle" />
+						<UserInitial userName={username} />
 					</li>
 				)}
 			</ul>

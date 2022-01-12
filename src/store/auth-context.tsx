@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getUserBySearch, getUserById } from "../api/user-api";
+import { getUserBySearch, getUserById } from "../api/user-auth-api";
 import User from "../models/User";
 
 interface Props {
@@ -20,7 +20,9 @@ const authObj: Props = {
 };
 
 const AuthContext = React.createContext<Props>(authObj);
+export default AuthContext;
 
+const ONE_HOUR = 1000 * 60 * 60;
 // Getting user once is enough
 // The plan is to fetch all users from Firebase DB, loop through the user to find correct userObj.
 // Then, store that target userObj to AuthContext, so that the user properties like
@@ -94,7 +96,23 @@ export const AuthContextProvider: React.FC = (props) => {
 		[ token, email, userId ]
 	);
 
-	console.log(`token: ${token && token.length}, email: ${email}, id: ${userId}`);
+	// Automatically logout the user after 1 hour.
+	useEffect(
+		() => {
+			let timer = setTimeout(() => {
+				logout();
+			}, ONE_HOUR);
+
+			return () => {
+				clearTimeout(timer);
+			};
+		},
+		[ token, email, userId ]
+	);
+
+	console.log(
+		`token: ${token && token.length}, email: ${email}, id: ${userId}`
+	);
 
 	const values = {
 		token,
@@ -104,7 +122,9 @@ export const AuthContextProvider: React.FC = (props) => {
 		user
 	};
 
-	return <AuthContext.Provider value={values}>{props.children}</AuthContext.Provider>;
+	return (
+		<AuthContext.Provider value={values}>
+			{props.children}
+		</AuthContext.Provider>
+	);
 };
-
-export default AuthContext;

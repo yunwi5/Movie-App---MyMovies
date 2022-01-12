@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import MovieContext from "../../store/movie-context";
 import MoviesList from "../../components/movies/MoviesList";
-import { filterMovies } from "../../utilities/movies-util";
+import { filterMovies } from "../../utilities/movie-util/movies-util";
 
 // Display Store Movies to the user, not the Users Movies.
 const MoviesSearch: React.FC = () => {
@@ -11,7 +11,9 @@ const MoviesSearch: React.FC = () => {
 
 	const movieCtx = useContext(MovieContext);
 	const storeMovies = movieCtx.storeMovies;
-	const [ filteredStoreMovies, setFilteredStoreMovies ] = useState(storeMovies);
+	const [ filteredStoreMovies, setFilteredStoreMovies ] = useState(
+		storeMovies
+	);
 
 	useEffect(
 		() => {

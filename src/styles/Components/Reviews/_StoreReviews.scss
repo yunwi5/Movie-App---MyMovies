@@ -1,0 +1,411 @@
+.store-reviews {
+	// background-color: $color-grey-light-1;
+	min-width: 50%;
+	max-width: 80rem;
+	margin: 5rem 0;
+
+	& h2 {
+		font-size: 3.5rem;
+		font-weight: 400;
+	}
+
+	& > *:not(:first-child) {
+		margin-top: 6rem;
+	}
+}
+
+.review-summary {
+	display: flex;
+	align-items: center;
+
+	& > * {
+		margin-left: 1rem;
+	}
+
+	.review-heading {
+		transform: translateY(1rem);
+		width: 13rem;
+		height: 13rem;
+
+		&__rating-number {
+			font-size: 4.7rem;
+			font-weight: 300;
+		}
+
+		&__rating-stars {
+			margin-bottom: .5rem;
+			.MuiRating-icon {
+				font-size: 2.3rem !important;
+			}
+		}
+
+		&__rating-count {
+			font-size: 1.5rem;
+		}
+	}
+
+	.distribution {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		font-size: 1.3rem;
+
+		.rating-bar {
+			width: 100%;
+			display: flex;
+			justify-content: flex-start;
+			position: relative;
+			&:not(:last-child) {
+				margin-bottom: .7rem;
+			}
+		}
+
+		.bar-wrapper {
+			// align-self: flex-end;
+			position: absolute;
+			left: 3rem;
+			display: flex;
+			align-items: center;
+		}
+
+		.bar-outer,
+		.bar-inner {
+			display: inline-block;
+		}
+
+		.bar-outer {
+			width: 58rem;
+			height: 1.5rem;
+			text-align: left;
+			background-color: $color-grey-light-2;
+		}
+
+		.bar-inner {
+			height: 100%;
+			background-color: $color-grey-dark-1;
+		}
+
+		.percent-number {
+			margin-left: 1rem;
+		}
+	}
+}
+
+.reviews-container {
+	text-align: left;
+
+	& > * {
+		margin-left: 1.5rem;
+	}
+
+	.reviews-list-header {
+		font-size: 2.7rem;
+		font-weight: 400;
+		color: $color-grey-dark-5;
+		display: flex;
+		justify-content: space-between;
+	}
+
+	.reviews-list-operations {
+		margin-top: 3rem;
+		margin-bottom: 4rem;
+		display: flex;
+		color: $color-grey-dark-4;
+
+		.review-filter {
+			background-color: #fff;
+			border: 1px solid $color-primary-dark-3;
+			padding: 1.5rem 2.3rem;
+			font-size: 1.6rem;
+			color: inherit;
+			border-radius: 3px;
+		}
+	}
+
+	.add-icon-wrapper {
+		margin-left: auto;
+		margin-right: 1%;
+		font-size: 2.7rem;
+		color: rgba($color-primary-dark-3, .8);
+		cursor: pointer;
+	}
+
+	.add-review {
+		max-width: 93.8%;
+		margin-top: 2rem;
+		padding: 2rem 0;
+		background-color: $color-grey-light-2;
+		border: 2.5px solid rgba($color-primary-dark-3, .5);
+	}
+
+	.reviews-list {
+		margin-top: 3.5rem;
+		list-style: none;
+	}
+
+	.review-card {
+		display: flex;
+		justify-content: space-between;
+		padding-bottom: 1rem;
+		&:not(:last-child) {
+			margin-bottom: 3rem;
+			border-bottom: 2px solid rgba($color-grey-dark-1, .5);
+		}
+	}
+
+	.review-initial {
+		min-height: 5rem;
+		padding-top: .1rem;
+		padding-left: .7rem;
+		padding-right: 1rem;
+	}
+
+	.review-body {
+		flex: 1;
+		& > * {
+			margin-left: 1rem;
+
+			&:not(:last-child) {
+				margin-bottom: .7rem;
+			}
+		}
+
+		h5 {
+			font-weight: 500;
+			font-size: 1.8rem;
+		}
+	}
+
+	.rating-and-date {
+		.stars {
+			transform: translateY(5px);
+
+			.MuiRating-icon {
+				font-size: 1.9rem !important;
+			}
+		}
+
+		.rating-number {
+			color: rgb(185, 136, 11);
+		}
+
+		& span,
+		time {
+			font-size: 1.3rem;
+		}
+
+		& span {
+		}
+
+		& time {
+			margin-left: 2rem;
+			color: $color-grey-dark-2;
+			font-weight: bold;
+		}
+	}
+
+	.comment-text {
+		margin-top: 2rem;
+		font-size: 1.4rem;
+		line-height: 1.7rem;
+		min-height: 5rem;
+	}
+
+	.votes {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+
+		& p {
+			font-size: 1.3rem;
+		}
+
+		.vote-wrapper {
+			@include flex-column-center(null);
+		}
+
+		.vote-wrapper:first-child {
+			margin-right: 1rem;
+		}
+
+		.vote-wrapper span {
+			font-size: 1.2rem;
+			font-weight: bold;
+			color: rgba($color-primary-darkest-1, .8);
+		}
+
+		.icon-wrapper {
+			@include flex-column-center($color-grey-light-1);
+			border: 1px solid $color-grey-dark-4;
+			width: 4rem;
+			height: 4rem;
+			border-radius: 100px;
+			cursor: pointer;
+		}
+
+		.icon-wrapper:hover {
+			background-color: lighten($color-grey-dark-1, 17%);
+		}
+
+		.icon-active {
+			background-color: $color-primary-dark-3;
+			color: lighten($color-primary-light-1, 25%);
+		}
+
+		.icon {
+			font-size: 2.3rem;
+		}
+
+		.icon-upvote {
+			transform: translateY(-2.5px);
+		}
+
+		.icon-downvote {
+			transform: translateY(2.5px);
+		}
+	}
+
+	.operations {
+		display: flex;
+		margin-left: auto;
+		margin-right: 5rem;
+		font-size: 1.3rem;
+		cursor: pointer;
+	}
+
+	.edit,
+	.delete {
+		padding: 1rem;
+		border-radius: 3px;
+		font-size: 1.4rem;
+	}
+
+	.edit {
+		border: 1px solid $color-gold-dark-1;
+		color: $color-gold-dark-1;
+
+		&:hover {
+			background-color: $color-gold-dark-1;
+			color: #fff;
+		}
+	}
+
+	.delete {
+		border: 1px solid $color-tertiary-dark-3;
+		color: $color-tertiary-dark-3;
+
+		&:hover {
+			background-color: $color-tertiary-dark-3;
+			color: #fff;
+		}
+	}
+}
+
+.add-review,
+.edit-modal {
+	& > * {
+		margin-left: 1.7rem;
+	}
+
+	h3,
+	h4 {
+		font-weight: 500;
+		color: $color-grey-dark-4;
+	}
+
+	h3 {
+		font-size: 2.1rem;
+	}
+
+	h4 {
+		font-size: 1.7rem;
+	}
+
+	h4 span {
+		font-size: 1.3rem;
+	}
+
+	label {
+		font-size: 1.7rem;
+	}
+
+	textarea {
+		min-width: 50%;
+		max-width: 30rem;
+		min-height: 7rem;
+	}
+}
+
+.edit-modal {
+	border-radius: 5px;
+	padding-bottom: 2.5rem;
+
+	h3 {
+		margin-top: 1rem;
+		font-size: 2.2rem;
+		color: $color-secondary-dark-2;
+		// min-height: 2.8rem;
+
+		&::after {
+			@include after-underline($color-secondary-dark-2, $color-secondary-light-3);
+			height: .15rem;
+		}
+	}
+}
+
+.review-form {
+	margin-top: 1.5rem;
+
+	.rating-wrapper,
+	.comment-area {
+		margin-top: 1.5rem;
+	}
+
+	.comment-area {
+		display: flex;
+		flex-direction: column;
+		margin-bottom: 2.5rem;
+
+		label {
+			color: $color-grey-dark-4;
+			margin-bottom: .8rem;
+		}
+	}
+
+	.rating-wrapper h4 {
+		margin-bottom: .5rem;
+	}
+
+	.stars {
+		transform: translateY(5px);
+		label {
+			font-size: 2.3rem !important;
+		}
+	}
+
+	input {
+		margin-left: 1rem;
+		min-height: 2.5rem;
+		max-width: 7rem;
+		font-size: 1.5rem;
+	}
+
+	.error-message {
+		margin-top: .5rem;
+		color: $color-tertiary-dark-2;
+		font-size: 1.5rem;
+	}
+
+	button {
+		display: inline-block;
+		padding: 1rem 1.5rem !important;
+		min-width: 10rem;
+		max-width: 20%;
+		font-size: 1.7rem;
+		border-radius: 3px;
+		&:first-child {
+			margin-right: 1.5rem;
+		}
+	}
+}

@@ -9,7 +9,7 @@ import Movie, { genre as MovieGenre } from "../../models/Movie";
 import sortMovies, {
 	filterMovies,
 	getCurrentPageMovies
-} from "../../utilities/movies-util";
+} from "../../utilities/movie-util/movies-util";
 
 interface Props {
 	initialMovies: Movie[];
@@ -68,7 +68,10 @@ const MoviesList: React.FC<Props> = ({ isForUser, initialMovies }) => {
 		return count;
 	};
 
-	const filterHandler = (ratingThreshold: number, filterGenresList: string[]) => {
+	const filterHandler = (
+		ratingThreshold: number,
+		filterGenresList: string[]
+	) => {
 		const ratingSurvivedMovies = moviesList.filter(
 			(movie) => movie.rating >= ratingThreshold
 		);
@@ -121,7 +124,11 @@ const MoviesList: React.FC<Props> = ({ isForUser, initialMovies }) => {
 	};
 
 	return (
-		<main className={`main-content ${showSidebar ? "main-content--extend" : ""}`}>
+		<main
+			className={`main-content ${showSidebar
+				? "main-content--extend"
+				: ""}`}
+		>
 			<MovieFilter
 				moviesList={moviesList}
 				onFilter={filterHandler}
@@ -130,9 +137,14 @@ const MoviesList: React.FC<Props> = ({ isForUser, initialMovies }) => {
 				isForUser={isForUser}
 			/>
 			<div className="movies-container">
-				{isForUser ? <h2>Your Movie Collection</h2> : <h2>The Store Movies</h2>}
+				{isForUser ? (
+					<h2>Your Movie Collection</h2>
+				) : (
+					<h2>The Store Movies</h2>
+				)}
 				<MovieSearchbar
-					onShowSidebar={() => setShowSidebar((prevState) => !prevState)}
+					onShowSidebar={() =>
+						setShowSidebar((prevState) => !prevState)}
 					sortingStandard={sortingStandard}
 					onSortingStandard={(newStandard: string) =>
 						setSortingStandard(newStandard)}
@@ -157,7 +169,9 @@ const MoviesList: React.FC<Props> = ({ isForUser, initialMovies }) => {
 					))}
 				</ul>
 
-				{!filterMoviesLength && <p>No Movies Found For Your Search and Filter</p>}
+				{!filterMoviesLength && (
+					<p>No Movies Found For Your Search and Filter</p>
+				)}
 
 				<MoviePageNav
 					currentPage={currentPage}

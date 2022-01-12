@@ -37,9 +37,11 @@ const childUrl =
 const comediesUrl =
 	"https://www.washingtonpost.com/rf/image_1484w/2010-2019/WashingtonPost/2015/07/07/Weekend/Images/wk-minions0710-5.jpg?t=20170517";
 
-const musicalUrl = "https://images.indianexpress.com/2016/12/la-la-land-7592.jpg";
+const musicalUrl =
+	"https://images.indianexpress.com/2016/12/la-la-land-7592.jpg";
 
-const horrorUrl = "https://uproxx.com/wp-content/uploads/2020/12/INVISIBLE-MAN.jpg";
+const horrorUrl =
+	"https://uproxx.com/wp-content/uploads/2020/12/INVISIBLE-MAN.jpg";
 
 export const getGenreImgUrl = (genre: string) => {
 	switch (genre) {

@@ -56,13 +56,15 @@
 }
 
 .btn-secondary-fill {
-	background-color: rgba($color-secondary-dark-1, .9);
+	background-color: $color-secondary;
+
 	border: none;
 	color: lighten($color-secondary-light-1, 10%);
 	box-shadow: 0 1rem 2rem rgba($color-black, .2);
+	cursor: Pointer;
 
 	&:hover {
-		background-color: $color-secondary;
+		background-color: rgba($color-secondary-dark-1, .9);
 		box-shadow: 0 1rem 2rem rgba($color-black, .29);
 	}
 
@@ -76,6 +78,7 @@
 	border: 1px solid $color-secondary-dark-2;
 	color: $color-secondary-dark-2;
 	box-shadow: 0 1rem 2rem rgba($color-black, .15);
+	cursor: Pointer;
 
 	&:hover {
 		color: lighten($color-secondary-dark-2, 10%);

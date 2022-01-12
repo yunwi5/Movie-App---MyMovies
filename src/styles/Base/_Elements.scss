@@ -1,0 +1,65 @@
+// Div element
+.user-initial-icon {
+	font-size: 2.2rem;
+	font-weight: bold;
+	color: $color-grey-light-1;
+	border-radius: 100px;
+	width: 5rem;
+	height: 5rem;
+	padding: 1.5rem;
+	@include flex-column-center($color-grey-dark-5);
+}
+
+// Div outer element
+// Inner icon and input elements
+.search-bar {
+	flex: 0 0 30%;
+	margin-left: 1.5rem;
+	background-color: #fff;
+	border: 1px solid var(--color-grey-dark-3);
+	border-radius: 3px;
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+	// background: linear-gradient(0.25turn, #f1d3da, #ebf8e1, #ddf1f7);
+
+	& .search-front {
+		min-width: 4.5rem;
+		height: 100%;
+		// background-color: $color-grey-dark-5;
+		@include flex-column-center($color-grey-dark-2);
+	}
+
+	& .fa-search {
+		margin-top: .25rem;
+		color: $color-grey-light-2;
+		text-align: right;
+		font-size: 1.9rem;
+		flex: 0 1 7%;
+	}
+
+	& input {
+		padding: 10px 15px;
+		border: none;
+		flex: 1;
+		height: 100%;
+		font-size: 1.7rem;
+		color: var(--color-grey-dark-2);
+		background: transparent;
+
+		&:focus {
+			outline: none;
+		}
+	}
+
+	& span {
+		margin-right: 1rem;
+		font-size: 1.5rem;
+		transition: all .3s linear;
+		cursor: pointer;
+
+		&:hover {
+			transform: translateY(-.15rem);
+		}
+	}
+}

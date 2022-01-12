@@ -6,7 +6,7 @@ import sortMovies, {
 	Direction,
 	SortingStandard,
 	concatUniqueMovies
-} from "../../../utilities/movies-util";
+} from "../../../utilities/movie-util/movies-util";
 
 interface Props {
 	singleGenreStore: {
@@ -41,11 +41,17 @@ const SingleGenreStore: React.FC<Props> = ({ singleGenreStore }) => {
 
 	const suggestedMovies = [ ...concatedMovies ];
 	const highestRatedMovies =
-		sortMovies([ ...concatedMovies ], SortingStandard.RATING, Direction.DESCENDING) ||
-		concatedMovies;
+		sortMovies(
+			[ ...concatedMovies ],
+			SortingStandard.RATING,
+			Direction.DESCENDING
+		) || concatedMovies;
 	const newestMovies =
-		sortMovies([ ...concatedMovies ], SortingStandard.YEAR, Direction.DESCENDING) ||
-		concatedMovies;
+		sortMovies(
+			[ ...concatedMovies ],
+			SortingStandard.YEAR,
+			Direction.DESCENDING
+		) || concatedMovies;
 
 	// Uses several scroll bars.
 	return (

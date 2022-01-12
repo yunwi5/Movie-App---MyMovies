@@ -1,11 +1,15 @@
 import DUMMY_MOVIES from "../assets/storeMovies";
 import User from "../models/User";
 import Movie from "../models/Movie";
-import { toUserMovies, toMovieArray } from "../utilities/movies-util";
+import {
+	toUserMovies,
+	toMoviesArray
+} from "../utilities/movie-util/movies-util";
 
 // UPDATED
 export const API_KEY = "AIzaSyDTZ0QbMDjcR020EQXdsQ7KSOcfJwPT7vQ";
-export const FIREBASE_DOMAIN = "https://react-movie-app-336f6-default-rtdb.firebaseio.com";
+export const FIREBASE_DOMAIN =
+	"https://react-movie-app-336f6-default-rtdb.firebaseio.com";
 
 // This Fn is called when the new user is signed in!
 export const addUser = async (enteredName: string, enteredEmail: string) => {
@@ -34,7 +38,7 @@ export const addUser = async (enteredName: string, enteredEmail: string) => {
 // Need UserId to do that!!!
 // Call after the first time when the user is already logged in, but instead refreshes the screen.
 export const getUserById = async (userId: string) => {
-	console.log("call api getUserById");
+	// console.log("call api getUserById");
 	const response = await fetch(`${FIREBASE_DOMAIN}/users/${userId}.json`);
 	const data = await response.json();
 
@@ -46,7 +50,7 @@ export const getUserById = async (userId: string) => {
 	const { email, userName, movies } = data;
 
 	// Movies can be either Array or Object.
-	const moviesArray: Movie[] = toMovieArray(movies);
+	const moviesArray: Movie[] = toMoviesArray(movies);
 
 	let transformedUser: User = {
 		id: userId,
@@ -76,7 +80,7 @@ export async function getUserBySearch (inputEmail: string) {
 	}
 
 	const { id, email, userName, movies } = userFound;
-	const moviesArray = toMovieArray(movies);
+	const moviesArray = toMoviesArray(movies);
 
 	let transformedUser: User = {
 		id,

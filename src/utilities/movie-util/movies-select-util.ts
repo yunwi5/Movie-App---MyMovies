@@ -1,4 +1,4 @@
-import Movie from "../models/Movie";
+import Movie from "../../models/Movie";
 
 function haveSameGenre (movieA: Movie, movieB: Movie) {
 	for (const genre of movieB.genreList) {
@@ -32,7 +32,28 @@ function haveSameDirector (movieA: Movie, movieB: Movie) {
 
 const MOVIES_TO_SHOW = 6;
 
-const getSimilarMovies = (movies: Movie[], movie: Movie) => {
+export function getSameDirectorMovies (movies: Movie[], movie: Movie) {
+	const sameDirectorMovies = movies.filter(
+		(m) => haveSameDirector(m, movie) && m.id !== movie.id
+	);
+	return sameDirectorMovies;
+}
+
+export function getSameProducerMovies (movies: Movie[], movie: Movie) {
+	const sameProducerMovies = movies.filter(
+		(m) => haveSameProducer(m, movie) && m.id !== movie.id
+	);
+	return sameProducerMovies;
+}
+
+export function getSameGenreMovies (movies: Movie[], movie: Movie) {
+	const sameGenreMovies = movies.filter(
+		(m) => haveSameGenre(m, movie) && m.id !== movie.id
+	);
+	return sameGenreMovies;
+}
+
+function getSimilarMovies (movies: Movie[], movie: Movie) {
 	let priorityList: Movie[] = [];
 	let primaryList: Movie[] = [];
 	let secondaryList: Movie[] = [];
@@ -95,6 +116,6 @@ const getSimilarMovies = (movies: Movie[], movie: Movie) => {
 	}
 
 	return priorityList;
-};
+}
 
 export default getSimilarMovies;

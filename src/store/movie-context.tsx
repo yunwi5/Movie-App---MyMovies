@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import Movie from "../models/Movie";
 import AuthContext from "./auth-context";
 import DUMMY_MOVIES from "../assets/storeMovies";
-import { addMovieToUser, deleteMovieFromUser, putUserMovie } from '../api/movie-api';
+import { addMovieToUser, deleteMovieFromUser, putUserMovie } from '../api/user-movie-api';
 
 interface Props {
 	storeMovies: Movie[];

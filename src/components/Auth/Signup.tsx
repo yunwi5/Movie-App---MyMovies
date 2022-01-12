@@ -1,10 +1,14 @@
 import React, { useState, useRef } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { validateUserName, validateEmail, validatePassword } from "../../utilities/auth-util";
+import {
+	validateUserName,
+	validateEmail,
+	validatePassword
+} from "../../utilities/auth-util";
 import LoadingSpinner from "../UI/LoadingSpinner";
 import AuthModal from "../UI/Modal/AuthModal";
-import { addUser } from "../../api/user-api";
-import { API_KEY } from "../../api/user-api";
+import { addUser } from "../../api/user-auth-api";
+import { API_KEY } from "../../api/user-auth-api";
 
 const Signup: React.FC = () => {
 	const navigate = useNavigate();
@@ -47,13 +51,20 @@ const Signup: React.FC = () => {
 
 	const validateUserInput = () => {
 		const enteredName = userNameRef.current!.value;
-		const { valid: userNameIsValid, message: userNameMes } = validateUserName(enteredName);
+		const {
+			valid: userNameIsValid,
+			message: userNameMes
+		} = validateUserName(enteredName);
 
 		const enteredEmail = emailRef.current!.value;
-		const { valid: emailIsValid, message: emailMes } = validateEmail(enteredEmail);
+		const { valid: emailIsValid, message: emailMes } = validateEmail(
+			enteredEmail
+		);
 
 		const enteredPassword = passwordRef.current!.value;
-		const { valid: passIsValid, message: passMes } = validatePassword(enteredPassword);
+		const { valid: passIsValid, message: passMes } = validatePassword(
+			enteredPassword
+		);
 
 		if (!userNameIsValid) {
 			setUserNameState({ valid: false, userNameMessage: userNameMes });
@@ -92,7 +103,10 @@ const Signup: React.FC = () => {
 		} else {
 			setModalContent({
 				heading: "Sign Up Unsuccessful...",
-				messages: [ "You sign up went wrong. Please try again", reqMessage || "" ],
+				messages: [
+					"You sign up went wrong. Please try again",
+					reqMessage || ""
+				],
 				onClose: () => {
 					setShowModal(false);
 				}
@@ -146,7 +160,9 @@ const Signup: React.FC = () => {
 	};
 
 	const formIsInvalid =
-		userNameState.userNameMessage || emailState.emailMessage || passwordState.passwordMessage;
+		userNameState.userNameMessage ||
+		emailState.emailMessage ||
+		passwordState.passwordMessage;
 
 	return (
 		<form
@@ -177,7 +193,11 @@ const Signup: React.FC = () => {
 				<p className="error-message">{userNameState.userNameMessage}</p>
 			)}
 
-			<div className={`email-wrapper wrapper ${emailState.valid ? "" : "wrapper--invalid"}`}>
+			<div
+				className={`email-wrapper wrapper ${emailState.valid
+					? ""
+					: "wrapper--invalid"}`}
+			>
 				<label htmlFor="email-input">
 					<i className="fa fa-envelope" />
 				</label>
@@ -189,7 +209,9 @@ const Signup: React.FC = () => {
 					ref={emailRef}
 				/>
 			</div>
-			{!emailState.valid && <p className="error-message">{emailState.emailMessage}</p>}
+			{!emailState.valid && (
+				<p className="error-message">{emailState.emailMessage}</p>
+			)}
 
 			<div
 				className={`password-wrapper wrapper ${passwordState.valid

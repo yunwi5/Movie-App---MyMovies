@@ -1,13 +1,53 @@
+import { Fragment, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
+import SideMoviesList from "./SideMoviesList";
 import Movie from "../../../models/Movie";
+import { shuffleList } from "../../../utilities/list-util";
+import getSimilarMovies, {
+	getSameGenreMovies,
+	getSameDirectorMovies,
+	getSameProducerMovies
+} from "../../../utilities/movie-util/movies-select-util";
 
 type Prop = {
-	movies: Movie[];
+	movie: Movie;
+	storeMovies: Movie[];
 	onClose: () => void;
 };
 
-const MovieSidebar: React.FC<Prop> = ({ movies, onClose }) => {
+const MovieSidebar: React.FC<Prop> = (props) => {
+	const { movie, storeMovies, onClose } = props;
 	const navigate = useNavigate();
+	const movieId = movie.id;
+
+	const similarMovies = useMemo(
+		() => {
+			const similarMoviesAvailable = getSimilarMovies(storeMovies, movie);
+			return similarMoviesAvailable.slice(
+				0,
+				Math.min(similarMoviesAvailable.length, 5)
+			);
+		},
+		[ movieId ]
+	);
+
+	const sameDirectorMovies = useMemo(
+		() => {
+			const sameDirectors = getSameDirectorMovies(storeMovies, movie);
+			const shuffledList = shuffleList(sameDirectors);
+			return shuffledList.slice(0, Math.min(shuffledList.length, 5));
+		},
+		[ movieId ]
+	);
+
+	const sameProducerMovies = useMemo(
+		() => {
+			const sameProducers = getSameProducerMovies(storeMovies, movie);
+			const shuffledList = shuffleList(sameProducers);
+			return shuffledList.slice(0, Math.min(shuffledList.length, 5));
+		},
+		[ movieId ]
+	);
 
 	// Always recommend Store Movies. I think this makes more sense!
 	const switchMovieHandler = (movieId: string) => {
@@ -18,31 +58,43 @@ const MovieSidebar: React.FC<Prop> = ({ movies, onClose }) => {
 	return (
 		<aside className="movies-sidebar">
 			<h2 onClick={onClose}>
-				Similar Store Films <i className="fa fa-angle-right" />
+				Recommended Films <i className="fa fa-angle-right" />
 			</h2>
 
-			<ul>
-				{movies.map((movie, idx) => (
-					<li className={`movie-card ${idx <= 2 ? "" : "movie-card--below"}`} key={idx}>
-						<div
-							className="image-wrapper"
-							onClick={switchMovieHandler.bind(null, movie.id)}
-						>
-							<img src={movie.imgUrl} alt="Movie image" />
-						</div>
-						<div className="movie-content">
-							<h3 onClick={switchMovieHandler.bind(null, movie.id)}>{movie.title}</h3>
-							{movie.producer && <p>{movie.producer}</p>}
-							<p className="line-rating">
-								{movie.rating}
-								<i className="fa fa-star" />
-							</p>
-							{movie.director && <p>{movie.director}</p>}
-							<p>{movie.genreList[0]}</p>
-						</div>
-					</li>
-				))}
-			</ul>
+			<div className="side-movies-continer">
+				<SideMoviesList
+					heading={"Most Similar Films"}
+					movies={similarMovies}
+					onSwitch={switchMovieHandler}
+				/>
+
+				{sameDirectorMovies.length > 0 && (
+					<SideMoviesList
+						heading={
+							<Fragment>
+								More By <span>{movie.director}</span>
+							</Fragment>
+						}
+						movies={sameDirectorMovies}
+						onSwitch={switchMovieHandler}
+					/>
+				)}
+
+				{sameProducerMovies.length > 0 && (
+					<SideMoviesList
+						heading={
+							<Fragment>
+								More From{" "}
+								<span className="dynamic-pro">
+									{movie.producer}
+								</span>
+							</Fragment>
+						}
+						movies={sameProducerMovies}
+						onSwitch={switchMovieHandler}
+					/>
+				)}
+			</div>
 		</aside>
 	);
 };

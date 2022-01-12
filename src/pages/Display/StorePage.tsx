@@ -3,7 +3,7 @@ import MovieContext from "../../store/movie-context";
 import { GenreList } from "../../models/Movie";
 
 import Movie, { genre as Genre } from "../../models/Movie";
-import { getMoviesAndUrlForGenre } from "../../utilities/movies-util";
+import { getMoviesAndUrlForGenre } from "../../utilities/movie-util/movies-util";
 import AllGenresStore from "../../components/movies/MovieStore/AllGenresStore";
 
 const StorePage: React.FC = () => {

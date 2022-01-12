@@ -1,11 +1,10 @@
 import Movie from "../models/Movie";
-import { FIREBASE_DOMAIN } from "./user-api";
+import { FIREBASE_DOMAIN } from "./user-auth-api";
 
 /* 
 Movie API is to add movie to user movie list, and remove movie from it.
 */
 
-// POST
 export async function addMovieToUser (userId: string, movie: Movie) {
 	let movieKey: string | undefined = undefined;
 
@@ -64,7 +63,8 @@ export async function deleteMovieFromUser (userId: string, movie: Movie) {
 export async function putUserMovie (userId: string, movie: Movie) {
 	// Send PUT REQUEST to the surver.
 	try {
-		if (!movie.key || !(movie.key.length > 0)) throw new Error("This movie does not have key!");
+		if (!movie.key || !(movie.key.length > 0))
+			throw new Error("This movie does not have key!");
 
 		const putUrl = `${FIREBASE_DOMAIN}/users/${userId}/movies/${movie.key}.json`;
 		const response = await fetch(putUrl, {

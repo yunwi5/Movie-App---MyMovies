@@ -3,7 +3,12 @@ import Modal from "./Modal";
 import Movie from "../../../models/Movie";
 
 interface ModalProps {
-	modalContent: { movie: Movie; message: string; onAdd: () => void; onClose: () => void };
+	modalContent: {
+		movie: Movie;
+		message: string;
+		onAdd: () => void;
+		onClose: () => void;
+	};
 }
 
 const AddModal: React.FC<ModalProps> = ({ modalContent }) => {
