@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useMemo } from "react";
 import { useLocation } from "react-router-dom";
 import MovieContext from "../../store/movie-context";
 import MoviesList from "../../components/movies/MoviesList";
@@ -6,7 +6,7 @@ import { filterMovies } from "../../utilities/movie-util/movies-util";
 
 function useQuery () {
 	const { search } = useLocation();
-	return React.useMemo(() => new URLSearchParams(search), [ search ]);
+	return useMemo(() => new URLSearchParams(search), [ search ]);
 }
 
 // Display Store Movies to the user, not the Users Movies.

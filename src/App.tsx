@@ -32,37 +32,17 @@ function App () {
 				<Route path="/about" element={<About />} />
 				{/* Store movies do not need login to watch. Need to fix later on */}
 				<Route path="/movie-store" element={<StorePage />} />
-				<Route
-					path="/movie-store/:genreName"
-					element={<SingleStorePage />}
-				/>
+				<Route path="/movie-store/:genreName" element={<SingleStorePage />} />
 
-				{isLoggedIn && (
-					<Route path="/movies" element={<UserMoviesList />} />
-				)}
-				{isLoggedIn && (
-					<Route path="/store-movies" element={<MoviesSearch />} />
-				)}
+				{isLoggedIn && <Route path="/movies" element={<UserMoviesList />} />}
+				{isLoggedIn && <Route path="/store-movies" element={<MoviesSearch />} />}
 
+				{isLoggedIn && <Route path="/add-movie" element={<MovieAdd />} />}
+				<Route path="/movie-detail/store/:movieId" element={<MovieDetailStore />} />
 				{isLoggedIn && (
-					<Route path="/add-movie" element={<MovieAdd />} />
+					<Route path="/movie-detail/user/:movieId" element={<MovieDetailUser />} />
 				)}
-				<Route
-					path="/movie-detail/store/:movieId"
-					element={<MovieDetailStore />}
-				/>
-				{isLoggedIn && (
-					<Route
-						path="/movie-detail/user/:movieId"
-						element={<MovieDetailUser />}
-					/>
-				)}
-				{isLoggedIn && (
-					<Route
-						path="/movie-edit/:movieId"
-						element={<MovieEditPage />}
-					/>
-				)}
+				{isLoggedIn && <Route path="/movie-edit/:movieId" element={<MovieEditPage />} />}
 
 				{isLoggedIn && <Route path="/admin" element={<AdminPage />} />}
 
