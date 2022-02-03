@@ -1,13 +1,9 @@
 import Movie from "../../models/Movie";
 import { genre as Genre } from "../../models/Movie";
-import { getGenreImgUrlStore } from "../movies-img";
+import { getGenreImgUrlStore } from "../../assets/movies-img";
 
 // Used in MoviesList
-export const getCurrentPageMovies = (
-	movies: Movie[],
-	currentPage: number,
-	perPage: number
-) => {
+export const getCurrentPageMovies = (movies: Movie[], currentPage: number, perPage: number) => {
 	const start_index = (currentPage - 1) * perPage;
 	const end_index = start_index + perPage;
 	const currentPageMovies = movies.slice(start_index, end_index);
@@ -15,10 +11,7 @@ export const getCurrentPageMovies = (
 };
 
 // Used in MoviesList
-export const filterMovies = (
-	movies: Movie[],
-	searchWord: string | undefined
-) => {
+export const filterMovies = (movies: Movie[], searchWord: string | undefined) => {
 	if (!searchWord) return movies;
 	const newMovies = movies.filter((movie) =>
 		movie.title.toLowerCase().includes(searchWord.toLowerCase())
@@ -36,11 +29,7 @@ export const toDurationString = (totalMinutes: number | null) => {
 };
 
 // Helper function for sortMovies() at the moment
-const compareMovies = (
-	m1: Movie,
-	m2: Movie,
-	sortingStandard: string
-): number => {
+const compareMovies = (m1: Movie, m2: Movie, sortingStandard: string): number => {
 	switch (sortingStandard) {
 		case "rating":
 			if (m1.rating !== m2.rating) return m1.rating - m2.rating;
@@ -49,8 +38,7 @@ const compareMovies = (
 			if (m1.title !== m2.title) return m1.title < m2.title ? -1 : 1;
 			break;
 		case "year":
-			if (m1.year && m2.year && m1.year !== m2.year)
-				return m1.year - m2.year;
+			if (m1.year && m2.year && m1.year !== m2.year) return m1.year - m2.year;
 			break;
 		default:
 			return -1;
@@ -71,21 +59,13 @@ export enum Direction {
 }
 
 // Used in MoviesList
-function sortMovies (
-	moviesList: Movie[],
-	sortingStandard: string,
-	dir: string | null
-) {
+function sortMovies (moviesList: Movie[], sortingStandard: string, dir: string | null) {
 	if (!dir) return;
 
 	if (dir === Direction.ASCENDING) {
-		moviesList.sort((movieA, movieB) =>
-			compareMovies(movieA, movieB, sortingStandard)
-		);
+		moviesList.sort((movieA, movieB) => compareMovies(movieA, movieB, sortingStandard));
 	} else {
-		moviesList.sort((movieA, movieB) =>
-			compareMovies(movieB, movieA, sortingStandard)
-		);
+		moviesList.sort((movieA, movieB) => compareMovies(movieB, movieA, sortingStandard));
 	}
 	return moviesList;
 }
@@ -131,9 +111,7 @@ export function toMoviesObject (movies: Movie[]) {
 // Used In StorePage and SingleStorePage Components For
 export function getMoviesAndUrlForGenre (genre: Genre, moviesList: Movie[]) {
 	const imgUrl = getGenreImgUrlStore(genre);
-	let resultMovies: Movie[] = moviesList.filter((movie) =>
-		movie.genreList.includes(genre)
-	);
+	let resultMovies: Movie[] = moviesList.filter((movie) => movie.genreList.includes(genre));
 
 	return {
 		imgUrl,
@@ -147,10 +125,7 @@ export function getMoviesAndUrlForGenre (genre: Genre, moviesList: Movie[]) {
 // Our current store has only 17 movies, so in order to facilitate Horizontal Scroll functionality,
 // Need to add some extra movies at the end of Single Genre List.
 // If there are duplicates, the unique key rule is violated, so always make sure all items are unique.
-export function concatUniqueMovies (
-	moviesListA: Movie[],
-	moviesListB: Movie[]
-) {
+export function concatUniqueMovies (moviesListA: Movie[], moviesListB: Movie[]) {
 	let concatedMovies = [ ...moviesListA ];
 	for (const m of moviesListB) {
 		if (!concatedMovies.includes(m)) {
@@ -158,4 +133,12 @@ export function concatUniqueMovies (
 		}
 	}
 	return concatedMovies;
+}
+
+// Get first 8~10 words for the movie description.
+export function getShortMovieDescription (description: string) {
+	const NUM_WORDS = 10;
+	const introDescription = description.split(" ").slice(0, NUM_WORDS);
+	if (!introDescription[introDescription.length - 1].includes(".")) introDescription.push("...");
+	return introDescription.join(" ");
 }

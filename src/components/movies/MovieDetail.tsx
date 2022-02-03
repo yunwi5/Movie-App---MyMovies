@@ -1,6 +1,8 @@
 import React, { Fragment, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MovieContext from "../../store/movie-context";
+
+import AuthContext from "../../store/auth-context";
 import DetailHeader from "./MovieDetail/DetailHeader";
 import DetailFooter from "./MovieDetail/DetailFooter";
 import DeleteModal from "../UI/Modal/DeleteModal";
@@ -13,6 +15,7 @@ const MovieDetail: React.FC<{ movie: Movie }> = ({ movie }) => {
 	const navigate = useNavigate();
 
 	const movieCtx = useContext(MovieContext);
+	const isLoggedIn = useContext(AuthContext).isLoggedIn;
 	// Get Similar Movies from the store, not from the User Movies
 	const storeMovies = movieCtx.storeMovies;
 
@@ -45,6 +48,10 @@ const MovieDetail: React.FC<{ movie: Movie }> = ({ movie }) => {
 	};
 
 	const showAddModalHandler = (askAdding: boolean) => {
+		if (!isLoggedIn) {
+			navigate("/auth/login");
+			return;
+		}
 		setShowAddModal(askAdding);
 	};
 
@@ -61,9 +68,7 @@ const MovieDetail: React.FC<{ movie: Movie }> = ({ movie }) => {
 
 	return (
 		<Fragment>
-			{showDeleteModal && (
-				<DeleteModal modalContent={deleteModalContent} />
-			)}
+			{showDeleteModal && <DeleteModal modalContent={deleteModalContent} />}
 			{showAddModal && <AddModal modalContent={addModalContent} />}
 			<main className="movie-detail">
 				<DetailHeader

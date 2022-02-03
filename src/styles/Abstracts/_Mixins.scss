@@ -1,3 +1,9 @@
+@mixin flex-center {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
 @mixin flex-column($bg) {
 	display: flex;
 	flex-direction: column;
@@ -97,8 +103,7 @@
 		@include after-underline($color-1, $color-2);
 		width: 0;
 		transform-origin: bottom;
-		transition: transform .2s, width .4s cubic-bezier(1, .01, 0, .98) .2s,
-			background-color .1s;
+		transition: transform .2s, width .4s cubic-bezier(1, .01, 0, .98) .2s, background-color .1s;
 	}
 	&:hover::after {
 		width: 100%;

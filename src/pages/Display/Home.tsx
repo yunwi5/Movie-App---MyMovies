@@ -5,7 +5,7 @@ import MovieContext from "../../store/movie-context";
 import { getGenreMoviesCount } from "../../utilities/movie-util/genre-movie-util";
 import { GenreList } from "../../models/Movie";
 // import Movie, { genre as Genre } from "../../models/Movie";
-import { getGenreImgUrl } from "../../utilities/movies-img";
+import { getGenreImgUrl } from "../../assets/movies-img";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import {
@@ -26,9 +26,7 @@ const Home: React.FC = () => {
 	const storeMovies = useContext(MovieContext).storeMovies;
 	const genreList = GenreList.slice(0, GenreList.length - 1);
 
-	const genreCountsList = genreList.map((genre) =>
-		getGenreMoviesCount(storeMovies, genre)
-	);
+	const genreCountsList = genreList.map((genre) => getGenreMoviesCount(storeMovies, genre));
 
 	return (
 		<main className="home">
@@ -37,19 +35,15 @@ const Home: React.FC = () => {
 					<h1 className="heading__title">MyMovies App</h1>
 					<div className="heading__paragraphs">
 						<p>
-							The ultimate movie platform for you to build your
-							own custom movie collection.
+							The ultimate movie platform for you to build your own custom movie
+							collection.
 						</p>
 						<p>
-							We provide collection & evaluation services for{" "}
-							<strong>FREE</strong>.
+							We provide collection & evaluation services for <strong>FREE</strong>.
 						</p>
 
 						<Link className="heading__link" to="/movie-store">
-							<FontAwesomeIcon
-								icon={faPopcorn as IconProp}
-							/>{" "}
-							Browse Movies &rarr;
+							<FontAwesomeIcon icon={faPopcorn as IconProp} /> Browse Movies &rarr;
 						</Link>
 					</div>
 				</div>
@@ -60,10 +54,7 @@ const Home: React.FC = () => {
 				<h1>Why MyMovies</h1>
 				<div className="cards-wrapper">
 					<div className="card col-1-of-4">
-						<FontAwesomeIcon
-							icon={faGlobe as IconProp}
-							className="card__icon"
-						/>
+						<FontAwesomeIcon icon={faGlobe as IconProp} className="card__icon" />
 						<h3 className="card__heading">All The Movies</h3>
 						<div className="card__paragraphs">
 							<p>100+ Popular Movies</p>
@@ -72,10 +63,7 @@ const Home: React.FC = () => {
 						</div>
 					</div>
 					<div className="card card--time col-1-of-4">
-						<FontAwesomeIcon
-							icon={faStopwatch as IconProp}
-							className="card__icon"
-						/>
+						<FontAwesomeIcon icon={faStopwatch as IconProp} className="card__icon" />
 						<h3 className="card__heading">Save Your Time</h3>
 						<div className="card__paragraphs">
 							<p>No Need to Add Basic Info</p>
@@ -84,10 +72,7 @@ const Home: React.FC = () => {
 						</div>
 					</div>
 					<div className="card card--comment col-1-of-4">
-						<FontAwesomeIcon
-							icon={faComments as IconProp}
-							className="card__icon"
-						/>
+						<FontAwesomeIcon icon={faComments as IconProp} className="card__icon" />
 						<h3 className="card__heading">Make Comments</h3>
 						<div className="card__paragraphs">
 							<p>Fix Everything You Want</p>
@@ -124,10 +109,9 @@ const Home: React.FC = () => {
 					</h3>
 
 					<p>
-						We have movies prepared for various different genres so
-						that you can simply add those sources to your collection
-						as quick as possible. Please have a look at what we have
-						in our store.
+						We have movies prepared for various different genres so that you can simply
+						add those sources to your collection as quick as possible. Please have a
+						look at what we have in our store.
 					</p>
 				</div>
 				<ul className="genres-cards">
@@ -152,10 +136,7 @@ const Home: React.FC = () => {
 								<h4>
 									{genreCountsList[idx]} Movies On {genre}
 								</h4>
-								<Link
-									className="btn explore-link"
-									to={`/movie-store/${genre}`}
-								>
+								<Link className="btn explore-link" to={`/movie-store/${genre}`}>
 									Explore
 								</Link>
 							</div>
@@ -175,8 +156,8 @@ const Home: React.FC = () => {
 				<h1>What Movies We Have</h1>
 				<div className="content-box">
 					<h3>
-						We have movies from the most famous & popular movie
-						Production companies in the world.
+						We have movies from the most famous & popular movie Production companies in
+						the world.
 					</h3>
 					<div className="logos">
 						<div className="logo-wrapper">

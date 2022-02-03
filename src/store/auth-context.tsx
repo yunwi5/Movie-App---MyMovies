@@ -39,7 +39,6 @@ export const AuthContextProvider: React.FC = (props) => {
 	const [ token, setToken ] = useState<string | null>(retrievedToken);
 	const [ email, setEmail ] = useState<string | null>(retrievedEmail);
 	const [ userId, setUserId ] = useState<string | null>(retrievedId);
-
 	const [ user, setUser ] = useState<User | null>(null);
 
 	const isLoggedIn = !!token;
@@ -75,7 +74,7 @@ export const AuthContextProvider: React.FC = (props) => {
 		if (token && email) {
 			// Get the user Obj from the Database.
 			const userFound = await getUserBySearch(email);
-			console.log("try get User by email:", userFound);
+			// console.log("try get User by email:", userFound);
 
 			if (!userFound) return;
 			// Store userId so that user can be retrieved once the user re-loads the page.\
@@ -110,10 +109,6 @@ export const AuthContextProvider: React.FC = (props) => {
 		[ token, email, userId ]
 	);
 
-	console.log(
-		`token: ${token && token.length}, email: ${email}, id: ${userId}`
-	);
-
 	const values = {
 		token,
 		isLoggedIn,
@@ -122,9 +117,5 @@ export const AuthContextProvider: React.FC = (props) => {
 		user
 	};
 
-	return (
-		<AuthContext.Provider value={values}>
-			{props.children}
-		</AuthContext.Provider>
-	);
+	return <AuthContext.Provider value={values}>{props.children}</AuthContext.Provider>;
 };

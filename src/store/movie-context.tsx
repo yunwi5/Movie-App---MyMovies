@@ -3,6 +3,8 @@ import Movie from "../models/Movie";
 import AuthContext from "./auth-context";
 import DUMMY_MOVIES from "../assets/storeMovies";
 import { addMovieToUser, deleteMovieFromUser, putUserMovie } from '../api/user-movie-api';
+import { addSingleMovieToDb, getAllMoviesFromDb } from "../api/store-movie-api";
+import {userIsAdmin } from "../utilities/admin-util";
 
 interface Props {
 	storeMovies: Movie[];
@@ -12,6 +14,7 @@ interface Props {
 	editMovie: (movie: Movie) => void;
 	getUserMovie: (id: string) => Movie | undefined;
 	getStoreMovie: (id: string) => Movie | undefined;
+	addMovieToStore: (movie: Movie) => void;
 }
 
 const contextObj: Props = {
@@ -22,6 +25,7 @@ const contextObj: Props = {
 	editMovie: (movie: Movie) => {},
 	getUserMovie: (id: string): Movie | undefined => undefined,
 	getStoreMovie: (id: string): Movie | undefined => undefined,
+	addMovieToStore: (movie: Movie) => {}
 };
 
 const MovieContext: React.Context<Props> = React.createContext(contextObj);
@@ -35,7 +39,7 @@ export const MovieContextProvider: React.FC = (props) => {
 	const {id, email} = user || {id: null, email: null};
 	const userMovies = authCtx.user?.movies || [];
 
-	const storeMovies = DUMMY_MOVIES;
+	const [storeMoviesList, setStoreMoviesList] = useState(DUMMY_MOVIES);
 	const [ moviesList, setMoviesList ] = useState<Movie[]>(userMovies); // Create Copy For Now temporarily
 
 	const addMovie = async (newMovie: Movie) => {
@@ -59,6 +63,26 @@ export const MovieContextProvider: React.FC = (props) => {
 		// Set the movie lst after getting movieKey from the Server.
 		setMoviesList((prevMovies) => [ newMovie, ...prevMovies ]);
 	};
+
+
+	const addMovieToStore = async (newMovie: Movie) => {
+		const existingIndex = storeMoviesList.findIndex((m) => m.id === newMovie.id || m.title === newMovie.title);
+		if (existingIndex >= 0) {
+			alert('This movie was alraedy added to the store!')
+			return;
+		}
+		const isAdmin =  userIsAdmin(email);
+		if (!isAdmin) {
+			alert('Admin authority is requried for adding to the store movies!');
+			return;
+		}
+
+		const newMovieCpy = {...newMovie, isFromStore: true};
+		// Verified as Admin, so add movie to the store
+		await addSingleMovieToDb(newMovieCpy);
+		setStoreMoviesList(prevList => [...prevList, newMovieCpy]);
+	}
+	
 
 	const deleteMovie = (movie: Movie) => {
 		const filteredMovies = moviesList.filter((m) => m.id !== movie.id);
@@ -88,9 +112,11 @@ export const MovieContextProvider: React.FC = (props) => {
 	};
 
 	const getStoreMovie = (id: string) => {
-		const storeMovie = storeMovies.find((movie) => movie.id === id);
+		const storeMovie = storeMoviesList.find((movie) => movie.id === id);
 		return storeMovie;
 	};
+
+
 	
 	useEffect(() => {
 		if (email) {
@@ -99,14 +125,22 @@ export const MovieContextProvider: React.FC = (props) => {
 
 	}, [id, email])
 
+	useEffect(() => {
+		getAllMoviesFromDb().then((movies) => {
+			if (!movies) return;
+			setStoreMoviesList(movies);
+		});
+	}, [])
+
 	const value = {
-		storeMovies,
+		storeMovies: storeMoviesList,
 		moviesList,
 		addMovie,
 		deleteMovie,
 		editMovie,
 		getUserMovie,
-		getStoreMovie
+		getStoreMovie,
+		addMovieToStore
 	};
 
 	return <MovieContext.Provider value={value}>{props.children}</MovieContext.Provider>;

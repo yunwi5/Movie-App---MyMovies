@@ -4,7 +4,7 @@ import MovieFilter from "./MoviesFilter/MovieFilter";
 import MovieCard from "./MovieCard";
 import MoviePageNav from "./MovieSupport/MoviePageNav";
 import MovieSearchbar from "./MovieSupport/MovieSearchbar";
-
+import { shuffleList } from "../../utilities/list-util";
 import Movie, { genre as MovieGenre } from "../../models/Movie";
 import sortMovies, {
 	filterMovies,
@@ -16,11 +16,10 @@ interface Props {
 	isForUser: boolean;
 }
 
-const MoviesList: React.FC<Props> = ({ isForUser, initialMovies }) => {
+const MoviesList: React.FC<Props> = (props) => {
+	const { isForUser, initialMovies } = props;
 	const movieCtx = useContext(MovieContext);
 
-	// Seach Filter is already done here.
-	const [ moviesList, setMoviesList ] = useState(initialMovies);
 	// Sorting
 	const [ sortingStandard, setSortingStandard ] = useState<string>("");
 	const [ sortingDirection, setSortingDirection ] = useState<string>("");
@@ -46,6 +45,14 @@ const MoviesList: React.FC<Props> = ({ isForUser, initialMovies }) => {
 		movieCtx.editMovie(newMovie);
 	};
 
+	const shuffleMoviesHandler = () => {
+		const shuffledList = shuffleList(filteredMovies);
+		console.table(shuffledList);
+		setFilteredMovies(shuffledList);
+		setSortingStandard("");
+		setSortingDirection("");
+	};
+
 	const getRatingCount = (ratingThreshold: number) => {
 		let count = 0;
 		filteredMovies.forEach((movie) => {
@@ -66,11 +73,8 @@ const MoviesList: React.FC<Props> = ({ isForUser, initialMovies }) => {
 		return count;
 	};
 
-	const filterHandler = (
-		ratingThreshold: number,
-		filterGenresList: string[]
-	) => {
-		const ratingSurvivedMovies = moviesList.filter(
+	const filterHandler = (ratingThreshold: number, filterGenresList: string[]) => {
+		const ratingSurvivedMovies = initialMovies.filter(
 			(movie) => movie.rating >= ratingThreshold
 		);
 
@@ -94,7 +98,6 @@ const MoviesList: React.FC<Props> = ({ isForUser, initialMovies }) => {
 
 	useEffect(
 		() => {
-			setMoviesList(initialMovies);
 			setFilteredMovies(initialMovies);
 		},
 		[ initialMovies ]
@@ -120,42 +123,28 @@ const MoviesList: React.FC<Props> = ({ isForUser, initialMovies }) => {
 	};
 
 	return (
-		<main
-			className={`main-content ${showSidebar
-				? "main-content--extend"
-				: ""}`}
-		>
+		<main className={`main-content ${showSidebar ? "main-content--extend" : ""}`}>
 			<MovieFilter
-				moviesList={moviesList}
+				moviesList={initialMovies}
 				onFilter={filterHandler}
 				onRatingCount={getRatingCount}
 				onGenreCount={getGenreCount}
 				isForUser={isForUser}
 			/>
 			<div className="movies-container">
-				{isForUser ? (
-					<h2>Your Movie Collection</h2>
-				) : (
-					<h2>The Store Movies</h2>
-				)}
+				{isForUser ? <h2>Your Movie Collection</h2> : <h2>The Store Movies</h2>}
 				<MovieSearchbar
-					onShowSidebar={() =>
-						setShowSidebar((prevState) => !prevState)}
+					onShowSidebar={() => setShowSidebar((prevState) => !prevState)}
 					sortingStandard={sortingStandard}
-					onSortingStandard={(newStandard: string) =>
-						setSortingStandard(newStandard)}
+					onSortingStandard={(newStandard: string) => setSortingStandard(newStandard)}
 					sortingDirection={sortingDirection}
-					onSortingDirection={(newDirection: string) =>
-						setSortingDirection(newDirection)}
+					onSortingDirection={(newDirection: string) => setSortingDirection(newDirection)}
+					onShuffle={shuffleMoviesHandler}
 					moviesLength={filteredMovies.length}
 				/>
 
 				<ul className="movies-list">
-					{getCurrentPageMovies(
-						filteredMovies,
-						currentPage,
-						perPage
-					).map((movie) => (
+					{getCurrentPageMovies(filteredMovies, currentPage, perPage).map((movie) => (
 						<MovieCard
 							key={movie.id}
 							movie={movie}
@@ -165,9 +154,7 @@ const MoviesList: React.FC<Props> = ({ isForUser, initialMovies }) => {
 					))}
 				</ul>
 
-				{!filterMoviesLength && (
-					<p>No Movies Found For Your Search and Filter</p>
-				)}
+				{!filterMoviesLength && <p>No Movies Found For Your Search and Filter</p>}
 
 				<MoviePageNav
 					currentPage={currentPage}

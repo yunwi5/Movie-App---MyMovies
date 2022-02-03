@@ -1,15 +1,11 @@
 import DUMMY_MOVIES from "../assets/storeMovies";
 import User from "../models/User";
 import Movie from "../models/Movie";
-import {
-	toUserMovies,
-	toMoviesArray
-} from "../utilities/movie-util/movies-util";
+import { toUserMovies, toMoviesArray } from "../utilities/movie-util/movies-util";
 
 // UPDATED
 export const API_KEY = "AIzaSyDTZ0QbMDjcR020EQXdsQ7KSOcfJwPT7vQ";
-export const FIREBASE_DOMAIN =
-	"https://react-movie-app-336f6-default-rtdb.firebaseio.com";
+export const FIREBASE_DOMAIN = "https://react-movie-app-336f6-default-rtdb.firebaseio.com";
 
 // This Fn is called when the new user is signed in!
 export const addUser = async (enteredName: string, enteredEmail: string) => {
@@ -98,7 +94,7 @@ export async function getAllUsers () {
 	const data = await response.json();
 
 	if (!response.ok) {
-		throw new Error(data.message || "Could not fetch movies.");
+		throw new Error(data.message || "Could not fetch users.");
 	}
 
 	const transformedUsers = [];

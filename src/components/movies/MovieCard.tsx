@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Movie from "../../models/Movie";
-import { toDurationString } from "../../utilities/movie-util/movies-util";
+import { toDurationString, getShortMovieDescription } from "../../utilities/movie-util/movies-util";
 import DeleteModal from "../UI/Modal/DeleteModal";
 import MovieContext from "../../store/movie-context";
 import Rating from "@mui/material/Rating";
@@ -68,9 +68,7 @@ const MovieCard: React.FC<Props> = (props) => {
 	return (
 		<React.Fragment>
 			{showAddModal && <AddModal modalContent={addModalContent} />}
-			{showDeleteModal && (
-				<DeleteModal modalContent={deleteModalContent} />
-			)}
+			{showDeleteModal && <DeleteModal modalContent={deleteModalContent} />}
 			<div key={movie.id} className="movie-card">
 				{movie.isFavorite && <i className="fa fa-star fa-favorite" />}
 				<div className="image-wrapper">
@@ -90,16 +88,9 @@ const MovieCard: React.FC<Props> = (props) => {
 								<ul className="setting-list">
 									<li onClick={favoriteChangeHandler}>
 										<i className="fa fa-star" />
-										{movie.isFavorite ? (
-											"Unfavorite"
-										) : (
-											"Favorite"
-										)}
+										{movie.isFavorite ? "Unfavorite" : "Favorite"}
 									</li>
-									<li
-										onClick={() =>
-											navigate(`/movie-edit/${movie.id}`)}
-									>
+									<li onClick={() => navigate(`/movie-edit/${movie.id}`)}>
 										<i className="fa fa-pencil" />
 										Edit
 									</li>
@@ -111,10 +102,7 @@ const MovieCard: React.FC<Props> = (props) => {
 							</div>
 						)}
 						{!isForUser && (
-							<div
-								className="add-mark-wrapper"
-								onClick={addHandler}
-							>
+							<div className="add-mark-wrapper" onClick={addHandler}>
 								<i className="fa fa-plus" />
 							</div>
 						)}
@@ -130,29 +118,29 @@ const MovieCard: React.FC<Props> = (props) => {
 									precision={0.5}
 									readOnly
 								/>
-								<span className="rating__number">
-									({movie.rating}/10)
-								</span>
+								<span className="rating__number">({movie.rating}/10)</span>
 							</span>
-							{movie.producer && (
-								<div className="company">{movie.producer}</div>
-							)}
+							{movie.producer && <div className="company">{movie.producer}</div>}
 							{movie.duration ? (
-								<div className="duration">
-									{toDurationString(movie.duration)}
-								</div>
+								<div className="duration">{toDurationString(movie.duration)}</div>
 							) : (
 								""
 							)}
 							<ul className="movie-card__genre-list">
-								{movie.genreList.map((genre, idx) => (
-									<li key={idx}>{genre}</li>
-								))}
+								{movie.genreList.map((genre, idx) => {
+									const isNotLast = idx < movie.genreList.length - 1;
+									return (
+										<li key={idx}>
+											<span>{genre}</span>
+											{isNotLast && <span className="separator"> | </span>}
+										</li>
+									);
+								})}
 							</ul>
-							<button
-								className="detail"
-								onClick={navigateToDetail}
-							>
+							<p className="movie-card__description">
+								{getShortMovieDescription(movie.description)}
+							</p>
+							<button className="detail" onClick={navigateToDetail}>
 								<span className="detail-link">Detail</span>
 							</button>
 						</div>

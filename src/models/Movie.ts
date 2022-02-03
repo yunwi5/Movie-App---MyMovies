@@ -31,6 +31,22 @@ export type genre =
 	| "Documentaries"
 	| "Other";
 
+export enum Genre {
+	ANIME = "Anime",
+	DRAMA = "Drama",
+	THRILLER = "Thriller",
+	HORROR = "Horror",
+	CHILDREN_FAMILY = "Children & Family Movies",
+	TV_SHOWS = "TV Shows",
+	ROMANTIC = "Romantic Movies",
+	COMEDIES = "Comedies",
+	MUSICALS = "Music & Musicals",
+	SCI_FICTION_FANTASY = "Science-Fiction & Fantasy",
+	ACTION_ADVENTURES = "Action & Adventures",
+	DOCUMENTARIES = "Documentaries",
+	OTHER = "Other"
+}
+
 export interface Comment {
 	id: string;
 	movieId: string;

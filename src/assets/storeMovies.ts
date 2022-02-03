@@ -1,4 +1,5 @@
 import Movie from "../models/Movie";
+import { Genre } from "../models/Movie";
 
 const DUMMY_MOVIES: Movie[] = [
 	{
@@ -279,6 +280,57 @@ const DUMMY_MOVIES: Movie[] = [
 		duration: 148,
 		year: 2016,
 		genreList: [ "Action & Adventures", "Science-Fiction & Fantasy" ],
+		isFavorite: false,
+		isFromStore: true,
+		comments: []
+	},
+	{
+		id: "m19",
+		title: "Superman Returns",
+		imgUrl:
+			"https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcS2CZgJV_eSnJakoCvx6CLcqnFk85xvJYNpxmjuLzrdnsAkVvdl",
+		rating: 6,
+		description:
+			"Upon his return to Earth, Superman must deal with heartbreak and put his powers to test once again to stop his greatest arch-nemesis, Lex Luthor, from gaining complete control of the world.",
+		producer: "Warner Bros",
+		director: "Bryan Singer",
+		duration: 154,
+		year: 2006,
+		genreList: [ Genre.ACTION_ADVENTURES ],
+		isFavorite: false,
+		isFromStore: true,
+		comments: []
+	},
+	{
+		id: "m20",
+		title: "Transformers",
+		imgUrl:
+			"https://m.media-amazon.com/images/M/MV5BN2YwOWM4ODgtZTMzMi00ZmFmLTk5NTEtNmY4ZDcwNzQxNDhjXkEyXkFqcGdeQXVyNTI0NzAyNjY@._V1_.jpg",
+		rating: 7,
+		description:
+			"Transformers is a series of American science fiction action films based on the Transformers franchise, which began in the 1980s. Michael Bay has directed the first five films: Transformers, Revenge of the Fallen, Dark of the Moon, Age of Extinction, and The Last Knight.",
+		producer: "DreamWorks Pictures",
+		director: "Michael Bay & Travis Knight",
+		duration: 144,
+		year: 2007,
+		genreList: [ Genre.ACTION_ADVENTURES, Genre.SCI_FICTION_FANTASY ],
+		isFavorite: false,
+		isFromStore: true,
+		comments: []
+	},
+	{
+		id: "m21",
+		title: "Transformers: Revenge of the Fallen",
+		imgUrl:
+			"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6NMcp-Vtzhh9-rCoV4RvhHrfoxmE6IBvbJ9k6RGNXeYiLOWRz",
+		rating: 6,
+		description:
+			"Sam leaves the Autobots to lead a normal life. However, the Decepticons target him and drag him back into the Transformers' war.",
+		producer: "DreamWorks Pictures",
+		director: "Michael Bay",
+		duration: 150,
+		year: 2009,
+		genreList: [ Genre.ACTION_ADVENTURES, Genre.SCI_FICTION_FANTASY ],
 		isFavorite: false,
 		isFromStore: true,
 		comments: []

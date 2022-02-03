@@ -1,11 +1,8 @@
 import Movie from "../models/Movie";
 import { FIREBASE_DOMAIN } from "./user-auth-api";
-import {
-	toMoviesArray,
-	toMoviesObject
-} from "../utilities/movie-util/movies-util";
+import { toMoviesArray, toMoviesObject } from "../utilities/movie-util/movies-util";
 
-export const STORE_MOVIES_KEY = "-Msuxpt3ZweHHUc6_8v5";
+export const STORE_MOVIES_KEY = "-MuxOnh92osEeOMsMEre";
 
 // GET
 export async function getAllMoviesFromDb () {
@@ -13,7 +10,6 @@ export async function getAllMoviesFromDb () {
 		const getUrl = `${FIREBASE_DOMAIN}/movies/${STORE_MOVIES_KEY}.json`;
 
 		const res = await fetch(getUrl);
-
 		const data = await res.json();
 
 		let moviesArray: Movie[] = [];
@@ -24,10 +20,7 @@ export async function getAllMoviesFromDb () {
 			console.log("movies array:", moviesArray);
 		} else {
 			console.log("Fetching movies unsuccessful...");
-			throw new Error(
-				data.message ||
-					"Something went wrong in retrieving movies from DB"
-			);
+			throw new Error(data.message || "Something went wrong in retrieving movies from DB");
 		}
 		return moviesArray;
 	} catch (err) {
@@ -57,9 +50,7 @@ export async function addAllMoviesToDb (movies: Movie[]) {
 			console.log("Movies Post successful!");
 		} else {
 			console.log("Movies Post unsuccessful...");
-			throw new Error(
-				data.message || "Something went wrong in Movies POST"
-			);
+			throw new Error(data.message || "Something went wrong in Movies POST");
 		}
 	} catch (err) {
 		console.error(err);

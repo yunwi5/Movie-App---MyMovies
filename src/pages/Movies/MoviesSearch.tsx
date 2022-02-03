@@ -16,9 +16,7 @@ const MoviesSearch: React.FC = () => {
 
 	const movieCtx = useContext(MovieContext);
 	const storeMovies = movieCtx.storeMovies;
-	const [ filteredStoreMovies, setFilteredStoreMovies ] = useState(
-		storeMovies
-	);
+	const [ filteredStoreMovies, setFilteredStoreMovies ] = useState(storeMovies);
 
 	useEffect(
 		() => {
@@ -26,7 +24,7 @@ const MoviesSearch: React.FC = () => {
 			const newFilteredMovies = filterMovies(storeMovies, searchWord);
 			setFilteredStoreMovies(newFilteredMovies);
 		},
-		[ searchWord ]
+		[ searchWord, storeMovies ]
 	);
 
 	return <MoviesList isForUser={false} initialMovies={filteredStoreMovies} />;

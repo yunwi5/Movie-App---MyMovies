@@ -1,9 +1,11 @@
 import React, { useState, useContext, useReducer } from "react";
 import { useNavigate } from "react-router-dom";
 import MovieContext from "../../store/movie-context";
+
+import AuthContext from "../../store/auth-context";
 import Movie, { genre as MovieGenre } from "../../models/Movie";
 import { toShortcutString } from "../../utilities/string-util";
-import { Rating } from "@mui/material";
+import { userIsAdmin } from "../../utilities/admin-util";
 
 import InputRating from "../UI/InputRating";
 
@@ -26,6 +28,7 @@ const durationReducer = (state: State, action: Action) => {
 const Movieform: React.FC = () => {
 	const navigate = useNavigate();
 	const movieCtx = useContext(MovieContext);
+	const user = useContext(AuthContext).user;
 
 	const [ title, setTitle ] = useState("");
 	const [ titleIsValid, setTitleIsValid ] = useState(true);
@@ -77,6 +80,9 @@ const Movieform: React.FC = () => {
 		console.log(movieObj);
 
 		movieCtx.addMovie(movieObj);
+
+		// Add movie to the store if the user is admin
+		if (user && userIsAdmin(user.email)) movieCtx.addMovieToStore(movieObj);
 		navigate("/movies");
 	};
 

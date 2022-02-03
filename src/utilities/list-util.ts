@@ -1,5 +1,3 @@
-// import Movie from "../models/Movie";
-
 // Shuffle Movies List Randomly
 export function shuffleList<T> (initialList: T[]) {
 	const copyList = [ ...initialList ];
