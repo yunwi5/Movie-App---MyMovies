@@ -1,5 +1,25 @@
 // There are total 13 genres from Netflix.
 
+export enum ProductionCompany {
+	MARVEL = "Marvel",
+	DC_COMICS = "DC Comics",
+	NETFLIX = "Netflix",
+	COLUMBIA_PICTURES = "Columbia Pictures",
+	PARAMOUNT_PICTURES = "Paramount Pictures",
+	UNIVERSIAL_PICTURES = "Universial Pictures",
+	WALT_DISNEY = "Walt Disney"
+}
+
+export const productionCompanyList = [
+	ProductionCompany.COLUMBIA_PICTURES,
+	ProductionCompany.DC_COMICS,
+	ProductionCompany.MARVEL,
+	ProductionCompany.NETFLIX,
+	ProductionCompany.PARAMOUNT_PICTURES,
+	ProductionCompany.UNIVERSIAL_PICTURES,
+	ProductionCompany.WALT_DISNEY
+];
+
 export const GenreList = [
 	"Anime",
 	"Action & Adventures",
@@ -75,7 +95,6 @@ export default interface Movie {
 	isFavorite: boolean;
 	director: string | null;
 	isFromStore: boolean;
-	// New Feature!
 	comments: Comment[];
 	// UserMovie needs to have key, so that user can send DELETE request using the movie key.
 	key?: string;

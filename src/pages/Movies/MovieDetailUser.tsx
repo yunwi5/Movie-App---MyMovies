@@ -1,5 +1,6 @@
-import React, { useContext } from "react";
+import React, { useContext, Fragment } from "react";
 import { useParams } from "react-router-dom";
+import { Helmet } from "react-helmet";
 import MovieContext from "../../store/movie-context";
 import MovieDetail from "../../components/movies/MovieDetail";
 
@@ -18,7 +19,18 @@ const MovieDetailUser: React.FC = () => {
 
 	const isFromUser = false;
 
-	return <MovieDetail movie={movie} />;
+	return (
+		<Fragment>
+			<Helmet>
+				<title>{movie.title} (User)</title>
+				<meta
+					name="description"
+					content={`About your movie ${movie.title}, ${movie.description}`}
+				/>
+			</Helmet>
+			<MovieDetail movie={movie} />
+		</Fragment>
+	);
 };
 
 export default MovieDetailUser;

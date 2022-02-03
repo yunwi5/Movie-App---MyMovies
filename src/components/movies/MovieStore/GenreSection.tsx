@@ -1,8 +1,8 @@
-import { useContext } from "react";
+import { useContext, useMemo } from "react";
 import MovieContext from "../../../store/movie-context";
 import Movie from "../../../models/Movie";
 import MovieScrollbar from "./MovieScrollbar";
-import { concatUniqueMovies } from "../../../utilities/movie-util/movies-util";
+import { getDarkenBackground } from "../../../utilities/style-util";
 
 interface Props {
 	movies: Movie[];
@@ -14,28 +14,20 @@ const GenreSection: React.FC<Props> = (props) => {
 	const { movies, genre, imgUrl } = props;
 	const movieCtx = useContext(MovieContext);
 	const storeMovies = movieCtx.storeMovies;
-	const concatedMovies = concatUniqueMovies(movies, storeMovies);
+	const genreMovies = useMemo(
+		() => storeMovies.filter((movie) => movie.genreList.includes(genre as any)),
+		[ genre ]
+	);
 
-	const backgroundStyle = {
-		backgroundImage: `linear-gradient(to right, 
-            rgba(20, 20, 20, .9), 
-            rgba(30, 30, 30, .85), 
-             rgba(40, 40, 40, .65),
-             rgba(230, 230, 230, .1),
-             rgba(40, 40, 40, .65),
-            rgba(30, 30, 30, .85), 
-             rgba(20, 20, 20, .9)), 
-               url(${imgUrl})`
-	};
-
+	// background gradient style object
+	const backgroundStyle = getDarkenBackground(imgUrl);
 	const moviesCount = movies.length;
 
 	return (
 		<section style={backgroundStyle} className="genre-section">
 			<h1 className="heading">{genre}</h1>
-			{/* <h3 className="sub-heading">{moviesCount}+ Movies</h3> */}
 			<MovieScrollbar
-				movies={concatedMovies}
+				movies={genreMovies}
 				genre={genre}
 				listTag={`Featured Movies (${moviesCount})`}
 				showLinkAndShuffle={true}

@@ -48,14 +48,14 @@
 
 			& h3 {
 				margin-left: .7rem;
-				font-size: 1.9rem;
+				font-size: 2.3rem;
 				color: var(--color-grey-dark-1-2);
 			}
 
 			& em {
 				margin-left: -.7rem;
 				margin-right: 1rem;
-				font-size: 1.5rem;
+				font-size: 1.6rem;
 				transform: translateY(.5px);
 				color: var(--color-grey-dark-1);
 			}
@@ -162,18 +162,13 @@
 		}
 	}
 
-	&__description {
-		line-height: 2rem;
-		color: $color-primary-darkest-1;
-	}
-
 	.image-wrapper {
 		flex-basis: 1;
 
 		& img {
 			border-radius: .8rem;
 			display: block;
-			width: 16rem;
+			width: 16.7rem;
 		}
 	}
 
@@ -187,17 +182,20 @@
 
 		& > * {
 			margin-bottom: .1rem;
-		}
-
-		& > *:not(:first-child) {
+			line-height: 2.3rem;
 			margin-left: .4rem;
 		}
 
 		& .rating {
-			margin-top: 1rem;
+			margin-top: .7rem;
+			margin-bottom: .5rem;
 			color: goldenrod;
 			display: flex;
 			align-items: center;
+
+			.stars {
+				font-size: 2.1rem;
+			}
 
 			& span {
 				padding-top: .15rem;
@@ -234,6 +232,18 @@
 				margin: 0 .8rem;
 			}
 		}
+
+		.icon {
+			font-size: 1.8rem;
+			color: $color-grey-dark-4;
+			margin-right: .8rem;
+			width: 2rem;
+		}
+	}
+
+	&__description {
+		line-height: 2rem;
+		color: $color-primary-darkest-1;
 	}
 
 	// Detail Button

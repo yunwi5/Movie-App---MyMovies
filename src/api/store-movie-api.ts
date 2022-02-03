@@ -13,11 +13,11 @@ export async function getAllMoviesFromDb () {
 		const data = await res.json();
 
 		let moviesArray: Movie[] = [];
-
 		if (res.ok) {
 			console.log("Fetching movies successful!");
 			moviesArray = toMoviesArray(data);
-			console.log("movies array:", moviesArray);
+			// console.log("moviesArray:");
+			// console.table(moviesArray);
 		} else {
 			console.log("Fetching movies unsuccessful...");
 			throw new Error(data.message || "Something went wrong in retrieving movies from DB");

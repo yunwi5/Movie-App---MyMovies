@@ -1,4 +1,5 @@
-import React, { useContext, useEffect, useState, useMemo } from "react";
+import React, { useContext, useEffect, useState, useMemo, Fragment } from "react";
+import { Helmet } from "react-helmet";
 import { useLocation } from "react-router-dom";
 import MovieContext from "../../store/movie-context";
 import MoviesList from "../../components/movies/MoviesList";
@@ -27,7 +28,19 @@ const MoviesSearch: React.FC = () => {
 		[ searchWord, storeMovies ]
 	);
 
-	return <MoviesList isForUser={false} initialMovies={filteredStoreMovies} />;
+	return (
+		<Fragment>
+			<Helmet>
+				<title>Movie Store Search Result</title>
+				<meta
+					name="description"
+					content={`Your search result for ${searchWord} in our movie store`}
+				/>
+			</Helmet>
+
+			<MoviesList isForUser={false} initialMovies={filteredStoreMovies} />
+		</Fragment>
+	);
 };
 
 export default MoviesSearch;

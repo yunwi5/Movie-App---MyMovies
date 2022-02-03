@@ -90,7 +90,7 @@ export function toMoviesArray (movies: Object | Array<Movie>) {
 
 	let moviesArray: Movie[] = [];
 	Object.entries(movies).forEach(([ key, value ]) => {
-		moviesArray.push({ ...value, key });
+		moviesArray.push({ ...value, key, id: key });
 	});
 
 	return moviesArray;

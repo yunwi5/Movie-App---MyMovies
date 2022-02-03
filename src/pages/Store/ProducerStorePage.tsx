@@ -1,24 +1,30 @@
-import { useContext } from "react";
+import { useContext, Fragment } from "react";
 import { useParams } from "react-router-dom";
+import { Helmet } from "react-helmet";
 import MovieContext from "../../store/movie-context";
 
 import Movie, { genre as Genre } from "../../models/Movie";
 import { getMoviesAndUrlForGenre } from "../../utilities/movie-util/movies-util";
 import SingleGenreStore from "../../components/movies/MovieStore/SingleGenreStore";
 
-const SingleStorePage: React.FC = () => {
+const ProducerStorePage: React.FC = () => {
 	const params = useParams();
 	const genreName = params.genreName;
 
 	const movieCtx = useContext(MovieContext);
 	const storeMoviesList = movieCtx.storeMovies;
 
-	const singleGenreStore = getMoviesAndUrlForGenre(
-		genreName as Genre,
-		storeMoviesList
-	);
+	const singleGenreStore = getMoviesAndUrlForGenre(genreName as Genre, storeMoviesList);
 
-	return <SingleGenreStore singleGenreStore={singleGenreStore} />;
+	return (
+		<Fragment>
+			<Helmet>
+				<title>{genreName} Movies</title>
+				<meta name="description" content={`Movies related to ${genreName}`} />
+			</Helmet>
+			<SingleGenreStore singleGenreStore={singleGenreStore} />
+		</Fragment>
+	);
 };
 
-export default SingleStorePage;
+export default ProducerStorePage;

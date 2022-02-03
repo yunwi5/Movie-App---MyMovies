@@ -5,6 +5,14 @@ import { toDurationString, getShortMovieDescription } from "../../utilities/movi
 import DeleteModal from "../UI/Modal/DeleteModal";
 import MovieContext from "../../store/movie-context";
 import Rating from "@mui/material/Rating";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+	faHourglass,
+	faBuilding,
+	faCameraMovie,
+	faTanakh,
+	faPencilRuler
+} from "@fortawesome/pro-duotone-svg-icons";
 import AddModal from "../UI/Modal/AddModal";
 
 interface Props {
@@ -111,7 +119,9 @@ const MovieCard: React.FC<Props> = (props) => {
 					<div className="second-line">
 						<div className="content-wrapper">
 							<span className="rating">
+								{/* <FontAwesomeIcon icon={faPencilRuler as any} className="icon" /> */}
 								<Rating
+									className="stars"
 									name="size-medium"
 									value={movie.rating / 2}
 									size="large"
@@ -120,13 +130,22 @@ const MovieCard: React.FC<Props> = (props) => {
 								/>
 								<span className="rating__number">({movie.rating}/10)</span>
 							</span>
-							{movie.producer && <div className="company">{movie.producer}</div>}
+							{movie.producer && (
+								<div className="company">
+									<FontAwesomeIcon icon={faBuilding as any} className="icon" />
+									{movie.producer}
+								</div>
+							)}
 							{movie.duration ? (
-								<div className="duration">{toDurationString(movie.duration)}</div>
+								<div className="duration">
+									<FontAwesomeIcon className="icon" icon={faHourglass as any} />
+									{toDurationString(movie.duration)}
+								</div>
 							) : (
 								""
 							)}
 							<ul className="movie-card__genre-list">
+								<FontAwesomeIcon icon={faCameraMovie as any} className="icon" />
 								{movie.genreList.map((genre, idx) => {
 									const isNotLast = idx < movie.genreList.length - 1;
 									return (
@@ -138,6 +157,7 @@ const MovieCard: React.FC<Props> = (props) => {
 								})}
 							</ul>
 							<p className="movie-card__description">
+								<FontAwesomeIcon icon={faTanakh as any} className="icon" />
 								{getShortMovieDescription(movie.description)}
 							</p>
 							<button className="detail" onClick={navigateToDetail}>

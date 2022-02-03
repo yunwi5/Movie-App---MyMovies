@@ -2,6 +2,8 @@ import React, { useContext } from "react";
 import MovieContext from "../../../store/movie-context";
 import Movie from "../../../models/Movie";
 import MovieScrollbar from "./MovieScrollbar";
+import { getDarkenBackground } from "../../../utilities/style-util";
+import { getGenreImgUrls } from "../../../assets/genre-img";
 import sortMovies, {
 	Direction,
 	SortingStandard,
@@ -17,50 +19,31 @@ interface Props {
 }
 
 const SingleGenreStore: React.FC<Props> = ({ singleGenreStore }) => {
-	const { movies, imgUrl, genre } = singleGenreStore;
+	const { movies, genre } = singleGenreStore;
 	const movieCtx = useContext(MovieContext);
 	const storeMovies = movieCtx.storeMovies;
 
 	const concatedMovies = concatUniqueMovies(movies, storeMovies);
 	const moviesCount = movies.length;
 
+	const [ imageOne, imageTwo ] = getGenreImgUrls(genre as any);
+
 	// Use this Style Object if Background Image is needed.
-	const backgroundStyle = {
-		backgroundImage: `linear-gradient(to right,
-	        rgba(20, 20, 20, .9),
-	        rgba(30, 30, 30, .85),
-	        rgba(35, 35, 35, .7),
-	         rgba(40, 40, 40, .6),
-	         rgba(230, 230, 230, .07),
-	         rgba(40, 40, 40, .6),
-	        rgba(35, 35, 35, .7),
-	        rgba(30, 30, 30, .85),
-	         rgba(20, 20, 20, .9)),
-	           url(${imgUrl})`
-	};
+	const backgroundStyle1 = getDarkenBackground(imageOne);
+	const backgroundStyle2 = getDarkenBackground(imageTwo);
 
 	const suggestedMovies = [ ...concatedMovies ];
 	const highestRatedMovies =
-		sortMovies(
-			[ ...concatedMovies ],
-			SortingStandard.RATING,
-			Direction.DESCENDING
-		) || concatedMovies;
+		sortMovies([ ...concatedMovies ], SortingStandard.RATING, Direction.DESCENDING) ||
+		concatedMovies;
 	const newestMovies =
-		sortMovies(
-			[ ...concatedMovies ],
-			SortingStandard.YEAR,
-			Direction.DESCENDING
-		) || concatedMovies;
+		sortMovies([ ...concatedMovies ], SortingStandard.YEAR, Direction.DESCENDING) ||
+		concatedMovies;
 
 	// Uses several scroll bars.
 	return (
 		<main className="single-genre-store">
-			<section
-				className="genre-section genre-section--long"
-				style={backgroundStyle}
-			>
-				{/* <div className="background-img" style={backgroundStyle} /> */}
+			<section className="genre-section genre-section--long">
 				<h1 className="heading">
 					{genre} <br /> <p>({moviesCount}+ Movies)</p>
 				</h1>
@@ -83,6 +66,10 @@ const SingleGenreStore: React.FC<Props> = ({ singleGenreStore }) => {
 					listTag={"Suggestion For You"}
 					showLinkAndShuffle={false}
 				/>
+
+				{/* 2 background images */}
+				<div className="bg bg-1" style={backgroundStyle1} />
+				<div className="bg bg-2" style={backgroundStyle2} />
 			</section>
 		</main>
 	);

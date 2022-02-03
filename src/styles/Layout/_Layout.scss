@@ -187,7 +187,7 @@ body,
 		z-index: 5;
 
 		.nested-nav,
-		.nested-nested-nav {
+		[class^="nested-nested-nav"] {
 			position: absolute;
 			top: 5.9rem;
 			left: 0;
@@ -241,13 +241,17 @@ body,
 			}
 		}
 
-		.nested-nested-nav {
+		[class^="nested-nested-nav"] {
 			position: absolute;
 			top: -100%;
 			left: 100%;
 			max-width: 100%;
 			display: none;
 			transform: translateY(-5.5px);
+		}
+
+		.nested-nested-nav-2 {
+			top: -200%;
 		}
 	}
 
@@ -257,6 +261,10 @@ body,
 		}
 
 		.genre-nav:hover .nested-nested-nav {
+			display: flex;
+		}
+
+		.company-nav:hover .nested-nested-nav-2 {
 			display: flex;
 		}
 	}

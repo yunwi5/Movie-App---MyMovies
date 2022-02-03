@@ -1,10 +1,13 @@
 import { useContext } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
+import { Helmet } from "react-helmet";
+
+import Authcontext from "./store/auth-context";
 
 import Home from "./pages/Display/Home";
 import About from "./pages/Display/About";
-import StorePage from "./pages/Display/StorePage";
-import SingleStorePage from "./pages/Display/SingleStorePage";
+import StorePage from "./pages/Store/StorePage";
+import GenreStorePage from "./pages/Store/GenreStorePage";
 import Header from "./components/Layout/Header";
 import Footer from "./components/Layout/Footer";
 import UserMoviesList from "./pages/Movies/UserMoviesList";
@@ -17,7 +20,7 @@ import MovieEditPage from "./pages/Movies/MovieEditPage";
 import AdminPage from "./pages/Admin/AdminPage";
 import NotFound from "./pages/NotFound";
 
-import Authcontext from "./store/auth-context";
+import Logo from "./assets/Images/MyMovies_Logo.png";
 
 function App () {
 	const authCtx = useContext(Authcontext);
@@ -25,6 +28,10 @@ function App () {
 
 	return (
 		<div className="App">
+			<Helmet>
+				<title>MyMovies</title>
+				<link rel="icon" type="image/png" href={Logo} />
+			</Helmet>
 			<Header />
 			<Routes>
 				<Route path="/" element={<Navigate to="/home" />} />
@@ -32,7 +39,8 @@ function App () {
 				<Route path="/about" element={<About />} />
 				{/* Store movies do not need login to watch. Need to fix later on */}
 				<Route path="/movie-store" element={<StorePage />} />
-				<Route path="/movie-store/:genreName" element={<SingleStorePage />} />
+				<Route path="/movie-store/genre/:genreName" element={<GenreStorePage />} />
+				<Route path="/movie-store/producer/:companyName" element={<GenreStorePage />} />
 
 				{isLoggedIn && <Route path="/movies" element={<UserMoviesList />} />}
 				{isLoggedIn && <Route path="/store-movies" element={<MoviesSearch />} />}

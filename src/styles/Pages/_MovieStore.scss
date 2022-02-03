@@ -184,28 +184,37 @@
 	width: 99vw;
 	position: relative;
 
-	background-image: linear-gradient(
-		to bottom,
-		darken($color-grey-dark-5, 0%),
-		darken($color-grey-dark-3, 10%),
-		darken($color-grey-dark-5, 0%)
-	);
-
 	.genre-section--long {
 		min-height: 160rem;
 		position: relative;
 		justify-content: space-evenly;
 	}
 
-	.background-img {
+	.bg {
+		width: 100%;
+		height: 50%;
 		position: absolute;
-		top: 50%;
-		left: 0;
-		transform: translateY(-55%);
-		width: 100vw;
-		height: 100%;
 		z-index: -1;
+		background-size: cover;
 	}
+
+	.bg-1 {
+		top: 0;
+	}
+
+	.bg-2 {
+		top: 50%;
+	}
+
+	// .background-img {
+	// 	position: absolute;
+	// 	top: 50%;
+	// 	left: 0;
+	// 	transform: translateY(-55%);
+	// 	width: 100vw;
+	// 	height: 100%;
+	// 	z-index: -1;
+	// }
 
 	.heading {
 		margin-top: 1rem;
