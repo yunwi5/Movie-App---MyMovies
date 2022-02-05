@@ -8,6 +8,7 @@ import Home from "./pages/Display/Home";
 import About from "./pages/Display/About";
 import StorePage from "./pages/Store/StorePage";
 import GenreStorePage from "./pages/Store/GenreStorePage";
+import ProducerStorePage from "./pages/Store/ProducerStorePage";
 import Header from "./components/Layout/Header";
 import Footer from "./components/Layout/Footer";
 import UserMoviesList from "./pages/Movies/UserMoviesList";
@@ -40,13 +41,13 @@ function App () {
 				{/* Store movies do not need login to watch. Need to fix later on */}
 				<Route path="/movie-store" element={<StorePage />} />
 				<Route path="/movie-store/genre/:genreName" element={<GenreStorePage />} />
-				<Route path="/movie-store/producer/:companyName" element={<GenreStorePage />} />
+				<Route path="/movie-store/producer/:producerName" element={<ProducerStorePage />} />
 
+				{<Route path="/store-movies" element={<MoviesSearch />} />}
 				{isLoggedIn && <Route path="/movies" element={<UserMoviesList />} />}
-				{isLoggedIn && <Route path="/store-movies" element={<MoviesSearch />} />}
 
-				{isLoggedIn && <Route path="/add-movie" element={<MovieAdd />} />}
 				<Route path="/movie-detail/store/:movieId" element={<MovieDetailStore />} />
+				{isLoggedIn && <Route path="/add-movie" element={<MovieAdd />} />}
 				{isLoggedIn && (
 					<Route path="/movie-detail/user/:movieId" element={<MovieDetailUser />} />
 				)}

@@ -1,6 +1,7 @@
 import Movie from "../../models/Movie";
-import { genre as Genre } from "../../models/Movie";
+import { genre as Genre, ProductionCompany } from "../../models/Movie";
 import { getGenreImgUrlStore } from "../../assets/movies-img";
+import { getProducerLogo } from "../../utilities/design-util/logo-util";
 
 // Used in MoviesList
 export const getCurrentPageMovies = (movies: Movie[], currentPage: number, perPage: number) => {
@@ -117,6 +118,20 @@ export function getMoviesAndUrlForGenre (genre: Genre, moviesList: Movie[]) {
 		imgUrl,
 		movies: resultMovies,
 		genre: genre
+	};
+}
+
+// Used in ProducerStorePage for getting movies, and logo of the producer.
+export function getMoviesAndLogoOfProducer (producer: ProductionCompany, moviesList: Movie[]) {
+	const filteredMovies = moviesList.filter(
+		(m) => (m.producer ? m.producer.includes(producer) : false)
+	);
+
+	const logo = getProducerLogo(producer);
+	return {
+		movies: filteredMovies,
+		producer: producer,
+		logo
 	};
 }
 

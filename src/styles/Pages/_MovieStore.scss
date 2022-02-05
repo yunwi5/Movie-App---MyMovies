@@ -2,7 +2,8 @@
 	background-color: rgba($color-black, .9);
 }
 
-.genre-section {
+.genre-section,
+.producer-section {
 	width: 98.9vw;
 	min-height: 100vh;
 	max-height: 90rem;
@@ -180,11 +181,13 @@
 	}
 }
 
-.single-genre-store {
+.single-genre-store,
+.single-producer-store {
 	width: 99vw;
 	position: relative;
 
-	.genre-section--long {
+	.genre-section--long,
+	.producer-section--long {
 		min-height: 160rem;
 		position: relative;
 		justify-content: space-evenly;
@@ -206,16 +209,6 @@
 		top: 50%;
 	}
 
-	// .background-img {
-	// 	position: absolute;
-	// 	top: 50%;
-	// 	left: 0;
-	// 	transform: translateY(-55%);
-	// 	width: 100vw;
-	// 	height: 100%;
-	// 	z-index: -1;
-	// }
-
 	.heading {
 		margin-top: 1rem;
 	}
@@ -228,5 +221,42 @@
 
 	.label {
 		font-size: 2.2rem;
+	}
+}
+
+// Producer Store
+.single-producer-store {
+	background-color: #222;
+	background-color: darken($color-primary-darkest-1, 15%);
+
+	.section-header {
+		display: flex;
+		align-items: center;
+		position: relative;
+		min-height: 30rem;
+	}
+
+	h1 {
+		margin-left: 4.7rem !important;
+	}
+
+	.company-logo {
+		max-width: 50rem;
+		max-height: 30rem;
+		position: absolute;
+		top: 50%;
+		right: 8%;
+		transform: translateY(-40%);
+	}
+
+	.up-logo,
+	.cp-logo {
+		path {
+			fill: $color-grey-light-3;
+		}
+	}
+
+	.disney-logo path {
+		fill: $color-grey-light-3;
 	}
 }

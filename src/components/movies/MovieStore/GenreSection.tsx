@@ -2,7 +2,7 @@ import { useContext, useMemo } from "react";
 import MovieContext from "../../../store/movie-context";
 import Movie from "../../../models/Movie";
 import MovieScrollbar from "./MovieScrollbar";
-import { getDarkenBackground } from "../../../utilities/style-util";
+import { getDarkenBackground } from "../../../utilities/design-util/style-util";
 
 interface Props {
 	movies: Movie[];

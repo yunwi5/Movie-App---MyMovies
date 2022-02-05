@@ -4,7 +4,6 @@ import { Helmet } from "react-helmet";
 import MovieContext from "../../store/movie-context";
 import { getGenreMoviesCount } from "../../utilities/movie-util/genre-movie-util";
 import { GenreList } from "../../models/Movie";
-// import Movie, { genre as Genre } from "../../models/Movie";
 import { getGenreImgUrl } from "../../assets/movies-img";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
@@ -15,7 +14,7 @@ import {
 	faArrowDownWideShort
 } from "@fortawesome/pro-thin-svg-icons";
 import { faPopcorn, faCircleCheck } from "@fortawesome/pro-light-svg-icons";
-import { ReactComponent as UPLogo } from "../../assets/SVG/Universal_Pictures_logo.svg";
+import { ReactComponent as UPLogo } from "../../assets/SVG/Universal_Pictures_Logo.svg";
 import { ReactComponent as DisneyLogo } from "../../assets/SVG/Walt_Disney_Pictures.svg";
 import { ReactComponent as MarvalLogo } from "../../assets/SVG/Marvel_Logo.svg";
 import { ReactComponent as NetflixLogo } from "../../assets/SVG/Netflix_Logo.svg";
@@ -146,7 +145,10 @@ const Home: React.FC = () => {
 									<h4>
 										{genreCountsList[idx]} Movies On {genre}
 									</h4>
-									<Link className="btn explore-link" to={`/movie-store/${genre}`}>
+									<Link
+										className="btn explore-link"
+										to={`/movie-store/genre/${genre}`}
+									>
 										Explore
 									</Link>
 								</div>

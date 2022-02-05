@@ -20,22 +20,6 @@ export const productionCompanyList = [
 	ProductionCompany.WALT_DISNEY
 ];
 
-export const GenreList = [
-	"Anime",
-	"Action & Adventures",
-	"Science-Fiction & Fantasy",
-	"Thriller",
-	"TV Shows",
-	"Romantic Movies",
-	"Comedies",
-	"Music & Musicals",
-	"Drama",
-	"Documentaries",
-	"Children & Family Movies",
-	"Horror",
-	"Other"
-];
-
 export type genre =
 	| "Anime"
 	| "Drama"
@@ -67,6 +51,22 @@ export enum Genre {
 	OTHER = "Other"
 }
 
+export const GenreList: genre[] = [
+	"Anime",
+	"Action & Adventures",
+	"Science-Fiction & Fantasy",
+	"Thriller",
+	"TV Shows",
+	"Romantic Movies",
+	"Comedies",
+	"Music & Musicals",
+	"Drama",
+	"Documentaries",
+	"Children & Family Movies",
+	"Horror",
+	"Other"
+];
+
 export interface Comment {
 	id: string;
 	movieId: string;
@@ -95,6 +95,7 @@ export default interface Movie {
 	isFavorite: boolean;
 	director: string | null;
 	isFromStore: boolean;
+
 	comments: Comment[];
 	// UserMovie needs to have key, so that user can send DELETE request using the movie key.
 	key?: string;

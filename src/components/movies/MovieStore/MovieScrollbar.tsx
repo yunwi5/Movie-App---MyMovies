@@ -1,24 +1,20 @@
-import { Fragment, useRef, useState, useLayoutEffect } from "react";
+import { Fragment, useEffect, useState, useLayoutEffect } from "react";
 import { Link } from "react-router-dom";
 import Movie from "../../../models/Movie";
 import { shuffleList } from "../../../utilities/list-util";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
-import {
-	faChevronLeft,
-	faChevronRight,
-	faShuffle
-} from "@fortawesome/pro-light-svg-icons";
+import { faChevronLeft, faChevronRight, faShuffle } from "@fortawesome/pro-light-svg-icons";
 
 interface Props {
 	movies: Movie[];
-	genre: string;
 	listTag: string;
 	showLinkAndShuffle: boolean;
+	genre?: string;
 }
 
 const MovieScrollbar: React.FC<Props> = (props) => {
-	const { genre, movies, listTag, showLinkAndShuffle } = props;
+	const { movies, listTag, showLinkAndShuffle, genre } = props;
 	const [ currentScrollPosition, setCurrentScrollPosition ] = useState(0);
 	const [ leftScrollIsValid, setLeftScrollIsValid ] = useState(true);
 	const [ rightScrollIsValid, setRightScrollIsValid ] = useState(true);
@@ -67,20 +63,26 @@ const MovieScrollbar: React.FC<Props> = (props) => {
 		setShuffledMovies(newShuffledMovies);
 	};
 
+	useEffect(
+		() => {
+			setShuffledMovies(movies);
+		},
+		[ movies ]
+	);
+
 	return (
 		<div className="movie-box">
 			<p className="movie-box__heading">
 				<span className="label">{listTag}</span>{" "}
 				{showLinkAndShuffle && (
 					<Fragment>
-						<Link to={`/movie-store/${genre}`} className="link">
-							See More
-						</Link>
+						{genre && (
+							<Link to={`/movie-store/genre/${genre}`} className="link">
+								See More
+							</Link>
+						)}
 
-						<span
-							className="btn-shuffle"
-							onClick={shuffleListHandler}
-						>
+						<span className="btn-shuffle" onClick={shuffleListHandler}>
 							Shuffle
 							<FontAwesomeIcon
 								className="btn-shuffle__icon"
