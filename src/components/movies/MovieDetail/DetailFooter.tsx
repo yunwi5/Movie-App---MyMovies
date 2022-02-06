@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Movie from "../../../models/Movie";
 import StoreReviews from "../../Comments/StoreReviews/StoreReviews";
 
@@ -11,6 +11,8 @@ const DetailFooter: React.FC<Props> = (props) => {
 	const { movie, isFromStore } = props;
 	const navigate = useNavigate();
 
+	const isForUser = !isFromStore;
+
 	return (
 		<section className="movie-detail__bottom">
 			<div className="movie-detail__about">
@@ -19,14 +21,18 @@ const DetailFooter: React.FC<Props> = (props) => {
 			</div>
 
 			{isFromStore && <StoreReviews movie={movie} />}
+			{isForUser && (
+				// movie evaluation summary part
+				<div>
+					<h2>Elaluation of {movie.title}</h2>
+					<Link to={`/movie-evaluate/${movie.id}`}>Go Evaluate!</Link>
+				</div>
+			)}
 
 			<div className="movie-detail__genres">
 				<ul>
 					{movie.genreList.map((genre, idx) => (
-						<li
-							onClick={() => navigate(`/movie-store/${genre}`)}
-							key={idx}
-						>
+						<li onClick={() => navigate(`/movie-store/${genre}`)} key={idx}>
 							{genre}
 						</li>
 					))}

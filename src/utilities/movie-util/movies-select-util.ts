@@ -34,21 +34,21 @@ const MOVIES_TO_SHOW = 6;
 
 export function getSameDirectorMovies (movies: Movie[], movie: Movie) {
 	const sameDirectorMovies = movies.filter(
-		(m) => haveSameDirector(m, movie) && m.id !== movie.id
+		(m) => haveSameDirector(m, movie) && m.id !== movie.id && m.title !== movie.title
 	);
 	return sameDirectorMovies;
 }
 
 export function getSameProducerMovies (movies: Movie[], movie: Movie) {
 	const sameProducerMovies = movies.filter(
-		(m) => haveSameProducer(m, movie) && m.id !== movie.id
+		(m) => haveSameProducer(m, movie) && m.id !== movie.id && m.title !== movie.title
 	);
 	return sameProducerMovies;
 }
 
 export function getSameGenreMovies (movies: Movie[], movie: Movie) {
 	const sameGenreMovies = movies.filter(
-		(m) => haveSameGenre(m, movie) && m.id !== movie.id
+		(m) => haveSameGenre(m, movie) && m.id !== movie.id && m.title !== movie.title
 	);
 	return sameGenreMovies;
 }
@@ -63,7 +63,7 @@ function getSimilarMovies (movies: Movie[], movie: Movie) {
 	let bookCount = 0;
 
 	for (const m of movies) {
-		if (m.id === movie.id) continue;
+		if (m.id === movie.id || m.title === movie.title) continue;
 
 		const isSameDirector = haveSameDirector(m, movie);
 		const isSameProducer = haveSameProducer(m, movie);

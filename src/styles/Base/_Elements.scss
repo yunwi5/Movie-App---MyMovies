@@ -10,6 +10,32 @@
 	@include flex-column-center($color-grey-dark-5);
 }
 
+// Rating + Input UI Element
+.rating-wrapper {
+	h4 {
+		margin-bottom: .5rem;
+		font-weight: inherit;
+
+		span {
+			font-size: 85%;
+		}
+	}
+
+	.stars {
+		transform: translateY(5px);
+		label {
+			font-size: 2.3rem !important;
+		}
+	}
+
+	input {
+		margin-left: 1rem;
+		min-height: 2.5rem;
+		max-width: 7rem;
+		font-size: 1.5rem;
+	}
+}
+
 // Div outer element
 // Inner icon and input elements
 .search-bar {
@@ -62,4 +88,9 @@
 			transform: translateY(-.15rem);
 		}
 	}
+}
+
+// Textarea
+textarea {
+	font-family: sans-serif !important;
 }

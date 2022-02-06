@@ -55,6 +55,24 @@
 	}
 }
 
+.btn-primary-fill {
+	background-color: $color-primary-dark-2;
+
+	border: none;
+	color: lighten($color-primary-light-1, 10%);
+	box-shadow: 0 1rem 2rem rgba($color-black, .2);
+	cursor: Pointer;
+
+	&:hover {
+		background-color: rgba($color-primary, .9);
+		box-shadow: 0 1rem 2rem rgba($color-black, .29);
+	}
+
+	.fa {
+		margin-right: .8rem;
+	}
+}
+
 .btn-secondary-fill {
 	background-color: $color-secondary;
 

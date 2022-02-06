@@ -1,8 +1,8 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import { Routes, Route } from "react-router-dom";
-import Login from "../components/Auth/Login";
-import Signup from "../components/Auth/Signup";
+import Login from "../../components/Auth/Login";
+import Signup from "../../components/Auth/Signup";
 
 const Auth: React.FC = () => {
 	return (

@@ -3,7 +3,6 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
 import Authcontext from "./store/auth-context";
-
 import Home from "./pages/Display/Home";
 import About from "./pages/Display/About";
 import StorePage from "./pages/Store/StorePage";
@@ -14,10 +13,11 @@ import Footer from "./components/Layout/Footer";
 import UserMoviesList from "./pages/Movies/UserMoviesList";
 import MoviesSearch from "./pages/Movies/MoviesSearch";
 import MovieAdd from "./pages/Movies/MovieAdd";
-import Auth from "./pages/Auth";
+import Auth from "./pages/Auth/Auth";
 import MovieDetailStore from "./pages/Movies/MovieDetailStore";
 import MovieDetailUser from "./pages/Movies/MovieDetailUser";
 import MovieEditPage from "./pages/Movies/MovieEditPage";
+import MovieEvaluationPage from "./pages/Movies/MovieEvaluationPage";
 import AdminPage from "./pages/Admin/AdminPage";
 import NotFound from "./pages/NotFound";
 
@@ -52,6 +52,9 @@ function App () {
 					<Route path="/movie-detail/user/:movieId" element={<MovieDetailUser />} />
 				)}
 				{isLoggedIn && <Route path="/movie-edit/:movieId" element={<MovieEditPage />} />}
+				{isLoggedIn && (
+					<Route path="/movie-evaluate/:movieId" element={<MovieEvaluationPage />} />
+				)}
 
 				{isLoggedIn && <Route path="/admin" element={<AdminPage />} />}
 

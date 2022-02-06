@@ -1,0 +1,40 @@
+.movie-evaluation {
+	padding: 3rem 0rem;
+	padding-top: 7rem;
+	padding-right: 0;
+
+	.evaluation-heading {
+		margin-left: 8rem;
+		font-size: 5rem;
+		text-align: left;
+		font-weight: 300;
+		color: $color-grey-dark-4;
+		width: max-content;
+		margin-bottom: 3.5rem;
+		span {
+			font-weight: 500;
+		}
+	}
+
+	.evaluation-content {
+		display: flex;
+		justify-content: space-around;
+		max-width: 100%;
+		margin: 0 auto;
+
+		& > * {
+			// Dont use width: 50%;
+		}
+	}
+
+	.chart-wrapper {
+		@include flex-center;
+		margin-left: 7rem;
+	}
+
+	.evaluation-chart {
+		// max-width: 200rem;
+		width: 600px;
+		height: 600px;
+	}
+}

@@ -1,3 +1,5 @@
+import { Evaluation } from "./Evaluation";
+
 // There are total 13 genres from Netflix.
 
 export enum ProductionCompany {
@@ -99,6 +101,7 @@ export default interface Movie {
 	comments: Comment[];
 	// UserMovie needs to have key, so that user can send DELETE request using the movie key.
 	key?: string;
+	evaluation?: Evaluation;
 };
 
 export class UserMovie {

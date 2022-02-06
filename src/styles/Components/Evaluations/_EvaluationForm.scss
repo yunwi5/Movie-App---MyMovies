@@ -1,0 +1,66 @@
+.evaluation-form-wrapper {
+	border-left: 3px solid $color-grey-dark-1;
+	margin-left: auto;
+	width: 50%;
+	@include flex-center;
+}
+
+.evaluation-form {
+	width: clamp(200px, 82%, 95%);
+	margin: 0 auto;
+	// margin-left: 6rem;
+	background-image: linear-gradient(to right bottom, $color-primary-light-1 50%, #bee1e6);
+	text-align: left;
+	padding: 1.5rem 3rem;
+	padding: 2rem 4rem;
+	font-size: 1.8rem;
+	color: $color-grey-dark-4;
+	border-radius: 5px;
+
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-row-gap: 2.5rem;
+
+	h3 {
+		color: darken($color-grey-dark-4, 3%);
+		grid-column: span 2;
+		font-weight: 500;
+		font-size: 2.8rem;
+	}
+
+	label {
+		font-size: inherit;
+		margin-bottom: .5rem;
+	}
+
+	.select-wrapper {
+		justify-self: start;
+		margin-left: 0;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+
+		select {
+			@include base-select-style;
+			padding: 1.2rem 2rem;
+			padding-left: .5rem;
+			max-width: 80%;
+		}
+	}
+
+	.comment-wrapper {
+		grid-column: 1 / -1;
+		display: flex;
+		flex-direction: column;
+
+		textarea {
+			font-size: inherit;
+		}
+	}
+
+	.btn-wrapper {
+		grid-column: 1 / -1;
+		text-align: center;
+		margin-top: 1rem;
+	}
+}
