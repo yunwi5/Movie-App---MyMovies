@@ -2,6 +2,7 @@ import DUMMY_MOVIES from "../assets/storeMovies";
 import User from "../models/User";
 import Movie from "../models/Movie";
 import { toUserMovies, toMoviesArray } from "../utilities/movie-util/movies-util";
+import { convertToUserMoviesWithEval } from "../utilities/evaluation-util/evaluation-util";
 
 // UPDATED
 export const API_KEY = "AIzaSyDTZ0QbMDjcR020EQXdsQ7KSOcfJwPT7vQ";
@@ -46,7 +47,7 @@ export const getUserById = async (userId: string) => {
 	const { email, userName, movies } = data;
 
 	// Movies can be either Array or Object.
-	const moviesArray: Movie[] = toMoviesArray(movies);
+	const moviesArray: Movie[] = convertToUserMoviesWithEval(toMoviesArray(movies));
 
 	let transformedUser: User = {
 		id: userId,
@@ -76,7 +77,7 @@ export async function getUserBySearch (inputEmail: string) {
 	}
 
 	const { id, email, userName, movies } = userFound;
-	const moviesArray = toMoviesArray(movies);
+	const moviesArray: Movie[] = convertToUserMoviesWithEval(toMoviesArray(movies));
 
 	let transformedUser: User = {
 		id,

@@ -51,6 +51,11 @@ export class Evaluation {
 		this.averageRating = 0;
 	}
 
+	public setOverallComment (newComment: string): void {
+		if (newComment.trim().length === 0) return;
+		this.overallComment = newComment;
+	}
+
 	public getEvaluationFactor (factorName: CriterionName): EvaluationFactor {
 		switch (factorName) {
 			case CriterionName.SOUND_TRACK:
@@ -113,7 +118,7 @@ export class Evaluation {
 		const newAve2 = (this.averageRating * 7 + newRating) / 8;
 		console.log(`New Ave1: ${newAve}, New Ave2: ${newAve2}`);
 
-		this.averageRating = newAve2;
+		this.averageRating = newAve;
 	}
 
 	public setText (factorName: CriterionName, newText: string): void {
@@ -144,4 +149,17 @@ export class Evaluation {
 				break;
 		}
 	}
+}
+
+export interface EvaluationObject {
+	overallComment: string;
+	averageRating: number;
+	soundTrack: EvaluationFactor;
+	story: EvaluationFactor;
+	originality: EvaluationFactor;
+	actorsAndCinematography: EvaluationFactor;
+	messageEffectiveness: EvaluationFactor;
+	characters: EvaluationFactor;
+	plot: EvaluationFactor;
+	creativity: EvaluationFactor;
 }

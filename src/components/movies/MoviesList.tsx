@@ -38,7 +38,6 @@ const MoviesList: React.FC<Props> = (props) => {
 
 	// Testing rendered List
 	// console.log("Inside component, initialMovies length:", initialMovies.length);
-	// console.log("Inside component, moviesList length:", moviesList.length);
 	// console.log("Inside component, filteredMovies length:", filteredMovies.length);
 
 	const editMovieHandler = (newMovie: Movie) => {
@@ -47,7 +46,7 @@ const MoviesList: React.FC<Props> = (props) => {
 
 	const shuffleMoviesHandler = () => {
 		const shuffledList = shuffleList(filteredMovies);
-		console.table(shuffledList);
+		// console.table(shuffledList);
 		setFilteredMovies(shuffledList);
 		setSortingStandard("");
 		setSortingDirection("");

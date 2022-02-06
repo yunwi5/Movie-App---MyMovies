@@ -1,61 +1,94 @@
-import React, { useReducer } from "react";
-import Movie from "../../../models/Movie";
+import React, { useReducer, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import AuthContext from "../../../store/auth-context";
 import EvaluationChart from "./EvaluationChart";
-
 import EvaluationForm from "./EvaluationForm";
-import {
-	Evaluation,
-	EvaluationFactor,
-	CriteriaList,
-	CriterionName
-} from "../../../models/Evaluation";
+import OverallCommentForm from "./OverallCommentForm";
+import Movie from "../../../models/Movie";
+import { Evaluation, CriteriaList, CriterionName } from "../../../models/Evaluation";
+import { createEvaluationList } from "../../../utilities/evaluation-util/evaluation-util";
+import { putUserMovie } from "../../../api/user-movie-api";
 
-export function createEvaluationList (evaluation: Evaluation, criteriaList: CriterionName[]) {
-	const evaluationList: EvaluationFactor[] = [];
-
-	for (const criterion of criteriaList) {
-		const evalFactor = evaluation.getEvaluationFactor(criterion);
-		evalFactor.rating = Math.floor(Math.random() * 10) + 1;
-		evaluationList.push(evalFactor);
-	}
-
-	return evaluationList;
-}
-
-interface State {
+type State = {
 	evaluation: Evaluation;
-}
+};
 
 enum ActionType {
-	FIX_RATING = "fixRating",
-	FIX_TEXT = "fixText",
+	FIX_RATING_AND_TEXT = "fixRatingAndText",
 	FIX_OVERALL_COMMENT = "fixOverallComment"
 }
 
-interface Action {
-	type: ActionType;
-	value: number | string;
-}
+type Action =
+	| {
+			type: ActionType.FIX_RATING_AND_TEXT;
+			criterionName: CriterionName;
+			newRating: number;
+			newText: string;
+		}
+	| {
+			type: ActionType.FIX_OVERALL_COMMENT;
+			newComment: string;
+		};
 
 function evaluationReducer (state: State, action: Action) {
-	return state;
+	const currEvaluation = state.evaluation;
+
+	switch (action.type) {
+		case ActionType.FIX_RATING_AND_TEXT:
+			const { criterionName, newRating, newText } = action;
+			currEvaluation.setRating(criterionName, newRating);
+			currEvaluation.setText(criterionName, newText);
+			break;
+		case ActionType.FIX_OVERALL_COMMENT:
+			const { newComment } = action;
+			currEvaluation.setOverallComment(newComment);
+			break;
+	}
+
+	return { evaluation: currEvaluation };
 }
 
-interface Props {
-	movie: Movie;
-}
-
-const MovieEvaluation: React.FC<Props> = (props) => {
-	const { movie } = props;
+const MovieEvaluation: React.FC<{ movie: Movie }> = ({ movie }) => {
+	const navigate = useNavigate();
+	const user = useContext(AuthContext).user;
 
 	let evaluation = movie.evaluation;
 	const title = movie.title;
 	if (!evaluation) evaluation = new Evaluation();
 
 	// Use reducer hook
-	const [ evaluationState, dispathAction ] = useReducer(evaluationReducer, { evaluation });
+	const [ evaluationState, dispatchAction ] = useReducer(evaluationReducer, { evaluation });
+	const evaluationList = createEvaluationList(evaluationState.evaluation, CriteriaList);
 
-	const evaluationList = createEvaluationList(evaluation, CriteriaList);
+	const criterionChangeHandler = (
+		criterionName: CriterionName,
+		newRating: number,
+		newText: string
+	) => {
+		dispatchAction({ type: ActionType.FIX_RATING_AND_TEXT, criterionName, newRating, newText });
+	};
+
+	const overallCommentHandler = (newComment: string) => {
+		dispatchAction({ type: ActionType.FIX_OVERALL_COMMENT, newComment });
+	};
+
+	useEffect(
+		() => {
+			console.log("Send http request for store!");
+			if (!user) return;
+			const userId = user.id;
+			movie.evaluation = evaluationState.evaluation;
+			putUserMovie(userId, movie);
+		},
+		[ evaluationState ]
+	);
+
+	// There is no guarantee that the user is always logged in.
+	if (!user) {
+		console.log("User is not login...");
+		navigate("/auth/login");
+		return <h3>Please login first</h3>;
+	}
 
 	return (
 		<main className="movie-evaluation">
@@ -63,8 +96,21 @@ const MovieEvaluation: React.FC<Props> = (props) => {
 				Evaluate <span>{title}</span>
 			</h1>
 			<div className="evaluation-content">
-				<EvaluationChart evaluationList={evaluationList} title={title} />
-				<EvaluationForm evaluationList={evaluationList} />
+				<EvaluationChart
+					evaluationList={evaluationList}
+					title={title}
+					userMovies={user.movies}
+				/>
+				<section className="evaluation-form-wrapper">
+					<OverallCommentForm
+						onChangeComment={overallCommentHandler}
+						initialComment={evaluationState.evaluation.overallComment}
+					/>
+					<EvaluationForm
+						evaluationList={evaluationList}
+						onChangeCriterion={criterionChangeHandler}
+					/>
+				</section>
 			</div>
 		</main>
 	);

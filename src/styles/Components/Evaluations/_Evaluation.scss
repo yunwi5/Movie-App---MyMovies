@@ -28,12 +28,11 @@
 	}
 
 	.chart-wrapper {
-		@include flex-center;
 		margin-left: 7rem;
+		padding-top: 2rem;
 	}
 
 	.evaluation-chart {
-		// max-width: 200rem;
 		width: 600px;
 		height: 600px;
 	}

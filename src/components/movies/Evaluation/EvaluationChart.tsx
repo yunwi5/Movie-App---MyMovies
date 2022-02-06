@@ -1,10 +1,7 @@
 import React from "react";
-import {
-	Evaluation,
-	EvaluationFactor,
-	CriteriaList,
-	CriterionName
-} from "../../../models/Evaluation";
+import Movie from "../../../models/Movie";
+import { getAverageEvaluationList } from "../../../utilities/evaluation-util/evaluation-util";
+import { EvaluationFactor, CriteriaList, CriterionName } from "../../../models/Evaluation";
 import {
 	Chart as ChartJS,
 	PointElement,
@@ -14,21 +11,23 @@ import {
 	Tooltip,
 	Legend
 } from "chart.js";
-import { Bar, Radar, Line } from "react-chartjs-2";
+import { Radar } from "react-chartjs-2";
 
 ChartJS.register(RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend);
 
 interface Props {
 	evaluationList: EvaluationFactor[];
+	userMovies: Movie[];
 	title: string;
 }
 
 // Chart with 8 sections (criteria)
 // Adding average?
 const EvaluationChart: React.FC<Props> = (props) => {
-	const { evaluationList, title } = props;
+	const { evaluationList, title, userMovies } = props;
 
 	const evaluationIntList = evaluationList.map((evaluation) => evaluation.rating);
+	const averageList = getAverageEvaluationList(userMovies);
 
 	const data = {
 		labels: CriteriaList,
@@ -47,7 +46,7 @@ const EvaluationChart: React.FC<Props> = (props) => {
 			},
 			{
 				label: "Your Average Evaluation",
-				data: [ 5, 5, 5, 5, 5, 5, 5, 5 ],
+				data: averageList,
 				backgroundColor: "rgba(255, 99, 132, 0.2)",
 				borderColor: "rgb(255, 99, 132)",
 				pointBackgroundColor: "rgb(255, 99, 132)",
@@ -58,6 +57,9 @@ const EvaluationChart: React.FC<Props> = (props) => {
 			}
 		]
 	};
+
+	// const averageScore =
+	// 	evaluationIntList.reduce((prev, curr) => prev + curr, 0) / evaluationIntList.length;
 
 	return (
 		<section className="chart-wrapper">
