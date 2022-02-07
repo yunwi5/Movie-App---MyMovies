@@ -1,0 +1,75 @@
+.movie-detail__nav {
+	position: absolute;
+	top: 5rem;
+	left: 11rem;
+	padding: 1.5rem 0;
+	text-align: left;
+	display: flex;
+	align-items: flex-start;
+
+	& .icon-wrapper {
+		padding-bottom: .5rem;
+		color: #fff;
+		font-size: 3.7rem;
+
+		& .fa {
+			cursor: pointer;
+			transition: all .3s;
+
+			&:hover {
+				transform: scale(1.1, 1.1);
+			}
+		}
+	}
+
+	.movie-detail__nav-bar {
+		list-style: none;
+		font-size: 1.7rem;
+		margin-top: 1.2rem;
+		margin-left: .7rem;
+		display: none;
+
+		& li {
+			padding: .9rem 1.2rem;
+			color: var(--color-grey-dark-1);
+			background-color: var(--color-grey-light-2);
+			cursor: pointer;
+
+			& .fa {
+				margin-right: .9rem;
+				font-size: 2rem;
+			}
+
+			&:hover {
+				color: var(--color-grey-light-2);
+			}
+		}
+
+		.evaluate:hover {
+			background-color: rgba($color-secondary, .85);
+		}
+
+		& .similar:hover {
+			background-color: var(--color-primary-darkest);
+		}
+
+		& .edit {
+			& .fa {
+				margin-right: .5rem;
+			}
+			&:hover {
+				background-color: rgb(139, 85, 189);
+			}
+		}
+
+		& .delete:hover {
+			background-color: rgb(189, 85, 133);
+		}
+	}
+}
+
+.movie-detail__nav--active {
+	& .movie-detail__nav-bar {
+		display: block;
+	}
+}

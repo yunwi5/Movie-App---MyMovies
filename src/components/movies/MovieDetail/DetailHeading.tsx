@@ -2,7 +2,7 @@ import { Fragment, useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Movie from "../../../models/Movie";
 import Rating from "@mui/material/Rating";
-import MovieNavIcon from "../MovieSupport/MovieNavIcon";
+import MovieNavIcon from "../MovieSupport/MovieNavIconList";
 import MovieSidebar from "../MovieSupport/MovieSidebar";
 import { toDurationString } from "../../../utilities/movie-util/movies-util";
 import getSimilarMovies from "../../../utilities/movie-util/movies-select-util";
@@ -81,6 +81,7 @@ const DetailHeader: React.FC<Props> = (props) => {
 				<MovieNavIcon 
 					navIsActive={navIsActive} 
 					onEdit={() => navigate(`/movie-edit/${movie.id}`)}
+					onEvaluate={() => navigate(`/movie-evaluate/${movie.id}`)}
 					onToggle={toggleNavHandler} 
 					onShowSidebar={() => setShowSidebar(true)} 
 					onShowModal={() => onShowDeleteModal(true)}

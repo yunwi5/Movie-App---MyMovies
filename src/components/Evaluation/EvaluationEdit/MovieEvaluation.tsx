@@ -89,7 +89,6 @@ const MovieEvaluation: React.FC<{ movie: Movie }> = ({ movie }) => {
 	// There is no guarantee that the user is always logged in.
 	if (!user) {
 		console.log("User is not login...");
-		navigate("/auth/login");
 		return <h3>Please login first</h3>;
 	}
 

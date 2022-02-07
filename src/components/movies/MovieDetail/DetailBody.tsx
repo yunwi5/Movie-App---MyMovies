@@ -2,6 +2,7 @@ import { useNavigate, Link } from "react-router-dom";
 import EvaluationDisplay from "../../Evaluation/EvaluationDisplay/EvaluationDisplay";
 import Movie from "../../../models/Movie";
 import StoreReviews from "../../Comments/StoreReviews/StoreReviews";
+import DetailFooter from "./DetailFooter";
 
 interface Props {
 	movie: Movie;
@@ -22,20 +23,11 @@ const DetailBody: React.FC<Props> = (props) => {
 			</div>
 
 			{isFromStore && <StoreReviews movie={movie} />}
-			{isForUser && (
-				// movie evaluation summary part
-				<EvaluationDisplay movie={movie} />
-			)}
-
-			<div className="movie-detail__genres">
-				<ul>
-					{movie.genreList.map((genre, idx) => (
-						<li onClick={() => navigate(`/movie-store/${genre}`)} key={idx}>
-							{genre}
-						</li>
-					))}
-				</ul>
-			</div>
+			{isForUser && <EvaluationDisplay movie={movie} />}
+			<DetailFooter
+				genreList={movie.genreList}
+				onClick={(genreName: string) => navigate(`/movie-store/genre/${genreName}`)}
+			/>
 		</section>
 	);
 };

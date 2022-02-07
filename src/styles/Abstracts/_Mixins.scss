@@ -87,7 +87,12 @@
 	color: transparent;
 
 	&:hover {
-		background-image: linear-gradient(to right, darken($color-1, 15%), darken($color-2, 15%));
+		background-image: linear-gradient(
+			to right,
+			darken($color-1, 15%),
+			darken($color-2, 15%),
+			darken($color-1, 15%)
+		);
 	}
 }
 

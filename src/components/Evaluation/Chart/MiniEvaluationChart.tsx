@@ -5,13 +5,22 @@ import {
 	LineElement,
 	Filler,
 	RadialLinearScale,
+	LinearScale,
 	Tooltip,
 	Legend
 } from "chart.js";
 import { EvaluationFactor, CriteriaList } from "../../../models/Evaluation";
 import { Radar } from "react-chartjs-2";
 
-ChartJS.register(RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend);
+ChartJS.register(
+	RadialLinearScale,
+	LinearScale,
+	PointElement,
+	LineElement,
+	Filler,
+	Tooltip,
+	Legend
+);
 
 interface Props {
 	evaluationList: EvaluationFactor[];
@@ -21,6 +30,7 @@ const MiniEvaluationChart: React.FC<Props> = ({ evaluationList }) => {
 	const evaluationIntList = evaluationList.map((ev) => ev.rating);
 
 	const labels = new Array(evaluationIntList.length).fill("");
+
 	const data = {
 		labels: labels,
 		datasets: [
@@ -53,6 +63,12 @@ const MiniEvaluationChart: React.FC<Props> = ({ evaluationList }) => {
 					}
 				},
 				scales: {
+					labels: {
+						display: false
+					},
+					pointLabels: {
+						display: false
+					},
 					r: {
 						grid: {
 							color: "rgba(180, 180, 180, .15)",
