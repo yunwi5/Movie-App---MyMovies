@@ -26,7 +26,7 @@ export interface EvaluationFactor {
 	text: string;
 }
 
-export class Evaluation {
+export class Evaluation implements EvaluationObject {
 	overallComment: string;
 	averageRating: number;
 	soundTrack: EvaluationFactor = { name: CriterionName.SOUND_TRACK, rating: 0, text: "" };

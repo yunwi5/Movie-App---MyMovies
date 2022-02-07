@@ -22,6 +22,9 @@
 		margin-top: 6rem;
 		max-width: 80%;
 		margin-left: 7%;
+		display: flex;
+		flex-direction: column;
+		gap: 7rem;
 	}
 }
 
@@ -293,15 +296,16 @@
 }
 
 .movie-detail__about {
+	& > * {
+		max-width: 66%;
+	}
 	& h2 {
 		font-size: 3.5rem;
 		font-weight: 400;
-		width: 66%;
 	}
 
 	& p {
 		padding-left: .5rem;
-		width: 65%;
 		margin-top: 2rem;
 		text-align: left;
 		font-size: 1.7rem;
@@ -309,7 +313,7 @@
 }
 
 .movie-detail__genres {
-	margin-top: 7rem;
+	margin-top: 1rem;
 	min-height: 45vh;
 	& ul {
 		font-size: 1.9rem;

@@ -1,6 +1,6 @@
 import React, { useContext, Fragment } from "react";
 import { Helmet } from "react-helmet";
-import MoviesList from "../../components/movies/MoviesList";
+import MoviesList from "../../components/movies/MoviesList/MoviesList";
 import MovieContext from "../../store/movie-context";
 
 const Movies: React.FC = () => {

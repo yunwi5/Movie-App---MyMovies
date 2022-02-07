@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import { GenreList, productionCompanyList } from "../../models/Movie";
 import AuthContext from "../../store/auth-context";
-import UserInitial from "../UI/UserInitial";
+import UserInitial from "../UI/DesignElement/UserInitial";
 
 const Header: React.FC = () => {
 	const authCtx = useContext(AuthContext);

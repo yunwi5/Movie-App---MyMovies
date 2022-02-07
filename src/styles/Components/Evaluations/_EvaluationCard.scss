@@ -1,0 +1,27 @@
+// Also refers to MovieCard for layout of this element.
+.card-evaluation {
+	transition: all .5s ease;
+
+	.message {
+		opacity: 0;
+		visibility: none;
+		position: absolute;
+		left: 26%;
+		top: 55%;
+		transition: all .5s ease;
+		@include button-like-link(rgba($color-secondary-light-3, .7));
+		border-radius: 10px;
+		font-size: 2rem;
+		color: $color-grey-dark-4;
+
+		&:hover {
+			color: $color-grey-light-1;
+		}
+	}
+
+	&:hover .message {
+		opacity: 1;
+		visibility: visible;
+		transform: translateY(-3rem);
+	}
+}

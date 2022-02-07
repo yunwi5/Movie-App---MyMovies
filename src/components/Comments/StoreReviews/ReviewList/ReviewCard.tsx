@@ -2,7 +2,7 @@ import { useState, useEffect, Fragment } from "react";
 import { Comment } from "../../../../models/Movie";
 import EditReview from "../ReviewOperation/EditReview";
 
-import UserInitial from "../../../UI/UserInitial";
+import UserInitial from "../../../UI/DesignElement/UserInitial";
 import DeleteModal from "../../../UI/Modal/DeleteModal";
 import {
 	verityIfUserUpVoted,
@@ -25,14 +25,7 @@ interface Props {
 
 const ReviewCard: React.FC<Props> = (props) => {
 	const { comment, userEmail, onEdit, onDelete, onVote } = props;
-	const {
-		userName,
-		upVotesList,
-		downVotesList,
-		rating,
-		dateString,
-		commentText
-	} = comment;
+	const { userName, upVotesList, downVotesList, rating, dateString, commentText } = comment;
 
 	const [ upVotes, setUpVotes ] = useState<string[]>(upVotesList || []);
 	const [ isUpVoted, setIsUpVoted ] = useState(false);
@@ -86,14 +79,8 @@ const ReviewCard: React.FC<Props> = (props) => {
 	useEffect(
 		() => {
 			if (!userEmail || !comment.key) return;
-			const userUpVote = verityIfUserUpVoted(
-				upVotesList || [],
-				userEmail
-			);
-			const userDownVote = verityIfUserDownVoted(
-				downVotesList || [],
-				userEmail
-			);
+			const userUpVote = verityIfUserUpVoted(upVotesList || [], userEmail);
+			const userDownVote = verityIfUserDownVoted(downVotesList || [], userEmail);
 			setIsUpVoted(userUpVote);
 			setIsDownVoted(userDownVote);
 		},
@@ -130,12 +117,7 @@ const ReviewCard: React.FC<Props> = (props) => {
 				<div className="review-body">
 					<h5>{userName}</h5>
 					<div className="rating-and-date">
-						<Rating
-							className="stars"
-							value={rating / 2}
-							precision={0.5}
-							readOnly
-						/>
+						<Rating className="stars" value={rating / 2} precision={0.5} readOnly />
 						<span className="rating-number">({rating})</span>
 						<time>
 							<em>{dateString}</em>
@@ -148,9 +130,7 @@ const ReviewCard: React.FC<Props> = (props) => {
 					<div className="votes">
 						<div className="vote-wrapper">
 							<div
-								className={`icon-wrapper ${isUpVoted
-									? "icon-active"
-									: ""}`}
+								className={`icon-wrapper ${isUpVoted ? "icon-active" : ""}`}
 								onClick={upVotingHandler}
 							>
 								<FontAwesomeIcon
@@ -162,9 +142,7 @@ const ReviewCard: React.FC<Props> = (props) => {
 						</div>
 						<div className={`vote-wrapper`}>
 							<div
-								className={`icon-wrapper ${isDownVoted
-									? "icon-active"
-									: ""}`}
+								className={`icon-wrapper ${isDownVoted ? "icon-active" : ""}`}
 								onClick={downVotingHandler}
 							>
 								<FontAwesomeIcon
@@ -176,20 +154,14 @@ const ReviewCard: React.FC<Props> = (props) => {
 						</div>
 						{isTheSameUser && (
 							<div className="operations">
-								<div
-									className="edit"
-									onClick={() => setShowEdit(true)}
-								>
+								<div className="edit" onClick={() => setShowEdit(true)}>
 									<FontAwesomeIcon
 										className="icon"
 										icon={faPenToSquare as IconProp}
 									/>
 								</div>
 								&ensp;
-								<div
-									className="delete"
-									onClick={deleteReviewHandler}
-								>
+								<div className="delete" onClick={deleteReviewHandler}>
 									<FontAwesomeIcon
 										className="icon"
 										icon={faTrashCan as IconProp}

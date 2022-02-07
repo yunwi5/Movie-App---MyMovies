@@ -10,6 +10,15 @@
 	justify-content: flex-start;
 	position: relative;
 
+	.card-evaluation {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		right: 1%;
+		width: 20rem;
+		height: 20rem;
+	}
+
 	& .fa-favorite {
 		position: absolute;
 		top: 0;

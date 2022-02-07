@@ -12,20 +12,22 @@ import Header from "./components/Layout/Header";
 import Footer from "./components/Layout/Footer";
 import UserMoviesList from "./pages/Movies/UserMoviesList";
 import MoviesSearch from "./pages/Movies/MoviesSearch";
-import MovieAdd from "./pages/Movies/MovieAdd";
+import MovieAdd from "./pages/Movies/Updates/MovieAdd";
 import Auth from "./pages/Auth/Auth";
-import MovieDetailStore from "./pages/Movies/MovieDetailStore";
-import MovieDetailUser from "./pages/Movies/MovieDetailUser";
-import MovieEditPage from "./pages/Movies/MovieEditPage";
-import MovieEvaluationPage from "./pages/Movies/MovieEvaluationPage";
+import MovieDetailStore from "./pages/Movies/Details/MovieDetailStore";
+import MovieDetailUser from "./pages/Movies/Details/MovieDetailUser";
+import MovieEditPage from "./pages/Movies/Updates/MovieEditPage";
+import MovieEvaluationPage from "./pages/Movies/Updates/MovieEvaluationPage";
 import AdminPage from "./pages/Admin/AdminPage";
 import NotFound from "./pages/NotFound";
 
 import Logo from "./assets/Images/MyMovies_Logo.png";
+import { userIsAdmin } from "./utilities/admin-util";
 
 function App () {
 	const authCtx = useContext(Authcontext);
-	const isLoggedIn = authCtx.isLoggedIn;
+	const { isLoggedIn, user } = authCtx;
+	const isAdmin = !user ? false : userIsAdmin(user.email) ? true : false;
 
 	return (
 		<div className="App">
@@ -38,6 +40,7 @@ function App () {
 				<Route path="/" element={<Navigate to="/home" />} />
 				<Route path="/home" element={<Home />} />
 				<Route path="/about" element={<About />} />
+
 				{/* Store movies do not need login to watch. Need to fix later on */}
 				<Route path="/movie-store" element={<StorePage />} />
 				<Route path="/movie-store/genre/:genreName" element={<GenreStorePage />} />
@@ -56,7 +59,7 @@ function App () {
 					<Route path="/movie-evaluate/:movieId" element={<MovieEvaluationPage />} />
 				)}
 
-				{isLoggedIn && <Route path="/admin" element={<AdminPage />} />}
+				{isLoggedIn && isAdmin && <Route path="/admin" element={<AdminPage />} />}
 
 				<Route path="/auth/*" element={<Auth />} />
 				<Route path="*" element={<NotFound />} />

@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-
 interface NavIconProps {
 	navIsActive: boolean;
 	onEdit: () => void;
@@ -8,6 +6,7 @@ interface NavIconProps {
 	onShowModal: () => void;
 }
 
+// Used in MovieDetail section
 const MovieNavIcon: React.FC<NavIconProps> = (props) => {
 	const { navIsActive, onEdit, onToggle, onShowSidebar, onShowModal } = props;
 

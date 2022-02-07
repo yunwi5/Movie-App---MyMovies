@@ -33,6 +33,19 @@
 	}
 }
 
+@mixin pos-top-left() {
+	position: absolute;
+	top: 0;
+	left: 0;
+	transform: traslate(-50%, -50%);
+}
+
+@mixin pos-center {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+}
+
 @mixin item-input {
 	padding: 1rem .5rem;
 	border-radius: 2px;
@@ -55,6 +68,11 @@
 	}
 }
 
+@mixin remove-link-default($text-color) {
+	text-decoration: none;
+	color: $text-color;
+}
+
 // REMOVING DEFAULT LINK STYLES
 @mixin better-link-style($color-1, $color-2) {
 	text-decoration: none;
@@ -69,18 +87,25 @@
 	color: transparent;
 
 	&:hover {
-		background-image: linear-gradient(
-			to right,
-			darken($color-1, 15%),
-			darken($color-2, 15%),
-			darken($color-1, 15%)
-		);
+		background-image: linear-gradient(to right, darken($color-1, 15%), darken($color-2, 15%));
 	}
 }
 
-@mixin remove-link-default($text-color) {
-	text-decoration: none;
-	color: $text-color;
+@mixin button-like-link($color) {
+	&,
+	&:visited,
+	&:link {
+		@include remove-link-default($color);
+		padding: .7rem 1.5rem;
+		border-radius: 5px;
+		transition: all .8s ease;
+	}
+
+	&:active,
+	&:hover {
+		background-color: $color;
+		color: $color-grey-light-1;
+	}
 }
 
 // FOR HEADING UNDERLINES

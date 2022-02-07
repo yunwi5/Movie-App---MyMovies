@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState, useMemo, Fragment } from "react
 import { Helmet } from "react-helmet";
 import { useLocation } from "react-router-dom";
 import MovieContext from "../../store/movie-context";
-import MoviesList from "../../components/movies/MoviesList";
+import MoviesList from "../../components/movies/MoviesList/MoviesList";
 import { filterMovies } from "../../utilities/movie-util/movies-util";
 
 function useQuery () {
