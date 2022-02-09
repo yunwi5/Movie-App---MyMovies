@@ -74,6 +74,20 @@
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
 	grid-row-gap: 2.5rem;
+	position: relative;
+
+	.info-icon {
+		position: absolute;
+		top: 1rem;
+		right: 1rem;
+		font-size: 3rem;
+		color: $color-secondary-dark-2;
+		cursor: pointer;
+
+		&:hover {
+			color: $color-secondary;
+		}
+	}
 
 	h3 {
 		grid-column: span 2;

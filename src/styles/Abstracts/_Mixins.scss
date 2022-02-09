@@ -232,7 +232,6 @@
 
 // BTN EMPTY FILL TEXT GRADATION
 @mixin btn-text-gradient($color-1, $color-2) {
-	text-transform: uppercase;
 	font-size: 2.5rem;
 	@include better-link-style($color-1, $color-2);
 	border: 1px solid $color-1;

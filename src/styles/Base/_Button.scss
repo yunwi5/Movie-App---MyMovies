@@ -79,7 +79,7 @@
 	border: none;
 	color: lighten($color-secondary-light-1, 10%);
 	box-shadow: 0 1rem 2rem rgba($color-black, .2);
-	cursor: Pointer;
+	cursor: pointer;
 
 	&:hover {
 		background-color: rgba($color-secondary-dark-1, .9);
