@@ -93,12 +93,14 @@ const MovieFilter: React.FC<Props> = (props) => {
 	return (
 		<aside className="movie-filter">
 			{showClearFilter ? <h4 onClick={() => setClearFilters(true)}>Clear Filter</h4> : ""}
-			<section className={`ratings-filter ${showRatingFilter ? "" : "ratings-filter--close"}`}>
+			<section
+				className={`ratings-filter ${showRatingFilter ? "" : "ratings-filter--close"}`}
+			>
 				<div className="icon-wrapper" onClick={() => setShowRatingFilter((prev) => !prev)}>
 					<i className={`fa fa-chevron-up ${showRatingFilter ? "" : "fa-reverse"}`} />
 				</div>
 				{isForUser && <h3>Your Ratings</h3>}
-				{!isForUser && <h3>Google Ratings</h3>}
+				{!isForUser && <h3>IMDB Ratings</h3>}
 				<ul className="ratings-filter__list">
 					<MovieRating
 						value={9}

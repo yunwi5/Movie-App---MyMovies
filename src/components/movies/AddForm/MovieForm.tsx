@@ -87,15 +87,15 @@ const Movieform: React.FC = () => {
 	};
 
 	const titleChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setTitle(e.target.value as string);
+		setTitle(e.target.value.trim() as string);
 	};
 
 	const imgUrlChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setImgUrl(e.target.value as string);
+		setImgUrl(e.target.value.trim() as string);
 	};
 
 	const descChangeHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-		setDescription(e.target.value as string);
+		setDescription(e.target.value.trim() as string);
 	};
 
 	const yearChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -175,7 +175,8 @@ const Movieform: React.FC = () => {
 						id="movie-company"
 						type="text"
 						onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-							setProducer(e.target.value as string)}
+							setProducer(e.target.value.trim() as string)}
+						required
 					/>
 				</div>
 				<div className="director-wrapper wrapper">
@@ -184,7 +185,8 @@ const Movieform: React.FC = () => {
 						id="movie-director"
 						type="text"
 						onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-							setDirector(e.target.value)}
+							setDirector(e.target.value.trim())}
+						required
 					/>
 				</div>
 
@@ -198,6 +200,7 @@ const Movieform: React.FC = () => {
 						min="1970"
 						max="2022"
 						onChange={yearChangeHandler}
+						required
 					/>
 				</div>
 				<div className="duration-wrapper wrapper">
@@ -215,6 +218,7 @@ const Movieform: React.FC = () => {
 									type: "HOURS",
 									newHours: +e.target.value
 								})}
+							required
 						/>{" "}
 						<label htmlFor="movie-duration">h</label>
 					</div>
@@ -231,6 +235,7 @@ const Movieform: React.FC = () => {
 									type: "MINUTES",
 									newMinutes: +e.target.value
 								})}
+							required
 						/>{" "}
 						<label htmlFor="movie-duration">m</label>
 					</div>

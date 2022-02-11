@@ -1,5 +1,5 @@
 .movie-form {
-	width: 52%;
+	width: clamp(75rem, 52%, 1000px);
 	margin-left: auto;
 	margin-right: auto;
 	margin-top: 7rem;

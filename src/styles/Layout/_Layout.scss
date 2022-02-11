@@ -191,7 +191,7 @@ body,
 			position: absolute;
 			top: 5.9rem;
 			left: 0;
-			width: 140%;
+			width: clamp(20rem, 140%, 2000px);
 			border-bottom: 1px solid $color-grey-dark-1;
 
 			display: none;
@@ -214,7 +214,7 @@ body,
 
 			& .fa {
 				position: absolute;
-				right: 2rem;
+				right: 1rem;
 			}
 
 			&:first-child {
