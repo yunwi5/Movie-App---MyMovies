@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet";
 import MovieContext from "../../store/movie-context";
 import { GenreList } from "../../models/Movie";
 
-import { genre as Genre } from "../../models/Movie";
+import { Genre } from "../../models/Movie";
 import { getMoviesAndUrlForGenre } from "../../utilities/movie-util/movies-util";
 import AllGenresStore from "../../components/movies/MovieStore/AllGenresStore";
 

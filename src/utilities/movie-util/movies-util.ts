@@ -1,5 +1,5 @@
 import Movie from "../../models/Movie";
-import { genre as Genre, ProductionCompany } from "../../models/Movie";
+import { Genre, ProductionCompany } from "../../models/Movie";
 import { getGenreImgUrlStore } from "../../assets/movies-img";
 import { getProducerLogo } from "../../utilities/design-util/logo-util";
 
@@ -112,7 +112,19 @@ export function toMoviesObject (movies: Movie[]) {
 // Used In StorePage and SingleStorePage Components For
 export function getMoviesAndUrlForGenre (genre: Genre, moviesList: Movie[]) {
 	const imgUrl = getGenreImgUrlStore(genre);
-	let resultMovies: Movie[] = moviesList.filter((movie) => movie.genreList.includes(genre));
+	let resultMovies: Movie[] = [];
+
+	if (genre === Genre.SCI_FICTION_FANTASY) {
+		let genreName1 = Genre.SCI_FICTION_FANTASY;
+		let genreName2 = "Sci-Fiction & Fantasy";
+		resultMovies = moviesList.filter(
+			(movie) =>
+				movie.genreList.includes(genreName1) ||
+				movie.genreList.includes(genreName2 as Genre)
+		);
+	} else {
+		resultMovies = moviesList.filter((movie) => movie.genreList.includes(genre));
+	}
 
 	return {
 		imgUrl,

@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import MovieContext from "../../store/movie-context";
 
-import { genre as Genre } from "../../models/Movie";
+import { Genre } from "../../models/Movie";
 import { getMoviesAndUrlForGenre } from "../../utilities/movie-util/movies-util";
 import SingleGenreStore from "../../components/movies/MovieStore/SingleGenreStore";
 

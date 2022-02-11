@@ -6,6 +6,7 @@ import AuthContext from "../../../store/auth-context";
 import Movie, { genre as MovieGenre } from "../../../models/Movie";
 import { toShortcutString } from "../../../utilities/string-util";
 import { userIsAdmin } from "../../../utilities/admin-util";
+import { GenreList } from "../../../models/Movie";
 
 import InputRating from "../../UI/InputRating";
 
@@ -144,19 +145,7 @@ const Movieform: React.FC = () => {
 						Genre <span>(max 4 genres)</span>
 					</label>
 					<select id="genre" defaultValue="Other" onChange={genreChangeHandler} required>
-						<option value="Anime">Anime</option>
-						<option value="Drama">Drama</option>
-						<option value="Thriller">Thriller</option>
-						<option value="Horror">Horror</option>
-						<option value="Children & Family Movies">Children & Family Movies</option>
-						<option value="TV Shows">TV Shows</option>
-						<option value="Romantic Movies">Romantic Movies</option>
-						<option value="Comedies">Comedies</option>
-						<option value="Music & Musicals">Music & Musicals</option>
-						<option value="Sci-Fiction & Fantasy">Sci-Fiction & Fantasy</option>
-						<option value="Action & Adventures">Action & Adventures</option>
-						<option value="Documentaries">Documentaries</option>
-						<option value="Other">Other</option>
+						{GenreList.map((genre) => <option value={genre}>{genre}</option>)}
 					</select>
 				</div>
 				{genreList.length !== 0 && <ul>{genreListElements}</ul>}

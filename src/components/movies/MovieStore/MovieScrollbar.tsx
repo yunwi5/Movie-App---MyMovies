@@ -61,6 +61,7 @@ const MovieScrollbar: React.FC<Props> = (props) => {
 	const shuffleListHandler = () => {
 		const newShuffledMovies = shuffleList(shuffledMovies);
 		setShuffledMovies(newShuffledMovies);
+		setCurrentScrollPosition(0);
 	};
 
 	useEffect(
