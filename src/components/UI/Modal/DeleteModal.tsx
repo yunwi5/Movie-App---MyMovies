@@ -1,6 +1,5 @@
 import React from "react";
 import Modal from "./Modal";
-import Movie from "../../../models/Movie";
 
 interface ModalProps {
 	modalContent: {

@@ -8,7 +8,6 @@ import Movie from "../../../models/Movie";
 import { Evaluation, CriteriaList, CriterionName } from "../../../models/Evaluation";
 import { createEvaluationList } from "../../../utilities/evaluation-util/evaluation-util";
 import { putUserMovie } from "../../../api/user-movie-api";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/pro-duotone-svg-icons";
 

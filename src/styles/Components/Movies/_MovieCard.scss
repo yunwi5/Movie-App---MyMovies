@@ -69,13 +69,13 @@
 				color: var(--color-grey-dark-1);
 			}
 
-			& .delete-mark-wrapper {
+			& .card-nav {
 				margin-top: 1.2rem;
 				padding: 0;
 				position: relative;
 				margin-left: auto;
 
-				& .delete-mark {
+				& .card-nav-mark {
 					margin-top: .6rem;
 					margin-right: .8rem;
 					padding: .5rem 1rem;
@@ -104,17 +104,18 @@
 					left: 0;
 					list-style: none;
 					color: var(--color-grey-dark-1);
-					width: 230%;
+					width: 240%;
 
 					& li {
 						background-color: var(--color-grey-light-2);
 						text-align: left;
-						padding: .5rem 0;
+						padding: .6rem 0;
 						padding-left: .3rem;
 						cursor: pointer;
 
 						& .fa {
 							margin-right: .4rem;
+							font-size: 1.6rem;
 						}
 
 						&:hover {
@@ -124,6 +125,10 @@
 
 						&:first-child:hover {
 							background-color: #bcd4e6;
+						}
+
+						&:nth-child(2):hover {
+							background-color: rgb(165, 180, 252);
 						}
 
 						&:last-child:hover {

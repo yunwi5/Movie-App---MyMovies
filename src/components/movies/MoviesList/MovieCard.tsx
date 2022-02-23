@@ -1,23 +1,26 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+	faHourglass,
+	faBuilding,
+	faCameraMovie,
+	faTanakh
+} from "@fortawesome/pro-duotone-svg-icons";
+
 import Movie from "../../../models/Movie";
 import {
 	toDurationString,
 	getShortMovieDescription
 } from "../../../utilities/movie-util/movies-util";
 import DeleteModal from "../../UI/Modal/DeleteModal";
-import StarRating from "../../UI/DesignElement/StarRating";
 import EvaluationCard from "../../Evaluation/EvaluationCard/EvaluationCard";
 import MovieContext from "../../../store/movie-context";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-	faHourglass,
-	faBuilding,
-	faCameraMovie,
-	faTanakh,
-	faPencilRuler
-} from "@fortawesome/pro-duotone-svg-icons";
+import AuthContext from "../../../store/auth-context";
 import AddModal from "../../UI/Modal/AddModal";
+import StarRating from "../../UI/DesignElement/StarRating";
+
+import MovieCardNav from "./MovieCardNav";
 
 interface Props {
 	movie: Movie;
@@ -30,6 +33,7 @@ const MovieCard: React.FC<Props> = (props) => {
 
 	const navigate = useNavigate();
 	const movieCtx = useContext(MovieContext);
+	const user = useContext(AuthContext).user;
 
 	const [ showDeleteModal, setShowDeleteModal ] = useState(false);
 	const deleteModalContent = {
@@ -66,6 +70,7 @@ const MovieCard: React.FC<Props> = (props) => {
 	};
 
 	const addHandler = () => {
+		if (!user) navigate("/auth/login");
 		setShowAddModal(true);
 	};
 
@@ -85,34 +90,21 @@ const MovieCard: React.FC<Props> = (props) => {
 				<EvaluationCard movie={movie} />
 				{movie.isFavorite && <i className="fa fa-star fa-favorite" />}
 				<div className="image-wrapper">
-					<img src={movie.imgUrl} />
+					<img src={movie.imgUrl} alt={movie.title} />
 				</div>
 
 				<div className="movie-card__lines">
 					<div className="first-line">
 						<h3>{movie.title}</h3>
 						{movie.year && <em className="year">({movie.year})</em>}
+
 						{/* Enable favorite & editing & deleting only if this is user Movie */}
 						{isForUser && (
-							<div className="delete-mark-wrapper">
-								<span className="delete-mark">
-									<i className="fa fa-bars" />
-								</span>
-								<ul className="setting-list">
-									<li onClick={favoriteChangeHandler}>
-										<i className="fa fa-star" />
-										{movie.isFavorite ? "Unfavorite" : "Favorite"}
-									</li>
-									<li onClick={() => navigate(`/movie-edit/${movie.id}`)}>
-										<i className="fa fa-pencil" />
-										Edit
-									</li>
-									<li onClick={deleteHandler}>
-										<i className="fa fa-eraser" />
-										Delete
-									</li>
-								</ul>
-							</div>
+							<MovieCardNav
+								movie={movie}
+								onDelete={deleteHandler}
+								onChangeFavoriate={favoriteChangeHandler}
+							/>
 						)}
 						{!isForUser && (
 							<div className="add-mark-wrapper" onClick={addHandler}>
