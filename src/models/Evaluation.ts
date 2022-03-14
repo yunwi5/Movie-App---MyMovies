@@ -115,8 +115,6 @@ export class Evaluation implements EvaluationObject {
 				this.plot.rating +
 				this.creativity.rating) /
 			8;
-		const newAve2 = (this.averageRating * 7 + newRating) / 8;
-		console.log(`New Ave1: ${newAve}, New Ave2: ${newAve2}`);
 
 		this.averageRating = newAve;
 	}

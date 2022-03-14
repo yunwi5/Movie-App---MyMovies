@@ -74,7 +74,8 @@
 		}
 	}
 
-	& .genres-filter {
+	& .genres-filter,
+	.favorite-filter {
 		margin-top: 2rem;
 		&--close {
 			& ul {

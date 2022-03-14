@@ -6,6 +6,8 @@ import { SelectChangeEvent } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import { faShuffle } from "@fortawesome/pro-light-svg-icons";
+import { faStar as solidFaStar } from "@fortawesome/pro-solid-svg-icons";
+import { faStar as lightFaStar } from "@fortawesome/pro-light-svg-icons";
 
 interface Props {
 	onShowSidebar: () => void;
@@ -14,6 +16,8 @@ interface Props {
 	sortingDirection: string;
 	onSortingDirection: (direction: string) => void;
 	onShuffle: () => void;
+	onToggleFavorite: () => void;
+	showOnlyFav: boolean;
 	moviesLength: number;
 }
 
@@ -25,6 +29,8 @@ const MovieSearchbar: React.FC<Props> = (props) => {
 		sortingDirection,
 		onSortingDirection,
 		onShuffle,
+		onToggleFavorite,
+		showOnlyFav,
 		moviesLength
 	} = props;
 
@@ -75,6 +81,13 @@ const MovieSearchbar: React.FC<Props> = (props) => {
 					<MenuItem value="Des">Descending</MenuItem>
 				</Select>
 			</FormControl>
+			<div onClick={onToggleFavorite}>
+				{showOnlyFav ? (
+					<FontAwesomeIcon className="icon" icon={solidFaStar} />
+				) : (
+					<FontAwesomeIcon className="icon" icon={lightFaStar} />
+				)}
+			</div>
 			<div className="shuffle-icon-wrapper" onClick={onShuffle}>
 				<FontAwesomeIcon className="icon" icon={faShuffle as IconProp} />
 			</div>

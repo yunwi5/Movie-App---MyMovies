@@ -34,6 +34,7 @@ const MovieFilter: React.FC<Props> = (props) => {
 	// Control Open/Close of filter section
 	const [ showRatingFilter, setShowRatingFilter ] = useState(true);
 	const [ showGenreFilter, setShowGenreFilter ] = useState(true);
+	// const [ showFavoriteFilter, setShowFavoriteFilter ] = useState<boolean>(isForUser);
 
 	const [ clearFilters, setClearFilters ] = useState(false);
 
@@ -52,7 +53,7 @@ const MovieFilter: React.FC<Props> = (props) => {
 				setFilterGenres(newFilterGenres);
 			}
 		},
-		[ filterGenresLength ]
+		[ filterGenres ]
 	);
 
 	useEffect(
@@ -93,6 +94,16 @@ const MovieFilter: React.FC<Props> = (props) => {
 	return (
 		<aside className="movie-filter">
 			{showClearFilter ? <h4 onClick={() => setClearFilters(true)}>Clear Filter</h4> : ""}
+			{/* <section
+				className={`favorite-filter ${showFavoriteFilter ? "" : "ratings-filter--close"}`}
+			>
+				<div
+					className="icon-wrapper"
+					onClick={() => setShowFavoriteFilter((prev) => !prev)}
+				>
+					<i className={`fa fa-chevron-up ${showRatingFilter ? "" : "fa-reverse"}`} />
+				</div>
+			</section> */}
 			<section
 				className={`ratings-filter ${showRatingFilter ? "" : "ratings-filter--close"}`}
 			>

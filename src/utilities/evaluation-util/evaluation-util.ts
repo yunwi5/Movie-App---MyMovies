@@ -72,3 +72,7 @@ export function getAverageEvaluationList (userMovies: Movie[]): number[] {
 
 	return averageList;
 }
+
+export function isEvaluationEmpty (evaluation: Evaluation) {
+	return !evaluation.overallComment && evaluation.averageRating === 0;
+}

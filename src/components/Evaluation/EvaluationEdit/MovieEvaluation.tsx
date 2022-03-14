@@ -1,15 +1,19 @@
 import React, { useReducer, useEffect, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight } from "@fortawesome/pro-duotone-svg-icons";
+
+import Movie from "../../../models/Movie";
 import AuthContext from "../../../store/auth-context";
 import EvaluationChart from "../Chart/EvaluationChart";
 import EvaluationForm from "./EvaluationForm";
 import OverallCommentForm from "./OverallCommentForm";
-import Movie from "../../../models/Movie";
 import { Evaluation, CriteriaList, CriterionName } from "../../../models/Evaluation";
-import { createEvaluationList } from "../../../utilities/evaluation-util/evaluation-util";
+import {
+	createEvaluationList,
+	isEvaluationEmpty
+} from "../../../utilities/evaluation-util/evaluation-util";
 import { putUserMovie } from "../../../api/user-movie-api";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight } from "@fortawesome/pro-duotone-svg-icons";
 
 type State = {
 	evaluation: Evaluation;
@@ -54,11 +58,10 @@ const MovieEvaluation: React.FC<{ movie: Movie }> = ({ movie }) => {
 	const navigate = useNavigate();
 	const user = useContext(AuthContext).user;
 
-	let evaluation = movie.evaluation;
 	const title = movie.title;
-	if (!evaluation) evaluation = new Evaluation();
+	const evaluation: Evaluation = movie.evaluation || new Evaluation();
 
-	// Use reducer hook
+	// Use useReducer hook
 	const [ evaluationState, dispatchAction ] = useReducer(evaluationReducer, { evaluation });
 	const evaluationList = createEvaluationList(evaluationState.evaluation, CriteriaList);
 
@@ -79,7 +82,10 @@ const MovieEvaluation: React.FC<{ movie: Movie }> = ({ movie }) => {
 			console.log("Send http request for store!");
 			if (!user) return;
 			const userId = user.id;
-			movie.evaluation = evaluationState.evaluation;
+			const newEvaluation = evaluationState.evaluation;
+			if (isEvaluationEmpty(newEvaluation)) return;
+
+			movie.evaluation = newEvaluation;
 			putUserMovie(userId, movie);
 		},
 		[ evaluationState ]
