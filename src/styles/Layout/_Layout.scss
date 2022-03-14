@@ -49,50 +49,6 @@ body,
 		margin-right: .8rem;
 	}
 
-	&__nav-search {
-		flex: 0 0 30%;
-		margin-left: auto;
-		margin-right: auto;
-		background-color: #fff;
-		border: 1px solid var(--color-grey-dark-3);
-		border-radius: 1.7rem;
-		overflow: hidden;
-		display: flex;
-		align-items: center;
-		background: linear-gradient(0.25turn, #f1d3da, #ebf8e1, #ddf1f7);
-
-		& .fa-search {
-			text-align: right;
-			font-size: 1.9rem;
-			flex: 0 1 7%;
-		}
-
-		& input {
-			padding: 10px 15px;
-			border: none;
-			flex: 1;
-			height: 100%;
-			font-size: 1.7rem;
-			color: var(--color-grey-dark-2);
-			background: transparent;
-
-			&:focus {
-				outline: none;
-			}
-		}
-
-		& span {
-			margin-right: 1rem;
-			font-size: 1.5rem;
-			transition: all .3s linear;
-			cursor: pointer;
-
-			&:hover {
-				transform: translateY(-.15rem);
-			}
-		}
-	}
-
 	& ul {
 		list-style: none;
 		display: flex;

@@ -1,26 +1,28 @@
 import React, { useState, useEffect, useCallback } from "react";
 import MovieRating from "./MovieRating";
 import MovieGenre from "./MovieGenre";
-import Movie, { GenreList } from "../../../models/Movie";
+import { GenreList } from "../../../models/Movie";
 
 interface Props {
-	moviesList: Movie[];
-	onFilter: (ratingThreshold: number, filterGenresList: string[]) => void;
 	onRatingCount: (ratingThreshold: number) => number;
 	onGenreCount: (genreName: string) => number;
 	isForUser: boolean;
+	onFilterRating: React.Dispatch<React.SetStateAction<number>>;
+	onFilterGenres: React.Dispatch<React.SetStateAction<string[]>>;
+	filterRating: number;
+	filterGenres: string[];
 }
 
 const MovieFilter: React.FC<Props> = (props) => {
-	const { moviesList, onFilter, onRatingCount, onGenreCount, isForUser } = props;
-
-	// Movies Lis length changes when the movie is deleted. So, need to update ratingsCount and genresCount
-	const moviesListLength = moviesList.length;
-
-	const [ filterRating, setFilterRating ] = useState(0);
-
-	const [ filterGenres, setFilterGenres ] = useState<string[]>([]);
-	const filterGenresLength = filterGenres.length;
+	const {
+		onRatingCount,
+		onGenreCount,
+		isForUser,
+		onFilterRating,
+		onFilterGenres,
+		filterRating,
+		filterGenres
+	} = props;
 
 	const [ ratingsCount, setRatingsCount ] = useState({
 		3: 0,
@@ -39,7 +41,7 @@ const MovieFilter: React.FC<Props> = (props) => {
 	const [ clearFilters, setClearFilters ] = useState(false);
 
 	const filterRatingHandler = (ratingValue: number) => {
-		setFilterRating(ratingValue);
+		onFilterRating(ratingValue);
 	};
 
 	const filterGenreHandler = useCallback(
@@ -47,20 +49,13 @@ const MovieFilter: React.FC<Props> = (props) => {
 			if (filterGenres.includes(inputGenre)) {
 				// If the genre is in the array, deselect it by removing from this array
 				const newFilterGenres = filterGenres.filter((genre) => genre !== inputGenre);
-				setFilterGenres(newFilterGenres);
+				onFilterGenres(newFilterGenres);
 			} else {
 				const newFilterGenres = [ ...filterGenres, inputGenre ];
-				setFilterGenres(newFilterGenres);
+				onFilterGenres(newFilterGenres);
 			}
 		},
-		[ filterGenres ]
-	);
-
-	useEffect(
-		() => {
-			onFilter(filterRating, filterGenres);
-		},
-		[ filterRating, filterGenresLength ]
+		[ filterGenres, onFilterGenres ]
 	);
 
 	useEffect(
@@ -76,34 +71,24 @@ const MovieFilter: React.FC<Props> = (props) => {
 			const newGenreCounts = GenreList.map((genre) => onGenreCount(genre));
 			setGenresCount(newGenreCounts);
 		},
-		[ moviesListLength ]
+		[ onGenreCount, onRatingCount ]
 	);
 
 	useEffect(
 		() => {
 			if (!clearFilters) return;
 			setClearFilters(false);
-			setFilterRating(0);
-			setFilterGenres([]);
+			onFilterRating(0);
+			onFilterGenres([]);
 		},
-		[ clearFilters ]
+		[ clearFilters, onFilterGenres, onFilterRating ]
 	);
 
-	const showClearFilter = filterRating || filterGenresLength;
+	const showClearFilter = filterRating || filterGenres.length;
 
 	return (
 		<aside className="movie-filter">
 			{showClearFilter ? <h4 onClick={() => setClearFilters(true)}>Clear Filter</h4> : ""}
-			{/* <section
-				className={`favorite-filter ${showFavoriteFilter ? "" : "ratings-filter--close"}`}
-			>
-				<div
-					className="icon-wrapper"
-					onClick={() => setShowFavoriteFilter((prev) => !prev)}
-				>
-					<i className={`fa fa-chevron-up ${showRatingFilter ? "" : "fa-reverse"}`} />
-				</div>
-			</section> */}
 			<section
 				className={`ratings-filter ${showRatingFilter ? "" : "ratings-filter--close"}`}
 			>

@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useCallback } from "react";
 import MovieContext from "../../../store/movie-context";
 import MovieFilter from "../MoviesFilter/MovieFilter";
 import MovieCard from "./MovieCard";
@@ -28,6 +28,8 @@ const MoviesList: React.FC<Props> = (props) => {
 	const [ filteredMovies, setFilteredMovies ] = useState(initialMovies);
 	const filterMoviesLength = filteredMovies.length;
 
+	const [ filterRating, setFilterRating ] = useState(0);
+	const [ filterGenres, setFilterGenres ] = useState<string[]>([]);
 	const [ showOnlyFav, setShowOnlyFav ] = useState(false);
 
 	// pages
@@ -37,9 +39,6 @@ const MoviesList: React.FC<Props> = (props) => {
 
 	// Control sidebar
 	const [ showSidebar, setShowSidebar ] = useState(false);
-
-	// console.log("Inside component, initialMovies length:", initialMovies.length);
-	// console.log("Inside component, filteredMovies length:", filteredMovies.length);
 
 	const editMovieHandler = (newMovie: Movie) => {
 		movieCtx.editMovie(newMovie);
@@ -53,62 +52,62 @@ const MoviesList: React.FC<Props> = (props) => {
 		setSortingDirection("");
 	};
 
-	const getRatingCount = (ratingThreshold: number) => {
-		let count = 0;
-		filteredMovies.forEach((movie) => {
-			if (movie.rating >= ratingThreshold) {
-				count++;
-			}
-		});
-		return count;
-	};
-
-	const getGenreCount = (genreName: string) => {
-		let count = 0;
-		filteredMovies.forEach((movie) => {
-			if (movie.genreList.includes(genreName as MovieGenre)) {
-				count++;
-			}
-		});
-		return count;
-	};
-
-	const filterHandler = (
-		ratingThreshold: number | null = null,
-		filterGenresList: string[] | null = null,
-		showFavorite: boolean | null = null
-	) => {
-		let survivedMovies: Movie[] = initialMovies;
-		if (ratingThreshold) {
-			survivedMovies = initialMovies.filter((movie) => movie.rating >= ratingThreshold);
-		}
-
-		// Apply Genre Filter
-		if (filterGenresList && filterGenresList.length > 0) {
-			survivedMovies = survivedMovies.filter((movie) => {
-				const genres = movie.genreList;
-				for (let g of genres) {
-					if (filterGenresList.includes(g)) {
-						return true;
-					}
-					return false;
+	const getRatingCount = useCallback(
+		(ratingThreshold: number) => {
+			let count = 0;
+			initialMovies.forEach((movie) => {
+				if (movie.rating >= ratingThreshold) {
+					count++;
 				}
 			});
+			return count;
+		},
+		[ initialMovies ]
+	);
 
-			// let genreSurvivedMovies: Movie[] = [];
-			// for (const movie of survivedMovies) {
-			// 	const genres = movie.genreList;
-			// 	for (let g of genres) {
-			// 		if (filterGenresList.includes(g)) {
-			// 			genreSurvivedMovies.push(movie);
-			// 			break;
-			// 		}
-			// 	}
-			// }
-		}
+	const getGenreCount = useCallback(
+		(genreName: string) => {
+			let count = 0;
+			initialMovies.forEach((movie) => {
+				if (movie.genreList.includes(genreName as MovieGenre)) {
+					count++;
+				}
+			});
+			return count;
+		},
+		[ initialMovies ]
+	);
 
-		setFilteredMovies(survivedMovies);
-	};
+	useEffect(
+		() => {
+			let survivedMovies: Movie[] = initialMovies;
+
+			// Apply Rating Filter
+			if (filterRating) {
+				survivedMovies = initialMovies.filter((movie) => movie.rating >= filterRating);
+			}
+
+			// Apply Genre Filter
+			if (filterGenres && filterGenres.length > 0) {
+				survivedMovies = survivedMovies.filter((movie) => {
+					const genres = movie.genreList;
+					for (let g of genres) {
+						if (filterGenres.includes(g)) {
+							return true;
+						}
+					}
+					return false;
+				});
+			}
+
+			// Apply Favorite Filter
+			if (showOnlyFav) {
+				survivedMovies = survivedMovies.filter((movie) => movie.isFavorite);
+			}
+			setFilteredMovies(survivedMovies);
+		},
+		[ filterRating, filterGenres, showOnlyFav, initialMovies ]
+	);
 
 	useEffect(
 		() => {
@@ -126,24 +125,32 @@ const MoviesList: React.FC<Props> = (props) => {
 		[ sortingDirection, sortingStandard ]
 	);
 
-	const prevPageHandler = () => {
-		if (currentPage <= 1) return;
-		setCurrentPage((prevPage) => prevPage - 1);
-	};
+	const prevPageHandler = useCallback(
+		() => {
+			if (currentPage <= 1) return;
+			setCurrentPage((prevPage) => prevPage - 1);
+		},
+		[ currentPage ]
+	);
 
-	const nextPageHandler = () => {
-		if (currentPage >= totalPages) return;
-		setCurrentPage((prevPage) => prevPage + 1);
-	};
+	const nextPageHandler = useCallback(
+		() => {
+			if (currentPage >= totalPages) return;
+			setCurrentPage((prevPage) => prevPage + 1);
+		},
+		[ currentPage, totalPages ]
+	);
 
 	return (
 		<main className={`main-content ${showSidebar ? "main-content--extend" : ""}`}>
 			<MovieFilter
-				moviesList={initialMovies}
-				onFilter={filterHandler}
 				onRatingCount={getRatingCount}
 				onGenreCount={getGenreCount}
 				isForUser={isForUser}
+				onFilterRating={setFilterRating}
+				onFilterGenres={setFilterGenres}
+				filterRating={filterRating}
+				filterGenres={filterGenres}
 			/>
 			<div className="movies-container">
 				{isForUser ? <h2>Your Movie Collection</h2> : <h2>The Store Movies</h2>}
@@ -160,19 +167,14 @@ const MoviesList: React.FC<Props> = (props) => {
 				/>
 
 				<ul className="movies-list">
-					{getCurrentPageMovies(filteredMovies, currentPage, perPage).map((movie) => {
-						const display = !isForUser || !showOnlyFav || movie.isFavorite;
-						if (!display) return "";
-
-						return (
-							<MovieCard
-								key={movie.id}
-								movie={movie}
-								onEdit={editMovieHandler}
-								isForUser={isForUser}
-							/>
-						);
-					})}
+					{getCurrentPageMovies(filteredMovies, currentPage, perPage).map((movie) => (
+						<MovieCard
+							key={movie.id}
+							movie={movie}
+							onEdit={editMovieHandler}
+							isForUser={isForUser}
+						/>
+					))}
 				</ul>
 
 				{!filterMoviesLength && <p>No Movies Found For Your Search and Filter</p>}

@@ -60,9 +60,11 @@ export enum Direction {
 }
 
 // Used in MoviesList
-function sortMovies (moviesList: Movie[], sortingStandard: string, dir: string | null) {
-	if (!dir) return;
-
+function sortMovies (
+	moviesList: Movie[],
+	sortingStandard: string,
+	dir: string | null = Direction.ASCENDING
+) {
 	if (dir === Direction.ASCENDING) {
 		moviesList.sort((movieA, movieB) => compareMovies(movieA, movieB, sortingStandard));
 	} else {

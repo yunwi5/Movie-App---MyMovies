@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import { InputLabel, FormControl } from "@mui/material";
@@ -81,7 +81,7 @@ const MovieSearchbar: React.FC<Props> = (props) => {
 					<MenuItem value="Des">Descending</MenuItem>
 				</Select>
 			</FormControl>
-			<div onClick={onToggleFavorite}>
+			<div className="favorite-icon-wrapper" onClick={onToggleFavorite}>
 				{showOnlyFav ? (
 					<FontAwesomeIcon className="icon" icon={solidFaStar} />
 				) : (

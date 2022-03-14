@@ -5,7 +5,7 @@ interface Props {
 	placeHolder?: string;
 }
 
-const Searchbar: React.FC<Props> = ({ onSearch, placeHolder }) => {
+const CommentSearchbar: React.FC<Props> = ({ onSearch, placeHolder }) => {
 	const [ searchWord, setSearchWord ] = useState("");
 
 	function searchHandler (newWord: string) {
@@ -22,8 +22,7 @@ const Searchbar: React.FC<Props> = ({ onSearch, placeHolder }) => {
 				type="text"
 				placeholder={`${placeHolder ? placeHolder : "Search"}`}
 				value={searchWord}
-				onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-					searchHandler(e.target.value)}
+				onChange={(e: React.ChangeEvent<HTMLInputElement>) => searchHandler(e.target.value)}
 			/>
 			{searchWord && (
 				<span onClick={searchHandler.bind(null, "")}>
@@ -34,4 +33,4 @@ const Searchbar: React.FC<Props> = ({ onSearch, placeHolder }) => {
 	);
 };
 
-export default Searchbar;
+export default CommentSearchbar;

@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import Searchbar from "../../../UI/Searchbar";
+import Searchbar from "../../../UI/Search/CommentSearchbar";
 
 interface Props {
 	onRatingFilter: (ratingFilter: string) => void;
@@ -29,10 +29,7 @@ const ReviewFilter: React.FC<Props> = (props) => {
 				<option>2 to 4</option>
 				<option>0 to 2</option>
 			</select>
-			<Searchbar
-				onSearch={searchbarHandler}
-				placeHolder={"Search Reviews"}
-			/>
+			<Searchbar onSearch={searchbarHandler} placeHolder={"Search Reviews"} />
 		</Fragment>
 	);
 };

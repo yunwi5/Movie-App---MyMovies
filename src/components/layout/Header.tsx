@@ -1,8 +1,9 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import { GenreList, productionCompanyList } from "../../models/Movie";
 import AuthContext from "../../store/auth-context";
 import UserInitial from "../UI/DesignElement/UserInitial";
+import MainSearchbar from "../UI/Search/MainSearchbar";
 
 const Header: React.FC = () => {
 	const authCtx = useContext(AuthContext);
@@ -10,10 +11,8 @@ const Header: React.FC = () => {
 	const username = authCtx.user ? authCtx.user.userName : "";
 
 	const navigate = useNavigate();
-	const [ searchWord, setSearchWord ] = useState<string>("");
 
-	const submitHandler = (e: React.FormEvent) => {
-		e.preventDefault();
+	const searchHandler = (searchWord: string) => {
 		navigate(`/store-movies?search=${searchWord}`, { replace: false });
 	};
 
@@ -86,20 +85,8 @@ const Header: React.FC = () => {
 					</ul>
 				</li>
 			</ul>
-			<form className="header__nav-search" onSubmit={submitHandler}>
-				<i className="fa fa-search" />
-				<input
-					type="text"
-					placeholder="Search movie on store!"
-					value={searchWord}
-					onChange={(e) => setSearchWord(e.target.value)}
-				/>
-				{searchWord && (
-					<span onClick={() => setSearchWord("")}>
-						<i className="fa fa-times" />
-					</span>
-				)}
-			</form>
+
+			<MainSearchbar onSearch={searchHandler} />
 
 			<ul className="nav-main">
 				<li className="nav-main-item">
