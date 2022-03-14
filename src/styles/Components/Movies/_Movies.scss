@@ -28,17 +28,26 @@
 }
 
 .movies-container {
-	flex: 1;
 	width: 90%;
 	min-height: 100vh;
 	margin: 5rem auto;
-	// transform: translateX(7rem);
+
+	flex: 1;
 	display: flex;
 	flex-direction: column;
+	align-items: center;
+
 	transition: all .3s ease-out;
 
 	& > * {
 		width: 71%;
+	}
+
+	& h1 {
+		margin-top: 3.5rem;
+		&::after {
+			display: none;
+		}
 	}
 
 	& h2 {

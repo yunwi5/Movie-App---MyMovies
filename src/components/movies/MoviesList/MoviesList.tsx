@@ -6,10 +6,7 @@ import MoviePageNav from "../../UI/FunctionalElement/PageNav";
 import MovieSearchbar from "../MovieSupport/MovieSearchbar";
 import { shuffleList } from "../../../utilities/list-util";
 import Movie, { genre as MovieGenre } from "../../../models/Movie";
-import sortMovies, {
-	filterMovies,
-	getCurrentPageMovies
-} from "../../../utilities/movie-util/movies-util";
+import sortMovies, { getCurrentPageMovies } from "../../../utilities/movie-util/movies-util";
 
 interface Props {
 	initialMovies: Movie[];
@@ -164,20 +161,24 @@ const MoviesList: React.FC<Props> = (props) => {
 					onToggleFavorite={() => setShowOnlyFav((prevState) => !prevState)}
 					showOnlyFav={showOnlyFav}
 					moviesLength={filteredMovies.length}
+					isForUser={isForUser}
 				/>
 
-				<ul className="movies-list">
-					{getCurrentPageMovies(filteredMovies, currentPage, perPage).map((movie) => (
-						<MovieCard
-							key={movie.id}
-							movie={movie}
-							onEdit={editMovieHandler}
-							isForUser={isForUser}
-						/>
-					))}
-				</ul>
-
-				{!filterMoviesLength && <p>No Movies Found For Your Search and Filter</p>}
+				{filterMoviesLength ? (
+					<ul className="movies-list">
+						{getCurrentPageMovies(filteredMovies, currentPage, perPage).map((movie) => (
+							<MovieCard
+								key={movie.id}
+								movie={movie}
+								onEdit={editMovieHandler}
+								isForUser={isForUser}
+							/>
+						))}
+					</ul>
+				) : (
+					""
+				)}
+				{!filterMoviesLength && <h1>No Movies Found.</h1>}
 
 				<MoviePageNav
 					currentPage={currentPage}

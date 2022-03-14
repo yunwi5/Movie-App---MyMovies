@@ -1,9 +1,11 @@
 import React, { useContext } from "react";
 import { NavLink, Link, useNavigate } from "react-router-dom";
-import { GenreList, productionCompanyList } from "../../models/Movie";
+
 import AuthContext from "../../store/auth-context";
-import UserInitial from "../UI/DesignElement/UserInitial";
 import MainSearchbar from "../UI/Search/MainSearchbar";
+import UserInitial from "../UI/DesignElement/UserInitial";
+import { GenreList, productionCompanyList } from "../../models/Movie";
+import { removeInvalidSearchCharacters } from "../../utilities/string-util";
 
 const Header: React.FC = () => {
 	const authCtx = useContext(AuthContext);
@@ -13,7 +15,8 @@ const Header: React.FC = () => {
 	const navigate = useNavigate();
 
 	const searchHandler = (searchWord: string) => {
-		navigate(`/store-movies?search=${searchWord}`, { replace: false });
+		const validSearchWord = removeInvalidSearchCharacters(searchWord);
+		navigate(`/store-movies?search=${validSearchWord}`, { replace: false });
 	};
 
 	const genreListNoOthers = GenreList.slice(0, GenreList.length - 1);

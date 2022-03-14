@@ -20,10 +20,10 @@ const PageNav: React.FC<PageProps> = (props) => {
 				<i className="fa fa-angle-left" />
 			</div>
 			<p className="page-numbers">
-				<strong>{currentPage}</strong> &ndash; {totalPages}
+				<strong>{Math.min(currentPage, totalPages)}</strong> &ndash; {totalPages}
 			</p>
 			<div
-				className={`page-nav__icon-wrap ${currentPage === totalPages
+				className={`page-nav__icon-wrap ${currentPage >= totalPages
 					? "page-nav__icon-wrap--invalid"
 					: ""}`}
 				onClick={onNext}

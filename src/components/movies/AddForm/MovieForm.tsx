@@ -145,7 +145,11 @@ const Movieform: React.FC = () => {
 						Genre <span>(max 4 genres)</span>
 					</label>
 					<select id="genre" defaultValue="Other" onChange={genreChangeHandler} required>
-						{GenreList.map((genre) => <option value={genre}>{genre}</option>)}
+						{GenreList.map((genre) => (
+							<option key={genre} value={genre}>
+								{genre}
+							</option>
+						))}
 					</select>
 				</div>
 				{genreList.length !== 0 && <ul>{genreListElements}</ul>}

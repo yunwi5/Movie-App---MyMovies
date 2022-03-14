@@ -19,6 +19,7 @@ interface Props {
 	onToggleFavorite: () => void;
 	showOnlyFav: boolean;
 	moviesLength: number;
+	isForUser: boolean;
 }
 
 const MovieSearchbar: React.FC<Props> = (props) => {
@@ -31,7 +32,8 @@ const MovieSearchbar: React.FC<Props> = (props) => {
 		onShuffle,
 		onToggleFavorite,
 		showOnlyFav,
-		moviesLength
+		moviesLength,
+		isForUser
 	} = props;
 
 	return (
@@ -81,13 +83,17 @@ const MovieSearchbar: React.FC<Props> = (props) => {
 					<MenuItem value="Des">Descending</MenuItem>
 				</Select>
 			</FormControl>
-			<div className="favorite-icon-wrapper" onClick={onToggleFavorite}>
-				{showOnlyFav ? (
-					<FontAwesomeIcon className="icon" icon={solidFaStar} />
-				) : (
-					<FontAwesomeIcon className="icon" icon={lightFaStar} />
-				)}
-			</div>
+
+			{isForUser && (
+				<div className="favorite-icon-wrapper" onClick={onToggleFavorite}>
+					{showOnlyFav ? (
+						<FontAwesomeIcon className="icon" icon={solidFaStar} />
+					) : (
+						<FontAwesomeIcon className="icon" icon={lightFaStar} />
+					)}
+				</div>
+			)}
+
 			<div className="shuffle-icon-wrapper" onClick={onShuffle}>
 				<FontAwesomeIcon className="icon" icon={faShuffle as IconProp} />
 			</div>
