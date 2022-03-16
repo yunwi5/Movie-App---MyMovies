@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import MovieContext from "../../store/movie-context";
 import { getGenreMoviesCount } from "../../utilities/movie-util/genre-movie-util";
-import { GenreList } from "../../models/Movie";
+import { GenreList, ProductionCompany } from "../../models/Movie";
 import { getGenreImgUrl } from "../../assets/movies-img";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
@@ -165,7 +165,7 @@ const Home: React.FC = () => {
 
 				{/* Section 4 - 3D Effect for Production Companies Cards */}
 				<section className="home__what">
-					<h1>What Movies We Have</h1>
+					<h1>Movies from the best production companies</h1>
 					<div className="content-box">
 						<h3>
 							We have movies from the most famous & popular movie Production companies
@@ -173,29 +173,47 @@ const Home: React.FC = () => {
 						</h3>
 						<div className="logos">
 							<div className="logo-wrapper">
-								<UPLogo className="company-logo" />
+								<Link
+									to={`/movie-store/producer/${ProductionCompany.UNIVERSIAL_PICTURES}`}
+								>
+									<UPLogo className="company-logo" />
+								</Link>
 							</div>
 							<div className="logo-wrapper">
-								<DisneyLogo className="company-logo" />
+								<Link to={`/movie-store/producer/${ProductionCompany.WALT_DISNEY}`}>
+									<DisneyLogo className="company-logo" />
+								</Link>
 							</div>
 							<div className="logo-wrapper">
-								<CPLogo className="company-logo" />
+								<Link
+									to={`/movie-store/producer/${ProductionCompany.COLUMBIA_PICTURES}`}
+								>
+									<CPLogo className="company-logo" />
+								</Link>
 							</div>
 							<div className="logo-wrapper">
-								<NetflixLogo className="company-logo" />
+								<Link to={`/movie-store/producer/${ProductionCompany.NETFLIX}`}>
+									<NetflixLogo className="company-logo" />
+								</Link>
 							</div>
 							<div className="logo-wrapper">
-								<PPLogo className="company-logo" />
+								<Link
+									to={`/movie-store/producer/${ProductionCompany.PARAMOUNT_PICTURES}`}
+								>
+									<PPLogo className="company-logo" />
+								</Link>
 							</div>
 							<div className="logo-wrapper">
-								<MarvalLogo className="company-logo" />
+								<Link to={`/movie-store/producer/${ProductionCompany.MARVEL}`}>
+									<MarvalLogo className="company-logo" />
+								</Link>
 							</div>
 						</div>
 					</div>
 				</section>
 
 				<footer className="home__footer">
-					<h1>Hope you enjoy our service!</h1>
+					<h1>Hope you enjoy our movie service!</h1>
 				</footer>
 			</main>
 		</Fragment>

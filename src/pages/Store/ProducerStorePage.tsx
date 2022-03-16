@@ -8,8 +8,7 @@ import { getMoviesAndLogoOfProducer } from "../../utilities/movie-util/movies-ut
 import { ProductionCompany } from "../../models/Movie";
 
 const ProducerStorePage: React.FC = () => {
-	const params = useParams();
-	const producerName = params.producerName;
+	const producerName = useParams().producerName;
 	const producer = producerName ? producerName as ProductionCompany : ProductionCompany.MARVEL;
 
 	const movieCtx = useContext(MovieContext);
