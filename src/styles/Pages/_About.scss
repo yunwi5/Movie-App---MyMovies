@@ -1,9 +1,14 @@
 .about-page {
 	width: 100%;
 	background-color: $color-grey-light-1;
+	padding-bottom: 20rem; // Place footer further below.
 
 	& > * {
 		padding: 4rem 7rem;
+	}
+
+	& > *:not(:first-child) {
+		margin-top: 8rem;
 	}
 
 	h1 {
@@ -124,12 +129,8 @@
 	.manage-section {
 		min-height: 100rem;
 		@include flex-column($color-grey-light-1);
-		margin-top: 6rem;
 		align-items: center;
 		font-size: 1.75rem;
-		& > * {
-			// max-width: 90%;
-		}
 		&__heading {
 			align-self: flex-start;
 			margin-bottom: 4rem;
@@ -168,13 +169,21 @@
 				font-size: 2.5rem;
 				text-transform: capitalize;
 				font-weight: 400;
+				svg {
+					font-size: 110%;
+					margin-right: .6rem;
+				}
 			}
 			& .text-content p {
 				font-size: 1.7rem;
 				line-height: 2.3rem;
 				max-width: 80%; // text-align: left;
 			}
+			& .text-wrap > *:not(:last-child) {
+				margin-bottom: 1rem;
+			}
 			& .text-content .link {
+				display: inline-block;
 				max-width: 25rem;
 				text-decoration: none;
 				text-align: center;
@@ -194,9 +203,6 @@
 			}
 		}
 		.edit-part {
-			p:not(:last-child) {
-				margin-bottom: 1rem;
-			}
 			.links-wrapper {
 				display: flex;
 			}
@@ -204,9 +210,10 @@
 				min-width: 17rem;
 				border: none;
 			}
-			.link-invalid {
+			.link:disabled {
 				background-color: rgba($color-secondary-light-2, 0.7);
 				box-shadow: none;
+				cursor: not-allowed;
 				&:hover {
 					background-color: rgba($color-secondary-light-2, 0.7);
 					box-shadow: none;
@@ -226,7 +233,6 @@
 		display: flex;
 		flex-direction: column;
 		align-items: flex-start;
-		margin-top: 5rem;
 		h2 {
 			@include heading-gradient(
 				$color-grey-dark-4,

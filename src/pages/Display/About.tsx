@@ -7,6 +7,7 @@ import formImage from "../../assets/Images/AboutImages/Movie_Form.jpg";
 import sortingImage from "../../assets/Images/AboutImages/sorting-functionality.jpg";
 import detailImage from "../../assets/Images/AboutImages/detail-page.jpg";
 import editImage from "../../assets/Images/AboutImages/edit-functionality.jpg";
+import evaluationImage from "../../assets/Images/AboutImages/evaluation-functionality.jpg";
 import { ReactComponent as IMDbLogo } from "../../assets/SVG/IMDb_Logo.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
@@ -19,7 +20,8 @@ import {
 	faBinoculars,
 	faMagnifyingGlass,
 	faListUl,
-	faStarHalf
+	faStarHalf,
+	faMessagePen
 } from "@fortawesome/pro-duotone-svg-icons";
 
 const About: React.FC = () => {
@@ -174,7 +176,7 @@ const About: React.FC = () => {
 								<FontAwesomeIcon icon={faPenToSquare as IconProp} />{" "}
 								<span>Edit & Customize</span>
 							</h3>
-							<div>
+							<div className="text-wrap">
 								<p>
 									You can edit your movies and customize them. Feel free to change
 									Image URL, rating, description, genres, comments and so on.
@@ -192,36 +194,61 @@ const About: React.FC = () => {
 									/>&ensp;
 									<span>Explore Store</span>
 								</Link>
-								{isLoggedIn && (
-									<button
-										className="btn link"
-										onClick={() => navigate("/movies")}
-									>
-										<FontAwesomeIcon
-											className="icon"
-											icon={faListUl as IconProp}
-										/>&ensp;
-										<span>Your List</span>
-									</button>
-								)}
-								{!isLoggedIn && (
-									<button className="btn link link-invalid" disabled>
-										<FontAwesomeIcon
-											className="icon"
-											icon={faListUl as IconProp}
-										/>&ensp;
-										<span>Your List</span>
-									</button>
-								)}
+								<button
+									className="btn link"
+									onClick={() => navigate("/movies")}
+									disabled={!isLoggedIn}
+								>
+									<FontAwesomeIcon
+										className="icon"
+										icon={faListUl as IconProp}
+									/>&ensp;
+									<span>Your List</span>
+								</button>
 							</div>
+						</div>
+					</div>
+
+					{/* FOURTH FEATURE */}
+					<div className="manage-section__part detail-part">
+						<div className="text-content">
+							<h3>
+								<FontAwesomeIcon icon={faMessagePen as IconProp} />{" "}
+								<span>Add Evaluation</span>
+							</h3>
+							<div className="text-wrap">
+								<p>
+									You can add evaluation to your movies according to8 different
+									categories. For each category, you can add rating and comment.
+								</p>
+								<p>
+									Once you add evaluation, you can see the evaluation summary with
+									chart visualization both in detail page and evaluation page.
+								</p>
+							</div>
+							<button
+								className="btn link"
+								onClick={() => navigate("/movies")}
+								disabled={!isLoggedIn}
+							>
+								<FontAwesomeIcon
+									className="icon"
+									icon={faListUl as IconProp}
+								/>&ensp;
+								<span>Your List</span>
+							</button>
+						</div>
+						<div className="img-wrapper">
+							<img src={evaluationImage} alt="evaluation functionality" />
 						</div>
 					</div>
 					<p className="user-message">
 						<FontAwesomeIcon className="quote-icon" icon={faQuoteLeft as IconProp} />
 						&nbsp;{" "}
 						<span>
-							We are planning to add evaluation functionality for user movies, so that
-							you can add & edit some evaluations to your movies!
+							Note that in order to use custom features like Edit and Evaluation, you
+							need to add some movies to your list first. Users are only allowed to
+							add evaluation to the movies in the collection!
 						</span>
 					</p>
 				</section>

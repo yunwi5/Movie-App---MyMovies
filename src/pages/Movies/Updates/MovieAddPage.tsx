@@ -1,8 +1,8 @@
 import React, { Fragment } from "react";
 import { Helmet } from "react-helmet";
-import Movieform from "../../../components/movies/AddForm/MovieForm";
+import MovieAdd from "../../../components/movies/AddForm/MovieAdd";
 
-const MovieAdd: React.FC = () => {
+const MovieAddPage: React.FC = () => {
 	return (
 		<Fragment>
 			<Helmet>
@@ -12,9 +12,9 @@ const MovieAdd: React.FC = () => {
 					content="Add you own favorite movies to your collection and make your own comments & evaluations!"
 				/>
 			</Helmet>
-			<Movieform />
+			<MovieAdd />
 		</Fragment>
 	);
 };
 
-export default MovieAdd;
+export default MovieAddPage;

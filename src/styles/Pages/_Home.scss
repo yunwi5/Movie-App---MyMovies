@@ -73,11 +73,7 @@
 		}
 	}
 	&__about {
-		background-image: linear-gradient(
-				to right,
-				$color-grey-dark-5,
-				$color-grey-dark-5
-			),
+		background-image: linear-gradient(to right, $color-grey-dark-5, $color-grey-dark-5),
 			url(https://images.unsplash.com/photo-1478720568477-152d9b164e26?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80); // url(https://images.unsplash.com/photo-1594908900066-3f47337549d8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80);
 		background-blend-mode: screen;
 		background-size: cover;
@@ -284,50 +280,61 @@
 		padding-top: 5rem;
 		@include flex-column(lighten($color-secondary-darkest-1, 10%));
 		h1 {
+			font-size: 5.6rem;
 			@include text-gradient($color-grey-light-1, $color-secondary-light-1);
-			@include heading-with-underline($color-grey-light-2, $color-secondary-light-1);
-			min-width: 35%;
-			max-width: 60rem;
+			@include heading-with-underline($color-grey-light-2, $color-secondary-light-1); // min-width: 35%;
+			width: clamp(35%, 108rem, 1100rem);
 			margin: 0 auto;
 		}
 		.content-box {
 			display: flex;
 			align-items: center;
 			min-height: 80rem;
-			position: relative;
+			padding: 0 3rem;
 		}
 		h3 {
-			width: 50rem;
-			margin-left: 3rem;
+			align-self: baseline;
+			text-align: left;
+			width: clamp(45rem, 35%, 500rem);
+			min-width: 45rem !important;
+			margin-top: 20rem;
 			font-size: 2.7rem;
 			line-height: 4rem;
 			color: $color-grey-light-2;
 			text-transform: capitalize;
-			border: 1px solid $color-primary-dark-2;
+			// border: 1px solid $color-primary-dark-2;
 		}
 		.logos {
-			position: absolute;
-			top: 20%;
-			left: 25%;
 			display: grid;
 			grid-template-columns: repeat(3, 1fr);
 			transform: translateX(8rem) rotateX(-20deg) rotateY(-40deg);
+			background-image: radial-gradient(rgba(254, 226, 226, .7), rgba(254, 242, 242, 0));
+			border-radius: 20px;
+			box-shadow: $shadow-light;
 		}
 		.logo-wrapper {
 			padding: 0.5rem 2rem;
-			border: 1px solid $color-primary-light-2;
+			border-radius: 10px; // border: 1px solid $color-primary-light-2;
+			&:hover {
+				background-image: radial-gradient(rgba(254, 240, 138, .7), rgba(254, 252, 232, .3));
+			}
 		}
 		.company-logo {
 			// border: 1px solid $color-secondary;
-			width: 33rem;
-			height: 22rem;
+			width: 36rem;
+			height: 24rem;
 		}
 	}
 	&__footer {
-		margin-top: 12rem;
-		margin-bottom: -8rem;
+		padding: 10rem 0;
+		padding-bottom: 13rem;
+		@include flex-column(lighten($color-secondary-darkest-1, 10%));
 		h1 {
+			color: $color-grey-light-1;
 			text-transform: uppercase; // min-width: 50%;
+			&::after {
+				display: none;
+			}
 		}
 	}
 }

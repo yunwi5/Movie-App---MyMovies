@@ -12,7 +12,7 @@ import Header from "./components/Layout/Header";
 import Footer from "./components/Layout/Footer";
 import UserMoviesList from "./pages/Movies/UserMoviesList";
 import MoviesSearch from "./pages/Movies/MoviesSearch";
-import MovieAdd from "./pages/Movies/Updates/MovieAdd";
+import MovieAdd from "./pages/Movies/Updates/MovieAddPage";
 import Auth from "./pages/Auth/Auth";
 import MovieDetailStore from "./pages/Movies/Details/MovieDetailStore";
 import MovieDetailUser from "./pages/Movies/Details/MovieDetailUser";

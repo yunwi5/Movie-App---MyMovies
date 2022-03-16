@@ -230,7 +230,6 @@ body,
 ////// FOOTER
 .footer {
 	background-color: var(--color-grey-dark-1);
-	margin-top: 20rem;
 	color: $color-grey-dark-3;
 	color: $color-grey-light-1;
 
@@ -246,7 +245,7 @@ body,
 		min-height: 17rem;
 		margin: 0 auto;
 		padding: 3rem 0;
-		border-top: 2px solid $color-grey-light-3;
+		// border-top: 2px solid $color-grey-light-3;
 
 		& > *:first-child {
 			margin-bottom: 1rem;

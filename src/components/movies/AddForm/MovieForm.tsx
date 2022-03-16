@@ -1,14 +1,13 @@
-import React, { useState, useContext, useReducer } from "react";
-import { useNavigate } from "react-router-dom";
-import MovieContext from "../../../store/movie-context";
+import React, { useState, useReducer } from "react";
 
-import AuthContext from "../../../store/auth-context";
 import Movie, { genre as MovieGenre } from "../../../models/Movie";
 import { toShortcutString } from "../../../utilities/string-util";
-import { userIsAdmin } from "../../../utilities/admin-util";
 import { GenreList } from "../../../models/Movie";
-
 import InputRating from "../../UI/InputRating";
+
+interface Props {
+	onSubmit: (movieObj: Movie) => void;
+}
 
 const defaultGenreList: MovieGenre[] = [ "Other" ];
 
@@ -26,11 +25,7 @@ const durationReducer = (state: State, action: Action) => {
 	return state;
 };
 
-const Movieform: React.FC = () => {
-	const navigate = useNavigate();
-	const movieCtx = useContext(MovieContext);
-	const user = useContext(AuthContext).user;
-
+const Movieform: React.FC<Props> = ({ onSubmit }) => {
 	const [ title, setTitle ] = useState("");
 	const [ titleIsValid, setTitleIsValid ] = useState(true);
 
@@ -80,11 +75,7 @@ const Movieform: React.FC = () => {
 		};
 		console.log(movieObj);
 
-		movieCtx.addMovie(movieObj);
-
-		// Add movie to the store if the user is admin
-		if (user && userIsAdmin(user.email)) movieCtx.addMovieToStore(movieObj);
-		navigate("/movies");
+		onSubmit(movieObj);
 	};
 
 	const titleChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -130,7 +121,7 @@ const Movieform: React.FC = () => {
 
 	return (
 		<form className="movie-form" onSubmit={submitHandler}>
-			<h2>Add Your Movie</h2>
+			<h2>Movie Form</h2>
 			<div className="line-input line-title">
 				<label htmlFor="movie-title">Title</label>
 				<input id="movie-title" type="text" onChange={titleChangeHandler} required />
@@ -163,7 +154,7 @@ const Movieform: React.FC = () => {
 			<div className="line-input line-optional">
 				<h3>Optional</h3>
 				<div className="producer-wrapper wrapper">
-					<label htmlFor="movie-company">Producer</label>
+					<label htmlFor="movie-company">Production Company</label>
 					<input
 						id="movie-company"
 						type="text"

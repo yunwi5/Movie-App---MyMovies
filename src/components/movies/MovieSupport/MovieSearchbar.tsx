@@ -1,13 +1,20 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import { InputLabel, FormControl } from "@mui/material";
 import { SelectChangeEvent } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
-import { faShuffle } from "@fortawesome/pro-light-svg-icons";
-import { faStar as solidFaStar } from "@fortawesome/pro-solid-svg-icons";
-import { faStar as lightFaStar } from "@fortawesome/pro-light-svg-icons";
+import {
+	faStar as solidFaStar,
+	faCircleHeart as solidFaCircleHeart
+} from "@fortawesome/pro-solid-svg-icons";
+import {
+	faStar as lightFaStar,
+	faHeart as lightFaHeart,
+	faShuffle,
+	faCircleHeart as lightFaCircleHeart
+} from "@fortawesome/pro-light-svg-icons";
 
 interface Props {
 	onShowSidebar: () => void;
@@ -87,9 +94,19 @@ const MovieSearchbar: React.FC<Props> = (props) => {
 			{isForUser && (
 				<div className="favorite-icon-wrapper" onClick={onToggleFavorite}>
 					{showOnlyFav ? (
-						<FontAwesomeIcon className="icon" icon={solidFaStar} />
+						<Fragment>
+							<FontAwesomeIcon
+								className="icon icon-right"
+								icon={solidFaCircleHeart}
+							/>
+						</Fragment>
 					) : (
-						<FontAwesomeIcon className="icon" icon={lightFaStar} />
+						<Fragment>
+							<FontAwesomeIcon
+								className="icon icon-right"
+								icon={lightFaCircleHeart}
+							/>
+						</Fragment>
 					)}
 				</div>
 			)}
