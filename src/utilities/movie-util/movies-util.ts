@@ -1,7 +1,7 @@
-import Movie from "../../models/Movie";
-import { Genre, ProductionCompany } from "../../models/Movie";
-import { getGenreImgUrlStore } from "../../assets/movies-img";
-import { getProducerLogo } from "../../utilities/design-util/logo-util";
+import Movie from '../../models/Movie';
+import { Genre, ProductionCompany } from '../../models/Movie';
+import { getGenreImgUrlStore } from '../../assets/movies-img';
+import { getProducerLogo } from '../../utilities/design-util/logo-util';
 
 // Used in MoviesList
 export const getCurrentPageMovies = (movies: Movie[], currentPage: number, perPage: number) => {
@@ -15,14 +15,14 @@ export const getCurrentPageMovies = (movies: Movie[], currentPage: number, perPa
 export const filterMovies = (movies: Movie[], searchWord: string | undefined) => {
 	if (!searchWord) return movies;
 	const newMovies = movies.filter((movie) =>
-		movie.title.toLowerCase().includes(searchWord.toLowerCase())
+		movie.title.toLowerCase().includes(searchWord.toLowerCase()),
 	);
 	return newMovies;
 };
 
 // Used in MoviesForm
 export const toDurationString = (totalMinutes: number | null) => {
-	if (!totalMinutes) return "";
+	if (!totalMinutes) return '';
 	const hours = Math.floor(totalMinutes / 60);
 	const minutes = totalMinutes % 60;
 	const timeString = `${hours}h ${minutes}m`;
@@ -32,13 +32,13 @@ export const toDurationString = (totalMinutes: number | null) => {
 // Helper function for sortMovies() at the moment
 const compareMovies = (m1: Movie, m2: Movie, sortingStandard: string): number => {
 	switch (sortingStandard) {
-		case "rating":
+		case 'rating':
 			if (m1.rating !== m2.rating) return m1.rating - m2.rating;
 			break;
-		case "title":
+		case 'title':
 			if (m1.title !== m2.title) return m1.title < m2.title ? -1 : 1;
 			break;
-		case "year":
+		case 'year':
 			if (m1.year && m2.year && m1.year !== m2.year) return m1.year - m2.year;
 			break;
 		default:
@@ -48,14 +48,14 @@ const compareMovies = (m1: Movie, m2: Movie, sortingStandard: string): number =>
 };
 
 export enum SortingStandard {
-	RATING = "rating",
-	TITLE = "title",
-	YEAR = "year"
+	RATING = 'rating',
+	TITLE = 'title',
+	YEAR = 'year',
 }
 
 export enum Direction {
-	ASCENDING = "ASC",
-	DESCENDING = "DES"
+	ASCENDING = 'ASC',
+	DESCENDING = 'DES',
 	// descending
 }
 
@@ -63,7 +63,7 @@ export enum Direction {
 function sortMovies (
 	moviesList: Movie[],
 	sortingStandard: string,
-	dir: string | null = Direction.ASCENDING
+	dir: string | null = Direction.ASCENDING,
 ) {
 	if (dir === Direction.ASCENDING) {
 		moviesList.sort((movieA, movieB) => compareMovies(movieA, movieB, sortingStandard));
@@ -107,7 +107,7 @@ export function toMoviesObject (movies: Movie[]) {
 		const movieKey = m.key || m.id;
 		moviesObj[movieKey] = m;
 	}
-	console.table("movies obj:", moviesObj);
+	console.table('movies obj:', moviesObj);
 	return moviesObj;
 }
 
@@ -118,11 +118,11 @@ export function getMoviesAndUrlForGenre (genre: Genre, moviesList: Movie[]) {
 
 	if (genre === Genre.SCI_FICTION_FANTASY) {
 		let genreName1 = Genre.SCI_FICTION_FANTASY;
-		let genreName2 = "Sci-Fiction & Fantasy";
+		let genreName2 = 'Sci-Fiction & Fantasy';
 		resultMovies = moviesList.filter(
 			(movie) =>
 				movie.genreList.includes(genreName1) ||
-				movie.genreList.includes(genreName2 as Genre)
+				movie.genreList.includes(genreName2 as Genre),
 		);
 	} else {
 		resultMovies = moviesList.filter((movie) => movie.genreList.includes(genre));
@@ -131,21 +131,21 @@ export function getMoviesAndUrlForGenre (genre: Genre, moviesList: Movie[]) {
 	return {
 		imgUrl,
 		movies: resultMovies,
-		genre: genre
+		genre: genre,
 	};
 }
 
 // Used in ProducerStorePage for getting movies, and logo of the producer.
 export function getMoviesAndLogoOfProducer (producer: ProductionCompany, moviesList: Movie[]) {
 	const filteredMovies = moviesList.filter(
-		(m) => (m.producer ? m.producer.includes(producer) : false)
+		(m) => (m.producer ? m.producer.includes(producer) : false),
 	);
 
 	const logo = getProducerLogo(producer);
 	return {
 		movies: filteredMovies,
 		producer: producer,
-		logo
+		logo,
 	};
 }
 
@@ -165,9 +165,8 @@ export function concatUniqueMovies (moviesListA: Movie[], moviesListB: Movie[]) 
 }
 
 // Get first 8~10 words for the movie description.
-export function getShortMovieDescription (description: string) {
-	const NUM_WORDS = 10;
-	const introDescription = description.split(" ").slice(0, NUM_WORDS);
-	if (!introDescription[introDescription.length - 1].includes(".")) introDescription.push("...");
-	return introDescription.join(" ");
+export function getShortMovieDescription (description: string, numWord: number = 10) {
+	const introDescription = description.split(' ').slice(0, numWord);
+	if (!introDescription[introDescription.length - 1].includes('.')) introDescription.push('...');
+	return introDescription.join(' ');
 }

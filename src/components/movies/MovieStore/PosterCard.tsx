@@ -1,7 +1,10 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import Movie from '../../../models/Movie';
-import { toDurationString } from '../../../utilities/movie-util/movies-util';
+import {
+	getShortMovieDescription,
+	toDurationString,
+} from '../../../utilities/movie-util/movies-util';
 
 const PosterCard: React.FC<{ movie: Movie }> = ({ movie }) => {
 	const durationString = toDurationString(movie.duration);
@@ -16,20 +19,22 @@ const PosterCard: React.FC<{ movie: Movie }> = ({ movie }) => {
 				}}
 			/>
 			<div className='movie__content'>
-				<h4>{movie.title}</h4>
-				<time>
-					{movie.year}{' '}
-					{movie.duration && (
-						<Fragment>
-							&nbsp;
-							<i className='fa fa-circle' />
-							&nbsp;
-							{durationString}
-						</Fragment>
-					)}{' '}
-				</time>
-				<p>{movie.director}</p>
-				<ul>{movie.genreList.map((genre) => <li key={genre}>{genre}</li>)}</ul>
+				<h5 className='movie__title'>{movie.title}</h5>
+				<div className='movie__content__info'>
+					<time className='movie__time'>
+						{movie.year}
+						{movie.duration && (
+							<Fragment>
+								&nbsp;
+								<i className='fa fa-circle' />
+								&nbsp;
+								{durationString}
+							</Fragment>
+						)}{' '}
+					</time>
+					<p>{movie.director}</p>
+					<p>{getShortMovieDescription(movie.description, 11)}</p>
+				</div>
 				<Link
 					to={`/movie-detail/store/${movie.id}`}
 					className='movie__btn btn-dark-transparent'

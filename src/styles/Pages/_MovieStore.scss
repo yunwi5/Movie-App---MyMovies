@@ -141,13 +141,16 @@
 		z-index: 0;
 	}
 	.movie {
-		list-style: none;
 		display: flex;
-		cursor: pointer;
-		transition: all .3s ease-out;
-		position: relative;
 		width: calc((#{$posters-list-width} - (#{$column-gap} * 5)) / 6);
+		list-style: none;
+
 		border-radius: 3px;
+		transition: all .3s ease-out;
+		cursor: pointer;
+
+		font-size: 1.4rem;
+		max-height: 28rem;
 
 		// USE margin-right to control the space between movies.
 		// Useful to use in smaller-size screen including mobile view.
@@ -161,14 +164,9 @@
 			height: 27rem;
 		}
 		&__btn {
-			// position: absolute;
-			// bottom: 2.5rem;
-			// left: 50%;
-			// transform: translateX(-50%);
 			text-decoration: none;
 			align-self: center;
 			margin-top: auto;
-			display: none;
 
 			&:hover {
 				color: gold;
@@ -179,13 +177,7 @@
 			transform: scale(1.1, 1.1);
 			min-width: calc((#{$posters-list-width} - (#{$column-gap} * 5)) / 3);
 			.movie__img {
-				width: 18rem !important;
-			}
-			.movie__content {
-				display: flex;
-			}
-			.movie__btn {
-				display: inline-block;
+				min-width: 18rem !important;
 			}
 		}
 
@@ -193,38 +185,36 @@
 		&__content {
 			display: none;
 			flex-direction: column;
-			gap: 1.3rem;
+			padding: .8rem 2rem;
+			gap: 1.7rem;
 			background-color: $color-grey-dark-5;
 			color: $color-grey-light-1;
-			transition: transform .2s, width .4s cubic-bezier(1, .01, 0, .98) .2s,
-				background-color .1s;
-			animation: SlideRight 1.5s ease-out;
+			transition: all .3s ease-in-out;
+			animation: SlideRight .5s ease-out;
+		}
+
+		&__content__info {
+			display: flex;
+			flex-direction: column;
+			gap: .8rem;
+		}
+
+		&__title {
+			font-size: 135%;
+		}
+
+		&__time {
+			display: flex;
+			align-items: center;
+		}
+
+		.fa {
+			font-size: 5px;
 		}
 
 		&:hover .movie__content {
 			display: flex;
-			padding: .8rem 2rem;
-			width: 18rem;
-			// transform: translateY(-10rem);
 		}
-	}
-}
-
-@keyframes SlideRight {
-	0% {
-		width: 0;
-		& > * {
-			display: none;
-		}
-	}
-	50% {
-		width: 9rem;
-		& > * {
-			display: flex;
-		}
-	}
-	100% {
-		width: 18rem;
 	}
 }
 
