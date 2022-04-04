@@ -1,10 +1,11 @@
-import { Fragment, useEffect, useState, useLayoutEffect } from "react";
-import { Link } from "react-router-dom";
-import Movie from "../../../models/Movie";
-import { shuffleList } from "../../../utilities/list-util";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IconProp } from "@fortawesome/fontawesome-svg-core";
-import { faChevronLeft, faChevronRight, faShuffle } from "@fortawesome/pro-light-svg-icons";
+import { Fragment, useEffect, useState, useLayoutEffect, useMemo } from 'react';
+import { Link } from 'react-router-dom';
+import Movie from '../../../models/Movie';
+import { shuffleList } from '../../../utilities/list-util';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { faChevronLeft, faChevronRight, faShuffle } from '@fortawesome/pro-light-svg-icons';
+import PosterCard from './PosterCard';
 
 interface Props {
 	movies: Movie[];
@@ -28,12 +29,14 @@ const MovieScrollbar: React.FC<Props> = (props) => {
 	const scrollbarWidth = 1440;
 	const scrollAmount = scrollbarWidth / 2;
 	const maxScrollPosition = Math.ceil(
-		(numMovies * moviePosterWidth + numMovies * colGap) / scrollAmount
+		(numMovies * moviePosterWidth + numMovies * colGap) / scrollAmount,
 	);
-	const minScrollIndex = Math.min(-(maxScrollPosition - 2), 0);
+	const minScrollIndex = useMemo(() => Math.min(-(maxScrollPosition - 2), 0), [
+		maxScrollPosition,
+	]);
 
 	const listStyle = {
-		left: `${currentScrollPosition * 51.05}%`
+		left: `${currentScrollPosition * 51.05}%`,
 	};
 
 	const horizontalScrollHandler = (direction: number) => {
@@ -55,7 +58,7 @@ const MovieScrollbar: React.FC<Props> = (props) => {
 				setRightScrollIsValid(true);
 			}
 		},
-		[ currentScrollPosition ]
+		[ currentScrollPosition, minScrollIndex ],
 	);
 
 	const shuffleListHandler = () => {
@@ -67,37 +70,38 @@ const MovieScrollbar: React.FC<Props> = (props) => {
 	useEffect(
 		() => {
 			setShuffledMovies(movies);
+			setCurrentScrollPosition(0);
 		},
-		[ movies ]
+		[ movies ],
 	);
 
 	return (
-		<div className="movie-box">
-			<p className="movie-box__heading">
-				<span className="label">{listTag}</span>{" "}
+		<div className='movie-box'>
+			<p className='movie-box__heading'>
+				<span className='label'>{listTag}</span>{' '}
 				{showLinkAndShuffle && (
 					<Fragment>
 						{genre && (
-							<Link to={`/movie-store/genre/${genre}`} className="link">
+							<Link to={`/movie-store/genre/${genre}`} className='link'>
 								See More
 							</Link>
 						)}
 
-						<span className="btn-shuffle" onClick={shuffleListHandler}>
+						<span className='btn-shuffle' onClick={shuffleListHandler}>
 							Shuffle
 							<FontAwesomeIcon
-								className="btn-shuffle__icon"
+								className='btn-shuffle__icon'
 								icon={faShuffle as IconProp}
 							/>
 						</span>
 					</Fragment>
 				)}
 			</p>
-			<div className="posters-container">
+			<div className='posters-container'>
 				<button
 					className={`horizontal-scroll ${leftScrollIsValid
-						? ""
-						: "horizontal-scroll--invalid"}`}
+						? ''
+						: 'horizontal-scroll--invalid'}`}
 				>
 					<FontAwesomeIcon
 						icon={faChevronLeft as IconProp}
@@ -107,39 +111,14 @@ const MovieScrollbar: React.FC<Props> = (props) => {
 
 				<button
 					className={`horizontal-scroll ${rightScrollIsValid
-						? ""
-						: "horizontal-scroll--invalid"}`}
+						? ''
+						: 'horizontal-scroll--invalid'}`}
 					onClick={horizontalScrollHandler.bind(null, -1)}
 				>
 					<FontAwesomeIcon icon={faChevronRight as IconProp} />
 				</button>
-				<ul className="posters-list" style={listStyle}>
-					{shuffledMovies.map((movie) => (
-						<li key={movie.id} className="movie">
-							<div
-								className="movie__img"
-								style={{
-									backgroundImage: `url(${movie.imgUrl})`,
-									backgroundSize: "cover"
-								}}
-							>
-								<Link
-									to={`/movie-detail/store/${movie.id}`}
-									className="movie__btn btn-dark-transparent"
-								>
-									Explore
-								</Link>
-							</div>
-							{/* <div className="movie__content">
-								<h3>{movie.title}</h3>
-								<p>
-									<span>{toDurationString(movie.duration)}</span>
-									<span>{movie.year}</span>
-									<span>{movie.rating}</span>
-								</p>
-							</div> */}
-						</li>
-					))}
+				<ul className='posters-list' style={listStyle}>
+					{shuffledMovies.map((movie) => <PosterCard key={movie.id} movie={movie} />)}
 				</ul>
 			</div>
 		</div>

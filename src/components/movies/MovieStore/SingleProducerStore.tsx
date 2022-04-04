@@ -1,13 +1,13 @@
-import React, { useContext, useMemo } from "react";
-import MovieContext from "../../../store/movie-context";
-import Movie, { ProductionCompany } from "../../../models/Movie";
+import React, { useContext, useMemo } from 'react';
 
-import MovieScrollbar from "./MovieScrollbar";
+import MovieContext from '../../../store/movie-context';
+import Movie, { ProductionCompany } from '../../../models/Movie';
+import MovieScrollbar from './MovieScrollbar';
 import sortMovies, {
 	Direction,
 	SortingStandard,
-	concatUniqueMovies
-} from "../../../utilities/movie-util/movies-util";
+	concatUniqueMovies,
+} from '../../../utilities/movie-util/movies-util';
 
 interface Props {
 	movies: Movie[];
@@ -24,47 +24,47 @@ const SingleProducerStore: React.FC<Props> = (props) => {
 
 	const suggestedMovies = useMemo(
 		() => {
-			console.log("re-run useMemo!");
+			console.log('re-run useMemo!');
 			return [ ...concatedMovies ];
 		},
-		[ concatedMovies ]
+		[ concatedMovies ],
 	);
-	console.log("suggestedMovies:", suggestedMovies);
+	console.log('suggestedMovies:', suggestedMovies);
 	const highestRatedMovies = useMemo(
 		() =>
 			sortMovies([ ...concatedMovies ], SortingStandard.RATING, Direction.DESCENDING) ||
 			concatedMovies,
-		[ concatedMovies ]
+		[ concatedMovies ],
 	);
 	const newestMovies = useMemo(
 		() =>
 			sortMovies([ ...concatedMovies ], SortingStandard.YEAR, Direction.DESCENDING) ||
 			concatedMovies,
-		[ concatedMovies ]
+		[ concatedMovies ],
 	);
 
 	return (
-		<main className="single-producer-store">
-			<section className="producer-section producer-section--long">
-				<div className="section-header">
-					<h1 className="heading">
+		<main className='single-producer-store'>
+			<section className='producer-section producer-section--long'>
+				<div className='section-header'>
+					<h1 className='heading'>
 						{producer} <br /> <p>({moviesCount}+ Movies)</p>
 					</h1>
 					{logo}
 				</div>
 				<MovieScrollbar
 					movies={newestMovies}
-					listTag={"Hot & Newest"}
+					listTag={'Hot & Newest'}
 					showLinkAndShuffle={false}
 				/>
 				<MovieScrollbar
 					movies={highestRatedMovies}
-					listTag={"Highest Rated"}
+					listTag={'Highest Rated'}
 					showLinkAndShuffle={false}
 				/>
 				<MovieScrollbar
 					movies={suggestedMovies}
-					listTag={"Suggestion For You"}
+					listTag={'Suggestion For You'}
 					showLinkAndShuffle={false}
 				/>
 			</section>

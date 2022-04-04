@@ -142,10 +142,12 @@
 	}
 	.movie {
 		list-style: none;
+		display: flex;
 		cursor: pointer;
-		width: calc((#{$posters-list-width} - (#{$column-gap} * 5)) / 6);
 		transition: all .3s ease-out;
 		position: relative;
+		width: calc((#{$posters-list-width} - (#{$column-gap} * 5)) / 6);
+		border-radius: 3px;
 
 		// USE margin-right to control the space between movies.
 		// Useful to use in smaller-size screen including mobile view.
@@ -159,12 +161,14 @@
 			height: 27rem;
 		}
 		&__btn {
-			opacity: 0;
-			position: absolute;
-			bottom: 2.5rem;
-			left: 50%;
-			transform: translateX(-50%);
+			// position: absolute;
+			// bottom: 2.5rem;
+			// left: 50%;
+			// transform: translateX(-50%);
 			text-decoration: none;
+			align-self: center;
+			margin-top: auto;
+			display: none;
 
 			&:hover {
 				color: gold;
@@ -173,11 +177,54 @@
 
 		&:hover {
 			transform: scale(1.1, 1.1);
+			min-width: calc((#{$posters-list-width} - (#{$column-gap} * 5)) / 3);
+			.movie__img {
+				width: 18rem !important;
+			}
+			.movie__content {
+				display: flex;
+			}
+			.movie__btn {
+				display: inline-block;
+			}
 		}
 
-		&:hover .movie__btn {
-			opacity: 1;
+		// Movie content part only shown when the itme is hovered. &__content {
+		&__content {
+			display: none;
+			flex-direction: column;
+			gap: 1.3rem;
+			background-color: $color-grey-dark-5;
+			color: $color-grey-light-1;
+			transition: transform .2s, width .4s cubic-bezier(1, .01, 0, .98) .2s,
+				background-color .1s;
+			animation: SlideRight 1.5s ease-out;
 		}
+
+		&:hover .movie__content {
+			display: flex;
+			padding: .8rem 2rem;
+			width: 18rem;
+			// transform: translateY(-10rem);
+		}
+	}
+}
+
+@keyframes SlideRight {
+	0% {
+		width: 0;
+		& > * {
+			display: none;
+		}
+	}
+	50% {
+		width: 9rem;
+		& > * {
+			display: flex;
+		}
+	}
+	100% {
+		width: 18rem;
 	}
 }
 

@@ -89,7 +89,7 @@ const DetailHeader: React.FC<Props> = (props) => {
 
 				<div className="movie-detail__heading">
 					<div className="img-wrapper">
-						<img src={movie.imgUrl} />
+						<img src={movie.imgUrl} alt="movie poster" />
 					</div>
 					<div className="heading-content">
 						<h1 className="movie-title">{movie.title} 
@@ -98,8 +98,11 @@ const DetailHeader: React.FC<Props> = (props) => {
 						<p className="movie-time">
 							<span className="movie-time__main">
 								{movie.year}
-								{movie.duration && <><i className="fa fa-circle" />
-								{durationString}</>}
+								{movie.duration && 
+								<Fragment>
+									<i className="fa fa-circle" />
+									{durationString}
+								</Fragment>}
 							</span>
 							{movie.duration && <span className="movie-time__sub">(&nbsp;{movie.duration} minutes&nbsp;)</span>}
 						</p>
