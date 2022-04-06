@@ -47,3 +47,9 @@ h4 {
 	font-weight: 500;
 	@include text-gradient($color-grey-light-1, $color-grey-dark-1);
 }
+
+// BASIC SETTINGS
+.warning-message {
+	padding-top: 1rem;
+	color: $color-tertiary-dark-3;
+}

@@ -36,6 +36,22 @@
 	}
 }
 
+//////////////////////////////////
+/////// MUI CSS ADJUSTMENT
+.MuiFormControl-root {
+	& label {
+		font-size: 1.6rem;
+	}
+
+	& .MuiFilledInput-root {
+		& div {
+			padding-top: 2.6rem;
+			margin-bottom: -.9rem;
+			font-size: 1.5rem;
+		}
+	}
+}
+
 // Div outer element
 // Inner icon and input elements
 .search-bar {
@@ -88,9 +104,4 @@
 			transform: translateY(-.15rem);
 		}
 	}
-}
-
-// Textarea
-textarea {
-	font-family: sans-serif !important;
 }

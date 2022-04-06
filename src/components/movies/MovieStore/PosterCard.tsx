@@ -11,8 +11,9 @@ const PosterCard: React.FC<{ movie: Movie }> = ({ movie }) => {
 
 	return (
 		<li key={movie.id} className='movie'>
-			<div
+			<Link
 				className='movie__img'
+				to={`/movie-detail/store/${movie.id}`}
 				style={{
 					backgroundImage: `url(${movie.imgUrl})`,
 					backgroundSize: 'cover',
@@ -42,14 +43,6 @@ const PosterCard: React.FC<{ movie: Movie }> = ({ movie }) => {
 					Explore
 				</Link>
 			</div>
-			{/* <div className="movie__content">
-                <h3>{movie.title}</h3>
-                <p>
-                    <span>{toDurationString(movie.duration)}</span>
-                    <span>{movie.year}</span>
-                    <span>{movie.rating}</span>
-                </p>
-            </div> */}
 		</li>
 	);
 };
