@@ -121,7 +121,7 @@ const Movieform: React.FC<Props> = ({ onSubmit }) => {
 
 	return (
 		<form className="movie-form" onSubmit={submitHandler}>
-			<h2>Movie Form</h2>
+			<h2>Add Movie On Your Own</h2>
 			<div className="line-input line-title">
 				<label htmlFor="movie-title">Title</label>
 				<input id="movie-title" type="text" onChange={titleChangeHandler} required />

@@ -5,7 +5,7 @@ import { getYearGenreDurationFormat, getDirectorAndProducers, getRatingAsNumber 
 // const URL = 'https://www.google.com/search?q=the+dark+knight';
 const URL = 'https://www.google.com/search?q=guardians+of+the+galaxy+2';
 
-async function findMovie(nightmare) {
+async function findDirectorAndProducers(nightmare) {
     const movieSection = await nightmare
         .goto(URL)
         .wait('#rhs')
@@ -54,16 +54,13 @@ async function findYearGenreDuration(nightmare) {
     return movieYearGenreDuration;
 }
 
-
-
-async function main() {
+async function findMovie(titleString = '') {
     const nm = nightmare();
     const desc = await findDescription(nm);
     const title = await findTitle(nm);
     const yearGenreDuration = await findYearGenreDuration(nm);
-    const movieCardContent = await findMovie(nm);
+    const movieCardContent = await findDirectorAndProducers(nm);
     const ratingText = await findRating(nm);
-    // const img = await getImage();
 
     const { year, genre, hours, minutes } = getYearGenreDurationFormat(yearGenreDuration);
     const { director, producers } = getDirectorAndProducers(movieCardContent);
@@ -79,6 +76,6 @@ async function main() {
     console.log(`producers: ${producers.join(' & ')}`);
     console.log(`rating: ${rating}`);
     await nm.end();
-}
 
-// main().then((res) => console.log('main fn Completed.'));
+    return 0;
+}

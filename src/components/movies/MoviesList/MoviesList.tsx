@@ -1,12 +1,12 @@
-import React, { useContext, useState, useEffect, useCallback } from "react";
-import MovieContext from "../../../store/movie-context";
-import MovieFilter from "../MoviesFilter/MovieFilter";
-import MovieCard from "./MovieCard";
-import MoviePageNav from "../../UI/FunctionalElement/PageNav";
-import MovieSearchbar from "../MovieSupport/MovieSearchbar";
-import { shuffleList } from "../../../utilities/list-util";
-import Movie, { genre as MovieGenre } from "../../../models/Movie";
-import sortMovies, { getCurrentPageMovies } from "../../../utilities/movie-util/movies-util";
+import React, { useContext, useState, useEffect, useCallback } from 'react';
+import MovieContext from '../../../store/movie-context';
+import MovieFilter from '../MoviesFilter/MovieFilter';
+import MovieCard from './MovieCard';
+import MoviePageNav from '../../UI/FunctionalElement/PageNav';
+import MovieSearchbar from '../MovieSupport/MovieSearchbar';
+import { shuffleList } from '../../../utilities/list-util';
+import Movie, { genre as MovieGenre } from '../../../models/Movie';
+import sortMovies, { getCurrentPageMovies } from '../../../utilities/movie-util/movies-util';
 
 interface Props {
 	initialMovies: Movie[];
@@ -18,8 +18,8 @@ const MoviesList: React.FC<Props> = (props) => {
 	const movieCtx = useContext(MovieContext);
 
 	// Sorting
-	const [ sortingStandard, setSortingStandard ] = useState<string>("");
-	const [ sortingDirection, setSortingDirection ] = useState<string>("");
+	const [ sortingStandard, setSortingStandard ] = useState<string>('');
+	const [ sortingDirection, setSortingDirection ] = useState<string>('');
 
 	// Filter Movies
 	const [ filteredMovies, setFilteredMovies ] = useState(initialMovies);
@@ -45,8 +45,8 @@ const MoviesList: React.FC<Props> = (props) => {
 		const shuffledList = shuffleList(filteredMovies);
 		// console.table(shuffledList);
 		setFilteredMovies(shuffledList);
-		setSortingStandard("");
-		setSortingDirection("");
+		setSortingStandard('');
+		setSortingDirection('');
 	};
 
 	const getRatingCount = useCallback(
@@ -59,7 +59,7 @@ const MoviesList: React.FC<Props> = (props) => {
 			});
 			return count;
 		},
-		[ initialMovies ]
+		[ initialMovies ],
 	);
 
 	const getGenreCount = useCallback(
@@ -72,7 +72,7 @@ const MoviesList: React.FC<Props> = (props) => {
 			});
 			return count;
 		},
-		[ initialMovies ]
+		[ initialMovies ],
 	);
 
 	useEffect(
@@ -100,17 +100,18 @@ const MoviesList: React.FC<Props> = (props) => {
 			// Apply Favorite Filter
 			if (showOnlyFav) {
 				survivedMovies = survivedMovies.filter((movie) => movie.isFavorite);
+				setCurrentPage(1); // reset page index
 			}
 			setFilteredMovies(survivedMovies);
 		},
-		[ filterRating, filterGenres, showOnlyFav, initialMovies ]
+		[ filterRating, filterGenres, showOnlyFav, initialMovies ],
 	);
 
 	useEffect(
 		() => {
 			setFilteredMovies(initialMovies);
 		},
-		[ initialMovies ]
+		[ initialMovies ],
 	);
 
 	useEffect(
@@ -119,7 +120,7 @@ const MoviesList: React.FC<Props> = (props) => {
 			sortMovies(filteredMoviesCopy, sortingStandard, sortingDirection);
 			setFilteredMovies(filteredMoviesCopy);
 		},
-		[ sortingDirection, sortingStandard ]
+		[ sortingDirection, sortingStandard ],
 	);
 
 	const prevPageHandler = useCallback(
@@ -127,7 +128,7 @@ const MoviesList: React.FC<Props> = (props) => {
 			if (currentPage <= 1) return;
 			setCurrentPage((prevPage) => prevPage - 1);
 		},
-		[ currentPage ]
+		[ currentPage ],
 	);
 
 	const nextPageHandler = useCallback(
@@ -135,11 +136,11 @@ const MoviesList: React.FC<Props> = (props) => {
 			if (currentPage >= totalPages) return;
 			setCurrentPage((prevPage) => prevPage + 1);
 		},
-		[ currentPage, totalPages ]
+		[ currentPage, totalPages ],
 	);
 
 	return (
-		<main className={`main-content ${showSidebar ? "main-content--extend" : ""}`}>
+		<main className={`main-content ${showSidebar ? 'main-content--extend' : ''}`}>
 			<MovieFilter
 				onRatingCount={getRatingCount}
 				onGenreCount={getGenreCount}
@@ -149,7 +150,7 @@ const MoviesList: React.FC<Props> = (props) => {
 				filterRating={filterRating}
 				filterGenres={filterGenres}
 			/>
-			<div className="movies-container">
+			<div className='movies-container'>
 				{isForUser ? <h2>Your Movie Collection</h2> : <h2>The Store Movies</h2>}
 				<MovieSearchbar
 					onShowSidebar={() => setShowSidebar((prevState) => !prevState)}
@@ -165,7 +166,7 @@ const MoviesList: React.FC<Props> = (props) => {
 				/>
 
 				{filterMoviesLength ? (
-					<ul className="movies-list">
+					<ul className='movies-list'>
 						{getCurrentPageMovies(filteredMovies, currentPage, perPage).map((movie) => (
 							<MovieCard
 								key={movie.id}
@@ -176,7 +177,7 @@ const MoviesList: React.FC<Props> = (props) => {
 						))}
 					</ul>
 				) : (
-					""
+					''
 				)}
 				{!filterMoviesLength && <h1>No Movies Found.</h1>}
 
