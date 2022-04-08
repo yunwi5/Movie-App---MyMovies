@@ -5,8 +5,8 @@ import { faSearch } from '@fortawesome/pro-duotone-svg-icons';
 import { ProcessedMovie, ScrapedMovie, Status } from '../../../models/helperModels';
 import { getStringForQuery } from '../../../utilities/string-util';
 import { processMovieData } from '../../../utilities/movie-util/movies-util';
-import LoadingSpinner from '../DesignElement/LoadingSpinner';
 import { Size } from '../../../models/styleModels';
+import LoadingSpinner from '../DesignElement/LoadingSpinner';
 
 interface Props {
 	onSearch: (searchResult: any) => void;
@@ -23,29 +23,32 @@ const FormSearchbar: React.FC<Props> = (props) => {
 	const [ searchWord, setSearchWord ] = useState('');
 	const [ searchStatus, setSearchStatus ] = useState({ status: Status.INITIAL, message: '' });
 
-	const searchHandler = async (e: React.FormEvent) => {
-		e.preventDefault();
-		if (!searchWord) return;
+	const searchHandler = useCallback(
+		async (e: React.FormEvent) => {
+			e.preventDefault();
+			if (!searchWord) return;
 
-		const queryString = getStringForQuery(searchWord);
-		let result: ProcessedMovie;
-		setSearchStatus({ status: Status.LOADING, message: 'On searching...' });
-		try {
-			const apiDomain = process.env.REACT_APP_SERVER_API_URL || '';
-			const data: ScrapedMovie = await fetchMovieInfo(apiDomain, queryString);
-			if (!data.title)
-				throw new Error('Movie was not found. Please check your title carefully.');
-			result = processMovieData(data);
-			setSearchStatus({
-				status: Status.SUCCESS,
-				message: 'Successfully got movie information!',
-			});
-			onSearch(result);
-		} catch (err) {
-			const message = err instanceof Error ? err.message : 'Finding movie did not work.';
-			setSearchStatus({ status: Status.ERROR, message });
-		}
-	};
+			const queryString = getStringForQuery(searchWord);
+			let result: ProcessedMovie;
+			setSearchStatus({ status: Status.LOADING, message: 'On searching...' });
+			try {
+				const apiDomain = process.env.REACT_APP_SERVER_API_URL || '';
+				const data: ScrapedMovie = await fetchMovieInfo(apiDomain, queryString);
+				if (!data.title)
+					throw new Error('Movie was not found. Please check your title carefully.');
+				result = processMovieData(data);
+				setSearchStatus({
+					status: Status.SUCCESS,
+					message: 'Successfully got movie information!',
+				});
+				onSearch(result);
+			} catch (err) {
+				const message = err instanceof Error ? err.message : 'Finding movie did not work.';
+				setSearchStatus({ status: Status.ERROR, message });
+			}
+		},
+		[ searchWord, onSearch ],
+	);
 
 	const searchTextHandler = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
 		setSearchWord(e.target.value);

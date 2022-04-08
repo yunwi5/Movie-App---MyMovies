@@ -1,20 +1,15 @@
-import React, { useState, useReducer } from 'react';
+import React, { useState, useReducer, useCallback } from 'react';
 
 import Movie, { genre as MovieGenre } from '../../../models/Movie';
 import { toShortcutString } from '../../../utilities/string-util';
 import { GenreList } from '../../../models/Movie';
 import InputRating from '../../UI/InputRating';
 import FormSearchbar from '../../UI/Search/FormSearchbar';
-import { ProcessedMovie, ScrapedMovie } from '../../../models/helperModels';
-
-interface Props {
-	onSubmit: (movieObj: Movie) => void;
-}
+import { ProcessedMovie } from '../../../models/helperModels';
 
 const defaultGenreList: MovieGenre[] = [ 'Other' ];
 
 type State = { hours: number; minutes: number };
-
 type Action =
 	| { type: 'HOURS'; newHours: number }
 	| { type: 'MINUTES'; newMinutes: number }
@@ -31,7 +26,7 @@ const durationReducer = (state: State, action: Action) => {
 	return state;
 };
 
-const Movieform: React.FC<Props> = ({ onSubmit }) => {
+const Movieform: React.FC<{ onSubmit: (movieObj: Movie) => void }> = ({ onSubmit }) => {
 	const [ title, setTitle ] = useState('');
 	// const [ titleIsValid, setTitleIsValid ] = useState(true);
 
@@ -86,7 +81,7 @@ const Movieform: React.FC<Props> = ({ onSubmit }) => {
 	};
 
 	// Search by web scrapping
-	const searchHandler = (scrapedData: ProcessedMovie) => {
+	const searchHandler = useCallback((scrapedData: ProcessedMovie) => {
 		console.log(scrapedData);
 		const {
 			title,
@@ -107,7 +102,7 @@ const Movieform: React.FC<Props> = ({ onSubmit }) => {
 		setDirector(director);
 		dispatchDuration({ type: 'HOURS_MINUTES', newHours: hours, newMinutes: minutes });
 		setRating(rating);
-	};
+	}, []);
 
 	const titleChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setTitle(e.target.value.trim() as string);

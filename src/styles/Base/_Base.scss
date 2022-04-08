@@ -65,6 +65,9 @@ li {
 // Textarea
 textarea {
 	font-family: sans-serif !important;
+	&:focus {
+		outline: none;
+	}
 }
 
 button:disabled {
