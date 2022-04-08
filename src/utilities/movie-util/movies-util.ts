@@ -2,6 +2,8 @@ import Movie from '../../models/Movie';
 import { Genre, ProductionCompany } from '../../models/Movie';
 import { getGenreImgUrlStore } from '../../assets/movies-img';
 import { getProducerLogo } from '../../utilities/design-util/logo-util';
+import { Direction, ProcessedMovie, ScrapedMovie } from '../../models/helperModels';
+import { mapGenres } from './genre-movie-util';
 
 // Used in MoviesList
 export const getCurrentPageMovies = (movies: Movie[], currentPage: number, perPage: number) => {
@@ -46,18 +48,6 @@ const compareMovies = (m1: Movie, m2: Movie, sortingStandard: string): number =>
 	}
 	return -1;
 };
-
-export enum SortingStandard {
-	RATING = 'rating',
-	TITLE = 'title',
-	YEAR = 'year',
-}
-
-export enum Direction {
-	ASCENDING = 'ASC',
-	DESCENDING = 'DES',
-	// descending
-}
 
 // Used in MoviesList
 function sortMovies (
@@ -169,4 +159,23 @@ export function getShortMovieDescription (description: string, numWord: number =
 	const introDescription = description.split(' ').slice(0, numWord);
 	if (!introDescription[introDescription.length - 1].includes('.')) introDescription.push('...');
 	return introDescription.join(' ');
+}
+
+// Process movie data fetched from google web scraping
+export function processMovieData (data: ScrapedMovie): ProcessedMovie {
+	const mappedGenres = mapGenres(data.genres || '');
+
+	const { title, description } = data;
+
+	return {
+		title: title,
+		description,
+		year: data.year || 0,
+		hours: data.hours || 0,
+		minutes: data.minutes || 0,
+		director: data.director || '',
+		producers: data.producers || [ '' ],
+		rating: data.rating || 0,
+		genres: mappedGenres,
+	};
 }

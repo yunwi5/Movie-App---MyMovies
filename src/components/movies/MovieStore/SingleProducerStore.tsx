@@ -3,11 +3,8 @@ import React, { useContext, useMemo } from 'react';
 import MovieContext from '../../../store/movie-context';
 import Movie, { ProductionCompany } from '../../../models/Movie';
 import MovieScrollbar from './MovieScrollbar';
-import sortMovies, {
-	Direction,
-	SortingStandard,
-	concatUniqueMovies,
-} from '../../../utilities/movie-util/movies-util';
+import sortMovies, { concatUniqueMovies } from '../../../utilities/movie-util/movies-util';
+import { Direction, SortingStandard } from '../../../models/helperModels';
 
 interface Props {
 	movies: Movie[];

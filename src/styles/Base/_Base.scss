@@ -66,3 +66,8 @@ li {
 textarea {
 	font-family: sans-serif !important;
 }
+
+button:disabled {
+	opacity: .6;
+	cursor: not-allowed;
+}

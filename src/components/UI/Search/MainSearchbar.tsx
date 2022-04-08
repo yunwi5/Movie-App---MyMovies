@@ -1,25 +1,22 @@
-import React, { useContext, useState, useEffect, useCallback } from "react";
-import ClickAwayListener from "@mui/material/ClickAwayListener";
+import React, { useContext, useState, useEffect, useCallback } from 'react';
+import ClickAwayListener from '@mui/material/ClickAwayListener';
 
-import Movie from "../../../models/Movie";
-import MovieContext from "../../../store/movie-context";
-import sortMovies, {
-	filterMovies,
-	SortingStandard,
-	Direction
-} from "../../../utilities/movie-util/movies-util";
-import SearchAutoComplete from "./SearchAutoComplete";
+import Movie from '../../../models/Movie';
+import MovieContext from '../../../store/movie-context';
+import sortMovies, { filterMovies } from '../../../utilities/movie-util/movies-util';
+import SearchAutoComplete from './SearchAutoComplete';
+import { Direction, SortingStandard } from '../../../models/helperModels';
 
 interface Props {
 	onSearch: (searchText: string) => void;
 }
 
-const ARROW_UP_KEY = "ArrowUp";
-const ARROW_DOWN_KEY = "ArrowDown";
-const BACKSPACE = "Backspace";
+const ARROW_UP_KEY = 'ArrowUp';
+const ARROW_DOWN_KEY = 'ArrowDown';
+const BACKSPACE = 'Backspace';
 
 const MainSearchbar: React.FC<Props> = ({ onSearch }) => {
-	const [ text, setText ] = useState("");
+	const [ text, setText ] = useState('');
 	const [ position, setPosition ] = useState<number | null>(null);
 	// Active text on the searchbar by user hover down the search list.
 	// This is separate  from searchText, so that user can navigate back to their original
@@ -48,18 +45,18 @@ const MainSearchbar: React.FC<Props> = ({ onSearch }) => {
 				const popularOnes = sortMovies(
 					searchedMovies,
 					SortingStandard.RATING,
-					Direction.DESCENDING
+					Direction.DESCENDING,
 				).slice(0, 9);
 				setSearchedMovies(popularOnes);
 			} else {
 				setSearchedMovies([]);
 			}
 		},
-		[ inititalMovies ]
+		[ inititalMovies ],
 	);
 
 	const clearTextHandler = useCallback(() => {
-		setText("");
+		setText('');
 		setActiveMovieTitle(null);
 		setPosition(null);
 		setSearchedMovies([]);
@@ -84,7 +81,7 @@ const MainSearchbar: React.FC<Props> = ({ onSearch }) => {
 				});
 			}
 		},
-		[ searchedMovies ]
+		[ searchedMovies ],
 	);
 
 	const clickAwayHandler = useCallback(() => {
@@ -95,7 +92,9 @@ const MainSearchbar: React.FC<Props> = ({ onSearch }) => {
 		() => {
 			if (position === null || position === undefined) {
 				setText(
-					activeMovieTitle ? activeMovieTitle.slice(0, activeMovieTitle.length - 1) : text
+					activeMovieTitle
+						? activeMovieTitle.slice(0, activeMovieTitle.length - 1)
+						: text,
 				);
 				setActiveMovieTitle(null);
 				return;
@@ -104,23 +103,23 @@ const MainSearchbar: React.FC<Props> = ({ onSearch }) => {
 			const movieTitle = searchedMovies[position].title;
 			setActiveMovieTitle(movieTitle);
 		},
-		[ position, searchedMovies, activeMovieTitle, text ]
+		[ position, searchedMovies, activeMovieTitle, text ],
 	);
 
 	return (
 		<ClickAwayListener onClickAway={clickAwayHandler}>
-			<form className="header__nav-search" onSubmit={submitHandler}>
-				<i className="fa fa-search" />
+			<form className='header__nav-search' onSubmit={submitHandler}>
+				<i className='fa fa-search' />
 				<input
-					type="text"
-					placeholder="Search movies on the store"
+					type='text'
+					placeholder='Search movies on the store'
 					value={activeMovieTitle || text}
 					onChange={textChangeHandler}
 					onKeyDown={searchPositionHandler}
 				/>
 				{text && (
-					<span className="exit-icon-wrapper" onClick={clearTextHandler}>
-						<i className="fa fa-times" />
+					<span className='exit-icon-wrapper' onClick={clearTextHandler}>
+						<i className='fa fa-times' />
 					</span>
 				)}
 

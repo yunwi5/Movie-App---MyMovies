@@ -53,3 +53,20 @@ h4 {
 	padding-top: 1rem;
 	color: $color-tertiary-dark-3;
 }
+
+// User messages
+.message-initial {
+	color: $color-primary-dark-3;
+}
+
+.message-loading {
+	color: $color-secondary-dark-1;
+}
+
+.message-error {
+	color: $color-tertiary-dark-2;
+}
+
+.message-success {
+	color: #45efcd;
+}

@@ -47,3 +47,8 @@ export function removeInvalidSearchCharacters (searchWord: string) {
 
 	return searchWord;
 }
+
+export function getStringForQuery (searchWord: string) {
+	const wordsList = searchWord.trim().split(/\s\s*/);
+	return wordsList.join('+');
+}

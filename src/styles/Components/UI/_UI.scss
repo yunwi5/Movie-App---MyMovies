@@ -5,7 +5,8 @@
 	width: 80px;
 	height: 80px;
 }
-.spinner:after {
+
+.spinner::after {
 	content: ' ';
 	display: block;
 	width: 64px;
@@ -13,9 +14,25 @@
 	margin: 8px;
 	border-radius: 50%;
 	border: 6px solid var(--color-primary);
-	border-color: var(--color-primary-light) transparent var(--color-primary-light) transparent;
+	border-color: $color-primary transparent $color-primary transparent;
 	animation: spinner 1.2s linear infinite;
 }
+
+$small-size: 20px;
+
+.spinner-small {
+	width: $small-size;
+	height: $small-size;
+
+	&::after {
+		width: calc(1.5 * #{$small-size});
+		height: calc(1.5 * #{$small-size});
+		margin: calc(0.1 * #{$small-size});
+		border-width: 3.7px;
+		border-color: $color-secondary-light-2 transparent $color-secondary-light-2 transparent;
+	}
+}
+
 @keyframes spinner {
 	0% {
 		transform: rotate(0deg);
