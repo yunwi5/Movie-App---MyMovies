@@ -1,10 +1,11 @@
-import React, { useRef, useState, useContext } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
-import { validateEmail, validatePassword } from "../../utilities/auth-util";
-import AuthContext from "../../store/auth-context";
-import LoadingSpinner from "../UI/DesignElement/LoadingSpinner";
-import AuthModal from "../UI/Modal/AuthModal";
-import { API_KEY } from "../../api/user-auth-api";
+import React, { useRef, useState, useContext } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { validateEmail, validatePassword } from '../../utilities/auth-util';
+import AuthContext from '../../store/auth-context';
+import LoadingSpinner from '../UI/DesignElement/LoadingSpinner';
+import AuthModal from '../UI/Modal/AuthModal';
+import { API_KEY } from '../../api/constants';
+import { logInUser } from '../../api/user-auth-api';
 
 const Login: React.FC = () => {
 	const authCtx = useContext(AuthContext);
@@ -13,9 +14,9 @@ const Login: React.FC = () => {
 	const [ isLoading, setIsLoading ] = useState(false);
 	const [ showModal, setShowModal ] = useState(false);
 	const [ modalContent, setModalContent ] = useState({
-		heading: "",
-		messages: [ "" ],
-		onClose: () => {}
+		heading: '',
+		messages: [ '' ],
+		onClose: () => {},
 	});
 
 	const emailRef = useRef<HTMLInputElement>(null);
@@ -24,7 +25,7 @@ const Login: React.FC = () => {
 		emailMessage: string | null;
 	}>({
 		valid: true,
-		emailMessage: null
+		emailMessage: null,
 	});
 
 	const passwordRef = useRef<HTMLInputElement>(null);
@@ -33,7 +34,7 @@ const Login: React.FC = () => {
 		passwordMessage: string | null;
 	}>({
 		valid: true,
-		passwordMessage: null
+		passwordMessage: null,
 	});
 
 	const validateUserInput = () => {
@@ -60,31 +61,30 @@ const Login: React.FC = () => {
 	const configureModal = (isSuccess: boolean, reqMessage: string | null) => {
 		if (isSuccess) {
 			setModalContent({
-				heading: "Login Successful!",
+				heading: 'Login Successful!',
 				messages: [
-					"You can see the overview of the service in About page.",
-					"Hope you enjoy!"
+					'You can see the overview of the service in About page.',
+					'Hope you enjoy!',
 				],
 				onClose: () => {
-					navigate("/movies");
+					navigate('/movies');
 					setShowModal(false);
-				}
+				},
 			});
 			setShowModal(true);
 		} else {
 			setModalContent({
-				heading: "Login Unsuccessful...",
-				messages: [ "Something went wrong in your login process", reqMessage || "" ],
+				heading: 'Login Unsuccessful...',
+				messages: [ 'Something went wrong in your login process', reqMessage || '' ],
 				onClose: () => {
 					setShowModal(false);
-				}
+				},
 			});
 			setShowModal(true);
 		}
 	};
 
 	const submitHandler = async (event: React.FormEvent) => {
-		console.log("Submitted");
 		event.preventDefault();
 		const formIsValid = validateUserInput();
 		if (!formIsValid) return;
@@ -95,24 +95,9 @@ const Login: React.FC = () => {
 		setIsLoading(true);
 
 		try {
-			const res = await fetch(
-				`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${API_KEY}`,
-				{
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json"
-					},
-					body: JSON.stringify({
-						email: enteredEmail,
-						password: enteredPassword,
-						returnSecureToken: true
-					})
-				}
-			);
-
-			const data = await res.json();
+			const { response, data } = await logInUser(enteredEmail, enteredPassword);
 			setIsLoading(false);
-			if (res.ok) {
+			if (response.ok) {
 				const idToken = data.idToken;
 				authCtx.login(idToken, enteredEmail);
 				configureModal(true, null);
@@ -129,51 +114,51 @@ const Login: React.FC = () => {
 
 	return (
 		<form
-			className={`auth-form ${formIsInvalid ? "auth-form--invalid" : ""}`}
+			className={`auth-form ${formIsInvalid ? 'auth-form--invalid' : ''}`}
 			onSubmit={submitHandler}
 		>
 			<h2>Login And Enjoy!</h2>
 
-			<div className={`email-wrapper wrapper ${emailState.valid ? "" : "wrapper--invalid"}`}>
-				<label htmlFor="email-input">
-					<i className="fa fa-envelope" />
+			<div className={`email-wrapper wrapper ${emailState.valid ? '' : 'wrapper--invalid'}`}>
+				<label htmlFor='email-input'>
+					<i className='fa fa-envelope' />
 				</label>
 				<input
-					type="email"
-					placeholder="Email"
-					id="email-input"
-					name="email-input"
+					type='email'
+					placeholder='Email'
+					id='email-input'
+					name='email-input'
 					ref={emailRef}
 				/>
 			</div>
-			{!emailState.valid && <p className="error-message">{emailState.emailMessage}</p>}
+			{!emailState.valid && <p className='error-message'>{emailState.emailMessage}</p>}
 
 			<div
 				className={`password-wrapper wrapper ${passwordState.valid
-					? ""
-					: "wrapper--invalid"}`}
+					? ''
+					: 'wrapper--invalid'}`}
 			>
-				<label htmlFor="password-input">
-					<i className="fa fa-lock" />
+				<label htmlFor='password-input'>
+					<i className='fa fa-lock' />
 				</label>
 				<input
-					type="password"
-					placeholder="Password"
-					id="password-input"
-					name="password-input"
+					type='password'
+					placeholder='Password'
+					id='password-input'
+					name='password-input'
 					ref={passwordRef}
 				/>
 			</div>
 			{!passwordState.valid && (
-				<p className="error-message">{passwordState.passwordMessage}</p>
+				<p className='error-message'>{passwordState.passwordMessage}</p>
 			)}
 
 			{!isLoading && <button>Log In</button>}
 			{isLoading && <LoadingSpinner />}
 
-			<p className="auth-bottom">
-				Don't have an account?{" "}
-				<NavLink to="/auth/signup" className="auth-link">
+			<p className='auth-bottom'>
+				Don't have an account?{' '}
+				<NavLink to='/auth/signup' className='auth-link'>
 					Sign Up
 				</NavLink>
 			</p>

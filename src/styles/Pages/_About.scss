@@ -120,10 +120,6 @@
 			.user-message:not(:last-child) {
 				margin-bottom: 1.1rem;
 			}
-			.quote-icon {
-			}
-			span {
-			}
 		}
 	}
 	.manage-section {
@@ -131,6 +127,7 @@
 		@include flex-column($color-grey-light-1);
 		align-items: center;
 		font-size: 1.75rem;
+		text-align: left;
 		&__heading {
 			align-self: flex-start;
 			margin-bottom: 4rem;
@@ -224,9 +221,14 @@
 			}
 		}
 		.user-message {
+			display: flex;
 			align-self: flex-start;
 			margin-left: 1rem;
 			margin-top: -2rem;
+			gap: .2rem;
+		}
+		.quote-icon {
+			transform: translateY(.3rem);
 		}
 	}
 	.rating-section {

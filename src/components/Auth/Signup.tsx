@@ -1,10 +1,11 @@
-import React, { useState, useRef } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
-import { validateUserName, validateEmail, validatePassword } from "../../utilities/auth-util";
-import LoadingSpinner from "../UI/DesignElement/LoadingSpinner";
-import AuthModal from "../UI/Modal/AuthModal";
-import { addUser } from "../../api/user-auth-api";
-import { API_KEY } from "../../api/user-auth-api";
+import React, { useState, useRef } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { validateUserName, validateEmail, validatePassword } from '../../utilities/auth-util';
+import LoadingSpinner from '../UI/DesignElement/LoadingSpinner';
+import AuthModal from '../UI/Modal/AuthModal';
+import { addUser } from '../../api/app-users';
+import { API_KEY } from '../../api/constants';
+import { signUpUser } from '../../api/user-auth-api';
 
 const Signup: React.FC = () => {
 	const navigate = useNavigate();
@@ -13,9 +14,9 @@ const Signup: React.FC = () => {
 	// Modal
 	const [ showModal, setShowModal ] = useState(false);
 	const [ modalContent, setModalContent ] = useState({
-		heading: "",
-		messages: [ "" ],
-		onClose: () => {}
+		heading: '',
+		messages: [ '' ],
+		onClose: () => {},
 	});
 
 	const userNameRef = useRef<HTMLInputElement>(null);
@@ -24,7 +25,7 @@ const Signup: React.FC = () => {
 		userNameMessage: string | null;
 	}>({
 		valid: true,
-		userNameMessage: null
+		userNameMessage: null,
 	});
 
 	const emailRef = useRef<HTMLInputElement>(null);
@@ -33,7 +34,7 @@ const Signup: React.FC = () => {
 		emailMessage: string | null;
 	}>({
 		valid: true,
-		emailMessage: null
+		emailMessage: null,
 	});
 
 	const passwordRef = useRef<HTMLInputElement>(null);
@@ -42,7 +43,7 @@ const Signup: React.FC = () => {
 		passwordMessage: string | null;
 	}>({
 		valid: true,
-		passwordMessage: null
+		passwordMessage: null,
 	});
 
 	const validateUserInput = () => {
@@ -76,26 +77,26 @@ const Signup: React.FC = () => {
 	const configureModal = (isSuccess: boolean, reqMessage: string | null) => {
 		if (isSuccess) {
 			setModalContent({
-				heading: "Sign Up Successful!",
+				heading: 'Sign Up Successful!',
 				messages: [
-					"You are not the member of MyMovies!",
-					"Please login and enjoy the service!"
+					'You are not the member of MyMovies!',
+					'Please login and enjoy the service!',
 				],
 				onClose: () => {
-					navigate("/auth/login");
+					navigate('/auth/login');
 					setShowModal(false);
-				}
+				},
 			});
 			setShowModal(true);
 			// Add user to DB with username attached. Currently, this part is undone.
 			addUser(userNameRef.current!.value, emailRef.current!.value);
 		} else {
 			setModalContent({
-				heading: "Sign Up Unsuccessful...",
-				messages: [ "You sign up went wrong. Please try again", reqMessage || "" ],
+				heading: 'Sign Up Unsuccessful...',
+				messages: [ 'You sign up went wrong. Please try again', reqMessage || '' ],
 				onClose: () => {
 					setShowModal(false);
-				}
+				},
 			});
 			setShowModal(true);
 		}
@@ -111,28 +112,14 @@ const Signup: React.FC = () => {
 		// Form is valid, so send HTTP Request.
 		setIsLoading(true);
 		try {
-			const response = await fetch(
-				`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${API_KEY}`,
-				{
-					method: "POST",
-					body: JSON.stringify({
-						email: enteredEmail,
-						password: enteredPassword,
-						returnSecureToken: true
-					}),
-					headers: {
-						"Content-Type": "application/json"
-					}
-				}
-			);
+			const { response, data } = await signUpUser(enteredEmail, enteredPassword);
 			setIsLoading(false);
 			if (response.ok) {
-				console.log("response OK!");
+				console.log('response OK!');
 				// Send some success message using Modal
 				configureModal(true, null);
 			} else {
-				const data = await response.json();
-				let errMessage = "Something went wrong in Sign Up...";
+				let errMessage = 'Something went wrong in Sign Up...';
 				if (data && data.error && data.error.message) {
 					errMessage = data.error.message;
 				}
@@ -140,7 +127,7 @@ const Signup: React.FC = () => {
 				configureModal(false, errMessage);
 			}
 		} catch (e) {
-			console.log("Error occured in signup");
+			console.log('Error occured in signup');
 			console.error(e);
 		}
 	};
@@ -151,72 +138,72 @@ const Signup: React.FC = () => {
 	return (
 		<form
 			className={`auth-form ${formIsInvalid
-				? "auth-form--invalid signup-form--invalid"
-				: ""}`}
+				? 'auth-form--invalid signup-form--invalid'
+				: ''}`}
 			onSubmit={submitHandler}
 		>
 			<h2>Sign Up and Start Collection!</h2>
 
 			<div
 				className={`username-wrapper wrapper ${userNameState.valid
-					? ""
-					: "wrapper--invalid"}`}
+					? ''
+					: 'wrapper--invalid'}`}
 			>
-				<label htmlFor="username-input">
-					<i className="fa fa-user" />
+				<label htmlFor='username-input'>
+					<i className='fa fa-user' />
 				</label>
 				<input
-					type="text"
-					placeholder="Username"
-					id="username-input"
-					name="username-input"
+					type='text'
+					placeholder='Username'
+					id='username-input'
+					name='username-input'
 					ref={userNameRef}
 				/>
 			</div>
 			{!userNameState.valid && (
-				<p className="error-message">{userNameState.userNameMessage}</p>
+				<p className='error-message'>{userNameState.userNameMessage}</p>
 			)}
 
-			<div className={`email-wrapper wrapper ${emailState.valid ? "" : "wrapper--invalid"}`}>
-				<label htmlFor="email-input">
-					<i className="fa fa-envelope" />
+			<div className={`email-wrapper wrapper ${emailState.valid ? '' : 'wrapper--invalid'}`}>
+				<label htmlFor='email-input'>
+					<i className='fa fa-envelope' />
 				</label>
 				<input
-					type="email"
-					placeholder="Email"
-					id="email-input"
-					name="email-input"
+					type='email'
+					placeholder='Email'
+					id='email-input'
+					name='email-input'
 					ref={emailRef}
 				/>
 			</div>
-			{!emailState.valid && <p className="error-message">{emailState.emailMessage}</p>}
+			{!emailState.valid && <p className='error-message'>{emailState.emailMessage}</p>}
 
 			<div
 				className={`password-wrapper wrapper ${passwordState.valid
-					? ""
-					: "wrapper--invalid"}`}
+					? ''
+					: 'wrapper--invalid'}`}
 			>
-				<label htmlFor="password-input">
-					<i className="fa fa-lock" />
+				<label htmlFor='password-input'>
+					<i className='fa fa-lock' />
 				</label>
 				<input
-					type="password"
-					placeholder="Password"
-					id="password-input"
-					name="password-input"
+					type='password'
+					placeholder='Password'
+					id='password-input'
+					name='password-input'
 					ref={passwordRef}
 				/>
 			</div>
 			{!passwordState.valid && (
-				<p className="error-message">{passwordState.passwordMessage}</p>
+				<p className='error-message'>{passwordState.passwordMessage}</p>
 			)}
 
 			{!isLoading && <button>Sign Up</button>}
 			{isLoading && <LoadingSpinner />}
 
-			<p className="auth-bottom">
-				Already have an account?{" "}
-				<NavLink to="/auth/login" className="auth-link">
+			<p className='auth-bottom'>
+				Already have an account?{' '}
+				<NavLink to='/auth/login' className='auth-link'>
 					Log In
 				</NavLink>
 			</p>

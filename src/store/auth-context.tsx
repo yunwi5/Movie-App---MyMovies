@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { getUserBySearch, getUserById } from "../api/user-auth-api";
-import User from "../models/User";
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { getUserBySearch, getUserById } from '../api/app-users';
+import User from '../models/User';
 
 interface Props {
 	token: string | null;
@@ -12,11 +12,11 @@ interface Props {
 }
 
 const authObj: Props = {
-	token: "",
+	token: '',
 	isLoggedIn: false,
 	login: (token: string, userName: string) => {},
 	logout: () => {},
-	user: { id: "", email: "", userName: "", movies: [] }
+	user: { id: '', email: '', userName: '', movies: [] },
 };
 
 const AuthContext = React.createContext<Props>(authObj);
@@ -32,9 +32,9 @@ const ONE_HOUR = 1000 * 60 * 60;
 export const AuthContextProvider: React.FC = (props) => {
 	const navigate = useNavigate();
 
-	const retrievedToken = localStorage.getItem("token");
-	const retrievedEmail = localStorage.getItem("email");
-	const retrievedId = localStorage.getItem("id");
+	const retrievedToken = localStorage.getItem('token');
+	const retrievedEmail = localStorage.getItem('email');
+	const retrievedId = localStorage.getItem('id');
 
 	const [ token, setToken ] = useState<string | null>(retrievedToken);
 	const [ email, setEmail ] = useState<string | null>(retrievedEmail);
@@ -47,8 +47,8 @@ export const AuthContextProvider: React.FC = (props) => {
 		if (!token) return;
 		setToken(token);
 		setEmail(email);
-		localStorage.setItem("token", token);
-		localStorage.setItem("email", email);
+		localStorage.setItem('token', token);
+		localStorage.setItem('email', email);
 	};
 
 	const logout = () => {
@@ -56,15 +56,15 @@ export const AuthContextProvider: React.FC = (props) => {
 		setEmail(null);
 		setUser(null);
 		setUserId(null);
-		localStorage.removeItem("token");
-		localStorage.removeItem("email");
-		localStorage.removeItem("id");
-		navigate("/home");
+		localStorage.removeItem('token');
+		localStorage.removeItem('email');
+		localStorage.removeItem('id');
+		navigate('/home');
 	};
 
 	// Two ways that  gets User from the server.
 	const tryGetUserById = async () => {
-		const id = localStorage.getItem("id");
+		const id = localStorage.getItem('id');
 		if (!id) return;
 		const user = await getUserById(id);
 		setUser(user);
@@ -78,7 +78,7 @@ export const AuthContextProvider: React.FC = (props) => {
 
 			if (!userFound) return;
 			// Store userId so that user can be retrieved once the user re-loads the page.\
-			localStorage.setItem("id", userFound.id);
+			localStorage.setItem('id', userFound.id);
 			setUserId(userFound.id);
 			setUser(userFound);
 		}
@@ -92,7 +92,7 @@ export const AuthContextProvider: React.FC = (props) => {
 				tryGetUserByEmail();
 			}
 		},
-		[ token, email, userId ]
+		[ token, email, userId ],
 	);
 
 	// Automatically logout the user after 1 hour.
@@ -106,7 +106,7 @@ export const AuthContextProvider: React.FC = (props) => {
 				clearTimeout(timer);
 			};
 		},
-		[ token, email, userId ]
+		[ token, email, userId ],
 	);
 
 	const values = {
@@ -114,7 +114,7 @@ export const AuthContextProvider: React.FC = (props) => {
 		isLoggedIn,
 		login,
 		logout,
-		user
+		user,
 	};
 
 	return <AuthContext.Provider value={values}>{props.children}</AuthContext.Provider>;

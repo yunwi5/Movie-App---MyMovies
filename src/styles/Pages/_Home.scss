@@ -302,12 +302,11 @@
 			line-height: 4rem;
 			color: $color-grey-light-2;
 			text-transform: capitalize;
-			// border: 1px solid $color-primary-dark-2;
 		}
 		.logos {
 			display: grid;
 			grid-template-columns: repeat(3, 1fr);
-			transform: translateX(8rem) rotateX(-20deg) rotateY(-40deg);
+			transform: translateX(-7rem) rotateX(-20deg) rotateY(-40deg);
 			background-image: radial-gradient(rgba(254, 226, 226, .7), rgba(254, 242, 242, 0));
 			border-radius: 20px;
 			box-shadow: $shadow-light;

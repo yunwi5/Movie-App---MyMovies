@@ -3,9 +3,9 @@ import React, { useState, useReducer, useCallback } from 'react';
 import Movie, { genre as MovieGenre } from '../../../models/Movie';
 import { toShortcutString } from '../../../utilities/string-util';
 import { GenreList } from '../../../models/Movie';
-import InputRating from '../../UI/InputRating';
-import FormSearchbar from '../../UI/Search/FormSearchbar';
 import { ProcessedMovie } from '../../../models/helperModels';
+import FormSearchbar from '../../UI/Search/FormSearchbar';
+import InputRating from '../../UI/InputRating';
 
 const defaultGenreList: MovieGenre[] = [ 'Other' ];
 
