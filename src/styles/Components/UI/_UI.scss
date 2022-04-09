@@ -84,6 +84,10 @@ $small-size: 20px;
 	}
 }
 
+.modal__heading-icon {
+	margin-right: .5rem;
+}
+
 //////////////////////////////////////
 /////// AUTH Modal
 .modal-content {
@@ -93,14 +97,14 @@ $small-size: 20px;
 	margin: 0 auto;
 
 	& h2 {
-		font-size: 2.2rem;
+		font-size: 2.4rem;
 		text-transform: capitalize;
 	}
 
 	& ul {
 		margin-top: .5rem;
 		list-style: none;
-		font-size: 1.4rem;
+		font-size: 1.6rem;
 
 		& li {
 			@include prefix-row;
@@ -117,10 +121,10 @@ $small-size: 20px;
 
 	& button {
 		align-self: center;
-		margin-top: 3rem;
+		margin-top: 2rem;
 		width: 40%;
 		padding: 1rem 1.5rem;
-		font-size: 1.8rem;
+		font-size: 1.85rem;
 		border-radius: 2rem;
 		cursor: pointer;
 	}
@@ -146,7 +150,8 @@ $small-size: 20px;
 
 //////////////////////////////////////
 /////// ADD MODAL
-.modal-content--add {
+.modal-content--add,
+.modal-content--info {
 	& h2 {
 		color: var(--color-secondary);
 	}
@@ -158,5 +163,25 @@ $small-size: 20px;
 
 	.fa {
 		color: var(--color-primary-little-dark);
+	}
+}
+
+//////////////////////////////////////
+/////// INFO MODAL
+.modal-content--info {
+	font-size: 1.67rem;
+	width: 86%;
+	h2 {
+		font-size: 2.5rem;
+	}
+
+	strong {
+		color: $color-secondary-dark-1;
+	}
+}
+
+.secondary-btn {
+	&:hover {
+		background-color: $color-secondary-light-2;
 	}
 }

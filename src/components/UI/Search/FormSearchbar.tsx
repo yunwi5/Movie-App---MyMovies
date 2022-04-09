@@ -1,11 +1,12 @@
-import React, { useCallback, useState } from 'react';
+import React, { Fragment, useCallback, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/pro-duotone-svg-icons';
+import { faInfoCircle, faSearch } from '@fortawesome/pro-duotone-svg-icons';
 
 import { ProcessedMovie, ScrapedMovie, Status } from '../../../models/helperModels';
 import { getStringForQuery } from '../../../utilities/string-util';
 import { processMovieData } from '../../../utilities/movie-util/movies-util';
 import { Size } from '../../../models/styleModels';
+import SearchInfoModal from '../Modal/SearchInfoModal';
 import LoadingSpinner from '../DesignElement/LoadingSpinner';
 
 interface Props {
@@ -22,6 +23,8 @@ const FormSearchbar: React.FC<Props> = (props) => {
 	const { onSearch, className } = props;
 	const [ searchWord, setSearchWord ] = useState('');
 	const [ searchStatus, setSearchStatus ] = useState({ status: Status.INITIAL, message: '' });
+	// Info modal about web scraping.
+	const [ showInfoModal, setShowInfoModal ] = useState(false);
 
 	const searchHandler = useCallback(
 		async (e: React.FormEvent) => {
@@ -59,38 +62,51 @@ const FormSearchbar: React.FC<Props> = (props) => {
 	}, []);
 
 	return (
-		<form className={`form-search ${className}`} onSubmit={searchHandler}>
-			<label htmlFor='form-search' className='form-search__label'>
-				Try Search
-			</label>
-			<div className='form-search__input-box'>
-				<input
-					type='text'
-					placeholder='Try search your movie you want.'
-					onChange={searchTextHandler}
-					defaultValue=''
-					className='form-search__input'
-					id='form-search'
+		<Fragment>
+			{showInfoModal && (
+				<SearchInfoModal
+					onClose={() => setShowInfoModal(false)}
+					modalClass='movie-form-modal'
 				/>
-				<button
-					type='submit'
-					className='form-search__btn btn-secondary-fill'
-					disabled={searchStatus.status === Status.LOADING}
-				>
-					<FontAwesomeIcon icon={faSearch} className='form-search__icon' />
-				</button>
-			</div>
-			<div className={`form-search__message`}>
-				{searchStatus.message && (
-					<p className={`message-${searchStatus.status}`}>
-						{searchStatus.message}
-						{searchStatus.status === Status.LOADING && (
-							<LoadingSpinner size={Size.SMALL} style={{ marginLeft: '10px' }} />
-						)}
-					</p>
-				)}
-			</div>
-		</form>
+			)}
+			<form className={`form-search ${className}`} onSubmit={searchHandler}>
+				<label htmlFor='form-search' className='form-search__label'>
+					Try Search
+					<FontAwesomeIcon
+						icon={faInfoCircle}
+						onClick={() => setShowInfoModal(true)}
+						className='icon form-search__info-icon'
+					/>
+				</label>
+				<div className='form-search__input-box'>
+					<input
+						type='text'
+						placeholder='Try search your movie you want.'
+						onChange={searchTextHandler}
+						defaultValue=''
+						className='form-search__input'
+						id='form-search'
+					/>
+					<button
+						type='submit'
+						className='form-search__btn btn-secondary-fill'
+						disabled={searchStatus.status === Status.LOADING}
+					>
+						<FontAwesomeIcon icon={faSearch} className='icon form-search__icon' />
+					</button>
+				</div>
+				<div className={`form-search__message`}>
+					{searchStatus.message && (
+						<p className={`message-${searchStatus.status}`}>
+							{searchStatus.message}
+							{searchStatus.status === Status.LOADING && (
+								<LoadingSpinner size={Size.SMALL} style={{ marginLeft: '10px' }} />
+							)}
+						</p>
+					)}
+				</div>
+			</form>
+		</Fragment>
 	);
 };
 
