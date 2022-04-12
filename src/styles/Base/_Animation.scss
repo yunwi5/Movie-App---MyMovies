@@ -16,10 +16,15 @@
 		width: 0;
 		opacity: 0;
 		visibility: hidden;
+		white-space: nowrap;
+	}
+	50% {
+		opacity: .3;
 	}
 	100% {
 		width: 100%;
 		opacity: 1;
 		visibility: visible;
+		white-space: normal;
 	}
 }

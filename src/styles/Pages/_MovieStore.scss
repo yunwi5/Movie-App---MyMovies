@@ -188,6 +188,10 @@
 			color: $color-grey-light-1;
 			transition: all .3s ease-in-out;
 			animation: SlideRight .5s ease-out;
+
+			// Prevent text multi-line overflows
+			overflow: hidden;
+			text-overflow: ellipsis;
 		}
 
 		&__content__info {

@@ -56,7 +56,7 @@ $small-size: 20px;
 
 .modal {
 	position: fixed;
-	top: 10vh;
+	top: 15vh;
 	left: 5%;
 	background-color: white;
 	padding: 1rem;
@@ -93,18 +93,18 @@ $small-size: 20px;
 .modal-content {
 	display: flex;
 	flex-direction: column;
-	width: 76%;
+	width: 82%;
 	margin: 0 auto;
+	font-size: $font-normal;
 
 	& h2 {
-		font-size: 2.4rem;
+		font-size: 2.55rem;
 		text-transform: capitalize;
 	}
 
 	& ul {
 		margin-top: .5rem;
 		list-style: none;
-		font-size: 1.6rem;
 
 		& li {
 			@include prefix-row;
@@ -124,7 +124,7 @@ $small-size: 20px;
 		margin-top: 2rem;
 		width: 40%;
 		padding: 1rem 1.5rem;
-		font-size: 1.85rem;
+		font-size: 1.9rem;
 		border-radius: 2rem;
 		cursor: pointer;
 	}
@@ -169,12 +169,11 @@ $small-size: 20px;
 //////////////////////////////////////
 /////// INFO MODAL
 .modal-content--info {
-	font-size: 1.67rem;
+	font-size: 1.6rem;
 	width: 86%;
 	h2 {
 		font-size: 2.5rem;
 	}
-
 	strong {
 		color: $color-secondary-dark-1;
 	}
