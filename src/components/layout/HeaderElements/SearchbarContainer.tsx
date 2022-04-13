@@ -1,23 +1,32 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { ClickAwayListener } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/pro-solid-svg-icons';
+
 import MainSearchbar from '../../UI/Search/MainSearchbar';
-import { ClickAwayListener } from '@mui/material';
+import { removeInvalidSearchCharacters } from '../../../utilities/string-util';
 
 interface Props {
-	onSearch: (s: string) => void;
 	onShowSearch: (show: boolean) => void;
 	isSearching: boolean;
 }
 
-const SearchbarContainer: React.FC<Props> = ({ onSearch, onShowSearch, isSearching }) => {
+const SearchbarContainer: React.FC<Props> = ({ onShowSearch, isSearching }) => {
+	const navigate = useNavigate();
+
+	const searchHandler = (searchWord: string) => {
+		const validSearchWord = removeInvalidSearchCharacters(searchWord);
+		navigate(`/store-movies?search=${validSearchWord}`, { replace: false });
+	};
+
 	return (
 		<div className='nav-search-container'>
 			<div className='nav-search__small-screen'>
 				{isSearching ? (
 					<ClickAwayListener onClickAway={onShowSearch.bind(null, false)}>
 						<div className='main-search-wrapper'>
-							<MainSearchbar onSearch={onSearch} />
+							<MainSearchbar onSearch={searchHandler} />
 						</div>
 					</ClickAwayListener>
 				) : (
@@ -29,7 +38,7 @@ const SearchbarContainer: React.FC<Props> = ({ onSearch, onShowSearch, isSearchi
 				)}
 			</div>
 			<div className='nav-search__large-screen'>
-				<MainSearchbar onSearch={onSearch} />
+				<MainSearchbar onSearch={searchHandler} />
 			</div>
 		</div>
 	);
