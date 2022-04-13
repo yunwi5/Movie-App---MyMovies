@@ -1,16 +1,27 @@
 .header__nav-search {
-	flex: 0 0 30%;
+	// flex: 0 0 30%;
+	min-width: 35rem;
+	min-height: 2.5rem;
 	margin-left: auto;
 	margin-right: auto;
 	background-color: #fff;
 	border: 1px solid var(--color-grey-dark-3);
-	border-radius: 1.7rem;
-	// overflow: hidden;
+	border-radius: 17px;
 	display: flex;
 	align-items: center;
 	background: linear-gradient(0.25turn, #f1d3da, #ebf8e1, #ddf1f7);
-
 	position: relative;
+
+	@include respond(tab-port) {
+		margin-left: auto;
+		margin-right: 0;
+		min-width: 40rem;
+		max-width: 85%;
+	}
+	@include respond(phone-small) {
+		margin: 0 auto;
+		min-width: 35rem;
+	}
 
 	&:focus-within {
 		border: 1.8px solid lighten($color-primary-dark-2, 5%);
@@ -20,10 +31,16 @@
 		text-align: right;
 		font-size: 1.9rem;
 		flex: 0 1 7%;
+		margin-left: 2px;
+
+		@include respond(tab-land) {
+			margin-left: 5px;
+			margin-right: 2px;
+		}
 	}
 
 	& input {
-		padding: 10px 15px;
+		padding: 1rem 1.3rem;
 		border: none;
 		flex: 1;
 		height: 100%;

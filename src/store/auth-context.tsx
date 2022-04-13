@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getUserBySearch, getUserById } from '../api/app-users';
 import User from '../models/User';
@@ -20,7 +20,9 @@ const authObj: Props = {
 };
 
 const AuthContext = React.createContext<Props>(authObj);
-export default AuthContext;
+
+// Custom hook for authContext (reduce import bundle)
+export const useAuthContext = () => useContext(AuthContext);
 
 const ONE_HOUR = 1000 * 60 * 60;
 // Getting user once is enough
@@ -119,3 +121,5 @@ export const AuthContextProvider: React.FC = (props) => {
 
 	return <AuthContext.Provider value={values}>{props.children}</AuthContext.Provider>;
 };
+
+export default AuthContext;
