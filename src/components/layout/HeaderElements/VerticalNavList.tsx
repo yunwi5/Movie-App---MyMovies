@@ -5,7 +5,7 @@ import { faBars } from '@fortawesome/pro-regular-svg-icons';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 
 import { useAuthContext } from '../../../store/auth-context';
-import StoreNestedNav from './StoreNestedNav';
+import VerticalNestedNav from './VerticalNavElements/VerticalNestedNav';
 
 const VerticalNavList: React.FC = () => {
 	const [ showDropdown, setShowDropdown ] = useState<boolean>(false);
@@ -24,7 +24,7 @@ const VerticalNavList: React.FC = () => {
 				<ClickAwayListener onClickAway={() => setShowDropdown(false)}>
 					<ul className='vertical-nav-main'>
 						<li className='nav-store'>
-							<StoreNestedNav />
+							<VerticalNestedNav />
 						</li>
 						<li className='nav-main-item'>
 							<NavLink
