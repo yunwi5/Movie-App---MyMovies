@@ -239,9 +239,12 @@
 		height: 1.8px;
 	}
 
-	@include respond(tab-land) {
-		.nav-inner-text {
+	.nav-inner-text {
+		@include respond(tab-land) {
 			display: none;
+		}
+		@include respond(tab-port) {
+			display: inline;
 		}
 	}
 }
@@ -249,6 +252,10 @@
 .header .nav-active {
 	color: var(--color-grey-light-3);
 	border-bottom: 2px solid var(--color-grey-light-3);
+}
+
+.header .nav-front .show-nested-nav {
+	display: flex;
 }
 
 // NESTING NAV
@@ -260,14 +267,13 @@
 		.nested-nav,
 		[class^="nested-nested-nav"] {
 			position: absolute;
-			top: 5.9rem;
+			top: 5.8rem;
 			left: 0;
 			width: clamp(20rem, 140%, 1300px);
 			border-bottom: 1px solid $color-grey-dark-1;
 
 			display: none;
-			background-color: #fff;
-			background-color: inherit;
+			// background-color: inherit;
 			font-size: 1.5rem;
 			flex-direction: column;
 			z-index: 5;
@@ -324,6 +330,10 @@
 
 		.nested-nested-nav-2 {
 			top: -200%;
+		}
+
+		.show-nested-nav {
+			display: flex;
 		}
 	}
 

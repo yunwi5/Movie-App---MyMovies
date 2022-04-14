@@ -168,23 +168,27 @@ const Movieform: React.FC<{ onSubmit: (movieObj: Movie) => void }> = ({ onSubmit
 						onRatingChange={(newValue: number) => setRating(newValue)}
 					/>
 					<div className='genre-wrapper'>
-						<label htmlFor='genre'>
-							Genre <span>(max 4 genres)</span>
-						</label>
-						<select
-							id='genre'
-							defaultValue='Other'
-							onChange={genreChangeHandler}
-							required
-						>
-							{GenreList.map((genre) => (
-								<option key={genre} value={genre}>
-									{genre}
-								</option>
-							))}
-						</select>
+						<div>
+							<label htmlFor='genre'>
+								Genre <span>(max 4 genres)</span>
+							</label>
+							<select
+								id='genre'
+								defaultValue='Other'
+								onChange={genreChangeHandler}
+								required
+							>
+								{GenreList.map((genre) => (
+									<option key={genre} value={genre}>
+										{genre}
+									</option>
+								))}
+							</select>
+						</div>
+						{genreList.length !== 0 && (
+							<ul className='form-genre-list'>{genreListElements}</ul>
+						)}
 					</div>
-					{genreList.length !== 0 && <ul>{genreListElements}</ul>}
 				</div>
 
 				<div className='line-input line-url'>

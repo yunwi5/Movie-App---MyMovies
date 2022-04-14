@@ -56,6 +56,12 @@
 	color: $color-grey-dark-4;
 }
 
+@mixin icon-default {
+	cursor: pointer;
+	box-shadow: $shadow-light;
+	display: inline-block;
+}
+
 // Used for ALL MODALS
 @mixin prefix-row {
 	display: flex;

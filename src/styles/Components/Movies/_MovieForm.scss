@@ -4,6 +4,14 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+
+	@include respond(tab-port) {
+		width: clamp(70rem, 85%, 800px);
+	}
+
+	@include respond(phone) {
+		width: clamp(50rem, 97%, 600px);
+	}
 }
 
 .form-info {
@@ -14,7 +22,6 @@
 	.MuiAlert-icon {
 		font-size: 3.3rem;
 	}
-
 	.MuiAlert-message {
 		font-family: sans-serif;
 		div {
@@ -22,7 +29,6 @@
 		}
 		font-size: 1.7rem;
 	}
-
 	margin-bottom: 2rem;
 }
 
@@ -52,6 +58,10 @@
 
 	& > * {
 		width: 94%;
+
+		@include respond(phone) {
+			width: 98%;
+		}
 	}
 
 	& > *:first-child {
@@ -84,6 +94,10 @@
 	padding: 2.5rem 3rem;
 	padding-bottom: 2rem;
 	margin-bottom: 2.2rem;
+
+	@include respond(phone) {
+		padding: 2.5rem 1rem;
+	}
 
 	&__label {
 		color: $color-grey-dark-6;
@@ -151,19 +165,33 @@
 			border-radius: .5rem;
 			padding: .45rem .3rem;
 		}
-
 		textarea {
+			border-radius: .5rem;
+			font-size: 1.8rem;
+			min-width: 92%;
 			padding: .7rem 1rem;
+			font-family: inherit;
+
+			@include respond(phone) {
+				min-width: 100%;
+			}
 		}
 	}
 
-	& .line-title {
-		padding-bottom: 3rem;
+	& .line-title,
+	.line-url {
+		padding-bottom: 3.2rem;
+		& input {
+			min-width: 92%;
+			@include respond(phone) {
+				min-width: 100%;
+			}
+		}
 	}
 
 	& .genre-rating {
 		display: flex;
-		justify-content: flex-start;
+		justify-content: space-between;
 		align-items: center;
 
 		& .rating-wrapper {
@@ -191,6 +219,23 @@
 		& .genre-wrapper {
 			transform: translateY(-.7rem);
 			margin-left: 8rem;
+			margin-right: 8rem;
+			@include flex-center;
+			gap: 1rem;
+
+			@include respond(tab-port) {
+				margin-right: 6rem;
+			}
+
+			@include respond(phone) {
+				margin-left: 2rem;
+				margin-right: 7.5rem;
+				flex-direction: column;
+				align-items: flex-start;
+			}
+			@media only screen and (max-width: 450px) {
+				margin-right: 5rem;
+			}
 			& select {
 				font-size: 1.3rem;
 				font-weight: 400;
@@ -207,7 +252,7 @@
 			}
 		}
 
-		& ul {
+		.form-genre-list {
 			flex: 1;
 			list-style: none;
 			display: flex;
@@ -216,6 +261,11 @@
 			margin-left: 2.5rem;
 			height: 60%;
 			font-size: 1.5rem;
+			white-space: nowrap;
+
+			@include respond(phone) {
+				margin-left: 0;
+			}
 
 			& li {
 				display: block;
@@ -233,24 +283,6 @@
 				color: var(--color-primary-lighter);
 				margin-right: .5rem;
 			}
-		}
-	}
-
-	& .line-title {
-		& label {
-		}
-
-		& input {
-			width: 78%;
-		}
-	}
-
-	& .line-url {
-		padding-bottom: 3.2rem;
-		& label {
-		}
-		& input {
-			width: 78%;
 		}
 	}
 
@@ -280,6 +312,13 @@
 		& .director-wrapper,
 		.duration-wrapper {
 			margin-left: 6.5rem;
+
+			@include respond(tab-port) {
+				margin-left: 3rem;
+			}
+			@include respond(phone) {
+				margin-left: 0;
+			}
 		}
 
 		& .year-wrapper,
@@ -325,12 +364,6 @@
 			& span {
 				font-size: 1.15rem;
 			}
-
-			& label {
-			}
-
-			& input {
-			}
 		}
 	}
 
@@ -340,13 +373,6 @@
 		& h3 {
 			font-weight: 500;
 			margin-bottom: .5rem;
-		}
-
-		& textarea {
-			border-radius: .5rem;
-			font-size: 1.8rem;
-			font-family: sans-serif;
-			min-width: 82%;
 		}
 	}
 

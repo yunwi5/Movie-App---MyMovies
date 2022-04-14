@@ -1,8 +1,51 @@
 .nav-modal {
+	$modal-width: 320px;
+	width: $modal-width;
+	left: calc(50% - #{$modal-width}/2) !important;
+	border-radius: 5px;
+	font-size: 1.75rem;
+	padding: 0;
+
+	.nav-modal-heading {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+
+		font-weight: 600;
+		padding: 1.3rem 1rem;
+		background-color: #acb2ca;
+		color: $color-grey-light-1;
+	}
+
+	.nav-modal-icon {
+		@include icon-default;
+		font-size: 110%;
+		transition: all .2s ease-in-out;
+
+		&:hover {
+			color: $color-secondary-light-2;
+			transform: scale(1.1);
+		}
+	}
+
 	.nav-modal-list {
+		display: flex;
+		flex-direction: column;
 	}
 
 	.nav-modal-item {
+		cursor: pointer;
+		transition: all .2s ease-in-out;
+		padding: 1.3rem 1rem;
+
+		&:hover {
+			color: $color-primary-dark-3;
+			background-color: $color-primary-light-0;
+		}
+
+		&:not(:first-child) {
+			border-top: 1px solid $color-primary-light-1;
+		}
 	}
 
 	.nav-modal-link {

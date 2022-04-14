@@ -24,7 +24,7 @@ const VerticalNavList: React.FC = () => {
 				<ClickAwayListener onClickAway={() => setShowDropdown(false)}>
 					<ul className='vertical-nav-main'>
 						<li className='nav-store'>
-							<VerticalNestedNav />
+							<VerticalNestedNav onCloseDropdown={toggleDropdown} />
 						</li>
 						<li className='nav-main-item'>
 							<NavLink
