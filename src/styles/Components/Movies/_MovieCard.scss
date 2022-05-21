@@ -6,7 +6,6 @@
     border: 1px solid $color-primary-light-2;
     border-radius: 2.5px;
     box-shadow: 0 1rem 1.5rem rgba(104, 101, 101, 0.35);
-    overflow: hidden;
 
     display: flex;
     justify-content: flex-start;
@@ -182,7 +181,7 @@
         flex-basis: 1;
 
         & img {
-            border-radius: 1.5px;
+            border-radius: 2.5px;
             display: block;
             width: 16.7rem;
         }

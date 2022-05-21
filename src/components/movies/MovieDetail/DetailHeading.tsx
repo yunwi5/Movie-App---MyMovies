@@ -6,6 +6,8 @@ import MovieNavIcon from '../MovieSupport/MovieNavIconList';
 import MovieSidebar from '../MovieSupport/MovieSidebar';
 import { toDurationString } from '../../../utilities/movie-util/movies-util';
 import getSimilarMovies from '../../../utilities/movie-util/movies-select-util';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCameraMovie, faHourglass, faUserTieHair } from '@fortawesome/pro-duotone-svg-icons';
 
 interface Props {
     movie: Movie;
@@ -84,6 +86,7 @@ const DetailHeader: React.FC<Props> = (props) => {
                         </h1>
                         <p className="movie-time">
                             <span className="movie-time__main">
+                                <FontAwesomeIcon className="icon" icon={faHourglass as any} />
                                 {movie.year}
                                 {movie.duration && (
                                     <Fragment>
@@ -98,7 +101,18 @@ const DetailHeader: React.FC<Props> = (props) => {
                                 </span>
                             )}
                         </p>
-                        {movie.director && <p className="movie-director"> {movie.director} </p>}
+                        {movie.director && (
+                            <p className="movie-director">
+                                <FontAwesomeIcon className="icon" icon={faUserTieHair as any} />
+                                {movie.director}{' '}
+                            </p>
+                        )}
+                        {movie.genreList && (
+                            <p className="movie-genres">
+                                <FontAwesomeIcon icon={faCameraMovie as any} className="icon" />
+                                {movie.genreList.join(' & ')}
+                            </p>
+                        )}
                     </div>
                 </div>
                 <div className="movie-detail__info">
