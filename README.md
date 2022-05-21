@@ -1,5 +1,5 @@
 # Deployment
-Deplyed on the url: https://www.reactive-movie-collecta.com/
+Deplyed on the url: https://www.reactive-movie-collecta.com
 
 # Getting Started with Create React App
 
