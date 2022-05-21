@@ -6,8 +6,12 @@ Deplyed on the url: https://www.reactive-movie-collecta.com
 Interactive custom movie app that allows users to manage their own movie list.
 Users can add movie from the movie app store, or add movie from the form. 
 
+
+
 ![movie-edit](https://user-images.githubusercontent.com/86972879/169664765-10a85b76-f29d-4f3e-8fc9-348b67da1111.jpg)
 Users can edit the movie information i.e. adding directors, description etc, and more importantly, can evaluate the movie based on 8 criteria.
+
+
 
 ![movie-evaluate](https://user-images.githubusercontent.com/86972879/169664754-fda54857-34a6-45c4-9c5e-bfb28761bb08.jpg)
 This is the evaluation page for the movie. Users are allowed to evaluate the movie for the movies added to their list.
