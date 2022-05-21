@@ -1,61 +1,60 @@
 .movie-evaluation {
-	padding: 3rem 0rem;
-	padding-top: 7rem;
-	padding-right: 0;
+    padding: 0;
+    margin-top: 6rem;
+    margin-bottom: 6rem;
 
-	.evaluation-heading {
-		font-size: 5rem;
-		text-align: left;
-		font-weight: 300;
-		color: $color-grey-dark-4;
-		margin-bottom: 3.5rem;
+    .evaluation-heading {
+        font-size: 3.3rem;
+        font-weight: 400;
+        text-align: left;
+        color: $color-grey-dark-4;
+        margin-bottom: 3.5rem;
 
-		max-width: 91%;
-		margin: 0 auto;
+        max-width: 91%;
+        margin: 0 auto;
+        margin-bottom: 3.5rem;
 
-		display: flex;
-		align-items: center;
-		flex-wrap: wrap;
-		margin-bottom: 1.5rem;
-		&::after {
-			display: none;
-		}
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
 
-		span {
-			margin-left: 1.5rem;
-			font-weight: 500;
-		}
+        // title hightlight
+        span {
+            margin-left: 1rem;
+            font-weight: 600;
+        }
 
-		.link {
-			margin-left: auto;
-			font-size: 2.31rem;
-			@include button-like-link($color-secondary-dark-1);
-			font-weight: 500;
+        .link {
+            margin-left: auto;
+            font-size: 2.31rem;
+            @include button-like-link(darken($color-primary-dark-1, 10%));
+            font-weight: 500;
+            transform: translateY(0.35rem);
 
-			.icon {
-				margin-left: .7rem;
-			}
-		}
-	}
+            .icon {
+                margin-left: 0.7rem;
+            }
 
-	.evaluation-content {
-		display: flex;
-		justify-content: space-around;
-		max-width: 100%;
-		margin: 0 auto;
+            &:hover {
+                color: darken($color-secondary-dark-1, 10%);
+            }
+        }
+    }
 
-		& > * {
-			// Dont use width: 50%;
-		}
-	}
+    .evaluation-content {
+        display: flex;
+        justify-content: space-around;
+        max-width: 100%;
+        margin: 0 auto;
+    }
 
-	.chart-wrapper {
-		margin-left: 7rem;
-		padding-top: 2rem;
-	}
+    .chart-wrapper {
+        margin-left: 7rem;
+        padding-top: 2rem;
+    }
 
-	.evaluation-chart {
-		width: 600px;
-		height: 600px;
-	}
+    .evaluation-chart {
+        width: 600px;
+        height: 600px;
+    }
 }

@@ -9,7 +9,7 @@ import {
 	Tooltip,
 	Legend
 } from "chart.js";
-import { EvaluationFactor, CriteriaList } from "../../../models/Evaluation";
+import { EvaluationFactor } from "../../../models/Evaluation";
 import { Radar } from "react-chartjs-2";
 
 ChartJS.register(

@@ -1,7 +1,6 @@
 {
 	"name": "movie-app",
 	"version": "0.1.0",
-	"proxy": "http://localhost:3001",
 	"private": true,
 	"dependencies": {
 		"@emotion/react": "^11.7.1",
@@ -29,6 +28,7 @@
 		"babel-plugin-macros": "^3.1.0",
 		"chart.js": "^3.7.0",
 		"dotenv": "^16.0.0",
+		"firebase-functions": "^3.21.2",
 		"node-sass": "^7.0.1",
 		"react": "^17.0.2",
 		"react-chartjs-2": "^4.0.1",
@@ -46,10 +46,17 @@
 		"eject": "react-scripts eject"
 	},
 	"eslintConfig": {
-		"extends": [ "react-app", "react-app/jest" ]
+		"extends": [
+			"react-app",
+			"react-app/jest"
+		]
 	},
 	"browserslist": {
-		"production": [ ">0.2%", "not dead", "not op_mini all" ],
+		"production": [
+			">0.2%",
+			"not dead",
+			"not op_mini all"
+		],
 		"development": [
 			"last 1 chrome version",
 			"last 1 firefox version",

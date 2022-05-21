@@ -7,66 +7,61 @@ import sortMovies, { concatUniqueMovies } from '../../../utilities/movie-util/mo
 import { Direction, SortingStandard } from '../../../models/helperModels';
 
 interface Props {
-	movies: Movie[];
-	producer: ProductionCompany;
-	logo: JSX.Element;
+    movies: Movie[];
+    producer: ProductionCompany;
+    logo: JSX.Element;
 }
 
 const SingleProducerStore: React.FC<Props> = (props) => {
-	const { movies, producer, logo } = props;
-	const moviesCount = movies.length;
+    const { movies, producer, logo } = props;
+    const moviesCount = movies.length;
 
-	const storeMovies = useContext(MovieContext).storeMovies;
-	const concatedMovies = concatUniqueMovies(movies, storeMovies);
+    const storeMovies = useContext(MovieContext).storeMovies;
+    const concatedMovies = concatUniqueMovies(movies, storeMovies);
 
-	const suggestedMovies = useMemo(
-		() => {
-			console.log('re-run useMemo!');
-			return [ ...concatedMovies ];
-		},
-		[ concatedMovies ],
-	);
-	console.log('suggestedMovies:', suggestedMovies);
-	const highestRatedMovies = useMemo(
-		() =>
-			sortMovies([ ...concatedMovies ], SortingStandard.RATING, Direction.DESCENDING) ||
-			concatedMovies,
-		[ concatedMovies ],
-	);
-	const newestMovies = useMemo(
-		() =>
-			sortMovies([ ...concatedMovies ], SortingStandard.YEAR, Direction.DESCENDING) ||
-			concatedMovies,
-		[ concatedMovies ],
-	);
+    const suggestedMovies = useMemo(() => {
+        return [...concatedMovies];
+    }, [concatedMovies]);
+    const highestRatedMovies = useMemo(
+        () =>
+            sortMovies([...concatedMovies], SortingStandard.RATING, Direction.DESCENDING) ||
+            concatedMovies,
+        [concatedMovies],
+    );
+    const newestMovies = useMemo(
+        () =>
+            sortMovies([...concatedMovies], SortingStandard.YEAR, Direction.DESCENDING) ||
+            concatedMovies,
+        [concatedMovies],
+    );
 
-	return (
-		<main className='single-producer-store'>
-			<section className='producer-section producer-section--long'>
-				<div className='section-header'>
-					<h1 className='heading'>
-						{producer} <br /> <p>({moviesCount}+ Movies)</p>
-					</h1>
-					{logo}
-				</div>
-				<MovieScrollbar
-					movies={newestMovies}
-					listTag={'Hot & Newest'}
-					showLinkAndShuffle={false}
-				/>
-				<MovieScrollbar
-					movies={highestRatedMovies}
-					listTag={'Highest Rated'}
-					showLinkAndShuffle={false}
-				/>
-				<MovieScrollbar
-					movies={suggestedMovies}
-					listTag={'Suggestion For You'}
-					showLinkAndShuffle={false}
-				/>
-			</section>
-		</main>
-	);
+    return (
+        <main className="single-producer-store">
+            <section className="producer-section producer-section--long">
+                <div className="section-header">
+                    <h1 className="heading">
+                        {producer} <br /> <p>({moviesCount}+ Movies)</p>
+                    </h1>
+                    {logo}
+                </div>
+                <MovieScrollbar
+                    movies={newestMovies}
+                    listTag={'Hot & Newest'}
+                    showLinkAndShuffle={false}
+                />
+                <MovieScrollbar
+                    movies={highestRatedMovies}
+                    listTag={'Highest Rated'}
+                    showLinkAndShuffle={false}
+                />
+                <MovieScrollbar
+                    movies={suggestedMovies}
+                    listTag={'Suggestion For You'}
+                    showLinkAndShuffle={false}
+                />
+            </section>
+        </main>
+    );
 };
 
 export default SingleProducerStore;

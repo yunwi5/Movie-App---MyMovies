@@ -1,37 +1,37 @@
 :root {
-	--color-primary: #ccdbfd;
-	--color-primary-lightest: #e2eafc;
-	--color-primary-lighter: rgb(238, 129, 156, 0.65);
-	--color-primary-light: #d7e3fc;
-	--color-primary-little-dark: #8caaf0;
-	--color-primary-dark: #919cc0;
-	--color-primary-darkest: #6e789b;
+    --color-primary: #ccdbfd;
+    --color-primary-lightest: #e2eafc;
+    --color-primary-lighter: rgb(238, 129, 156, 0.65);
+    --color-primary-light: #d7e3fc;
+    --color-primary-little-dark: #8caaf0;
+    --color-primary-dark: #919cc0;
+    --color-primary-darkest: #6e789b;
 
-	--color-secondary-light-1: #b3d4e6;
-	--color-secondary: #0aa0f1;
-	--color-secondary-dark-1: #0077b6;
-	--color-secondary-dark-2: #030405;
+    --color-secondary-light-1: #b3d4e6;
+    --color-secondary: #0aa0f1;
+    --color-secondary-dark-1: #0077b6;
+    --color-secondary-dark-2: #030405;
 
-	--color-grey-light-1: #faf9f9;
-	--color-grey-light-2: #f4f2f2;
-	--color-grey-light-3: #f0eeee;
-	--color-grey-light-4: #ccc;
+    --color-grey-light-1: #faf9f9;
+    --color-grey-light-2: #f4f2f2;
+    --color-grey-light-3: #f0eeee;
+    --color-grey-light-4: #ccc;
 
-	--color-grey-dark-1: #333;
-	--color-grey-dark-1-2: #555;
-	--color-grey-dark-2: #777;
-	--color-grey-dark-3: #999;
-	--color-grey-dark-4: #aaa;
+    --color-grey-dark-1: #333;
+    --color-grey-dark-1-2: #555;
+    --color-grey-dark-2: #777;
+    --color-grey-dark-3: #999;
+    --color-grey-dark-4: #aaa;
 
-	--color-gold-light-1: #fcd762;
-	--color-gold-dark-1: #ffb65c;
+    --color-gold-light-1: #fcd762;
+    --color-gold-dark-1: #ffb65c;
 
-	--color-warning: rgb(218, 85, 85);
+    --color-warning: rgb(218, 85, 85);
 
-	--shadow-light: 0 2rem 5rem rgba(0, 0, 0, .1);
-	--shadow-dark: 0 2rem 6rem rgba(0, 0, 0, 0.3);
+    --shadow-light: 0 2rem 5rem rgba(0, 0, 0, 0.1);
+    --shadow-dark: 0 2rem 6rem rgba(0, 0, 0, 0.3);
 
-	--line: 1.5px solid var(--color-grey-light-3);
+    --line: 1.5px solid var(--color-grey-light-3);
 }
 
 ////////////////////////////////////
@@ -39,53 +39,52 @@
 *,
 *::before,
 *::after {
-	margin: 0;
-	padding: 0;
-	box-sizing: inherit;
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
 }
 
 html {
-	box-sizing: border-box;
-	font-size: 62.5%;
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
-		'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-	min-height: 100vh;
+    box-sizing: border-box;
+    font-size: 62.5%;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+        'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    min-height: 100vh;
 
-	@include respond(tab-land) {
-		// width < 1200
-		font-size: 56.25%; // 1rem = 9px, 9 / 16 = 56.25%
-	}
+    @include respond(tab-land) {
+        // width < 1200
+        font-size: 56.25%; // 1rem = 9px, 9 / 16 = 56.25%
+    }
 
-	@include respond(tab-port) {
-		// width < 900
-		font-size: 50%; // 1rem = 8px, 8/16 = 50%
-	}
-	@include respond(big-desktop) {
-		font-size: 75%; // 1rem = 12px, 12 / 16 = 75%
-	}
+    @include respond(tab-port) {
+        // width < 900
+        font-size: 50%; // 1rem = 8px, 8/16 = 50%
+    }
+    @include respond(big-desktop) {
+        font-size: 75%; // 1rem = 12px, 12 / 16 = 75%
+    }
 }
 
 a {
-	text-decoration: none;
-	color: inherit;
+    text-decoration: none;
+    color: inherit;
 }
 
 ul,
 li {
-	list-style: none;
+    list-style: none;
 }
 
-// Textarea
+// Textarea default config
 textarea {
-	font-family: sans-serif !important;
-	// border: 1px solid $color-primary;
-	border: 1px solid $color-grey-dark-1;
-	&:focus {
-		outline: none;
-	}
+    font-family: sans-serif !important;
+    border: 1px solid $color-grey-dark-1;
+    &:focus {
+        outline: none;
+    }
 }
 
 button:disabled {
-	opacity: .6;
-	cursor: not-allowed;
+    opacity: 0.6;
+    cursor: not-allowed;
 }
